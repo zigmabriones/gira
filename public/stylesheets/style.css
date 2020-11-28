@@ -276,6 +276,7 @@ a {
   font-weight: 500;
   margin-bottom: 1em;
   text-align: right;
+  margin-top: -0.25em;
 }
 
 .home-text__title--left {
