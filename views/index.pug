@@ -35,19 +35,42 @@ block content
     .divider.divider--gray#quienes-somos
         .home-text
             h1.home-text__title ¿QUIÉNES SOMOS?
-            p.home-text__text Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quia dignissimos delectus aliquid, quisquam, odit, velit dolores minus quis iure consequuntur placeat dolorum est? Fugiat similique quae et laboriosam odit?
-        img(src='/images/placeholders/peoplewalking.jpg' alt='Placeholder image')
+            p.home-text__text
+                | Somos una organización de jóvenes que pretende generar un cambio en la discusión política fomentando la 
+                | relevancia del desarrollo individual en el contexto público. Nuestro principal propósito es evitar la 
+                | radicalización política de izquierda y derecha al proponer un camino para el desarrollo social a través de la 
+                | mejora constante de la condición individual. Creemos que el individuo es el núcleo de la sociedad y la 
+                | integridad del individuo es el principal pilar de la integridad social.
+        //- img(src='/images/placeholders/peoplewalking.jpg' alt='Placeholder image')
+        .home-image
+            img(src='/images/home/quienessomos.jpeg' alt='Placeholder image')
 
     .divider.divider--white#que-hacemos
         .home-text
             h1.home-text__title ¿QUÉ HACEMOS?
-            p.home-text__text Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae nesciunt, facilis doloremque fuga minus provident iusto veniam. Unde error porro cum optio veritatis aliquam facere eos modi! Nisi, nobis dolorem.
-        img(src='/images/placeholders/crowd.jpg' alt='Placeholder image')
+            p.home-text__text 
+                | Nuestros esfuerzos se concentran en la difusión de ideas sobre la individualidad y su relevancia para una
+                | sociedad estable, la acción humanitaria, y el centro de mejoramiento humano. 
+        //- img(src='/images/placeholders/crowd.jpg' alt='Placeholder image')
+        .home-image
+            img#quehacemos(src='/images/home/quehacemos.jpeg' alt='Placeholder image')
 
     .divider.divider--gray#equipo
         .home-text
             h1.home-text__title EL EQUIPO
-            p.home-text__text Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est aliquid doloremque, ducimus nam, dignissimos id expedita, repellendus sunt placeat libero non hic autem molestias! Distinctio sapiente explicabo impedit minus veniam!
+            p.home-text__text
+                | GIRA es una comunidad de ciudadanos que tienen la convicción de preservar los valores que han guiado a las 
+                | sociedades occidentales a lo largo de la historia.
+                | <br><br>
+                | De los que se oponen a seguir los dogmas ideológicos que han impulsado diversos sectores políticos. De los 
+                | que creen en la libre determinación individual y en el respeto a la ley.
+                | <br><br>
+                | De los que valoran y preservan los estatutos morales religiosos y espirituales, los cuales cínicamente han 
+                | sido desprestigiados y acusados de poseer un carácter supersticioso y por lo tanto inválido en cualquier 
+                | discusión argumentativa.
+                | <br><br>
+                | De los que observan como perniciosa la idea de igualdad absoluta y de los que niegan la condición cultural 
+                | como determinantemente tiránica.
         .team-grid
             div
             .team-grid__square.m-cursor--default
@@ -67,7 +90,13 @@ block content
             div
             div
             div
-            div
+            .team-grid__square.m-cursor--default
+                .team-grid__info
+                    .margin--05
+                    strong Enrique Terrazas
+                    p Ingeniero
+                    p 21 años
+                img(src='/images/team/terrazas.png' alt='Enrique Terrazas')
             .team-grid__square.m-cursor--default
                 .team-grid__info
                     .margin--05
@@ -97,7 +126,7 @@ block content
                 .team-grid__info
                     .margin--05
                     strong Jorge Ángeles
-                    p Administración
+                    p Finanzas
                     p 22 años
                 img(src='/images/team/angeles.png' alt='Jorge Ángeles')
             div
@@ -139,25 +168,25 @@ block content
                     th FECHA
                     th EXPOSITOR
             tbody
-                tr
-                    td 
-                        h3 WEEKLY ROUNDUP
+                tr(class='event-table__clickable' data-href='/eventos/elecciones-2021-mexico')
+                    td
+                        h3 ELECCIONES 2021 MEXICO
                         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
-                    td 08/05/2021
-                    td JOHN DOE
-                tr
+                    td 22/12/2020
+                    td LORENZO CORDOVA
+                tr(class='event-table__clickable' data-href='')
                     td 
                         h3 SOMETHING NEW
                         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
                     td 08/05/2021
                     td JOHN DOE
-                tr
+                tr(class='event-table__clickable' data-href='')
                     td 
                         h3 THINGS COMING AROUND
                         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
                     td 08/05/2021
                     td JOHN DOE
-                tr
+                tr(class='event-table__clickable' data-href='')
                     td 
                         h3 FINALLY! WE ARE HERE
                         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
@@ -165,6 +194,19 @@ block content
                     td JOHN DOE
         .margin--3
         .button--aligncenter
-            a.button(href='') VER MÁS
+            a.button(href='/eventos') VER MÁS
 
     .divider.divider--white#galeria
+
+    script.
+        document.addEventListener('DOMContentLoaded', () => {
+            const events = document.querySelectorAll('.event-table__clickable');
+            events.forEach(event => {
+                event.addEventListener('click', () => {
+                    const href = event.dataset.href;
+                    if (href) {
+                        window.location.assign(href);
+                    }
+                });
+            });
+        });

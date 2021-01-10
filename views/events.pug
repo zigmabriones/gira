@@ -1,0 +1,82 @@
+extends layout
+
+block content
+    .side
+        img.side__logo(src='/images/logos/preferential-name.png' alt='Gira Logo')
+        .side__icon
+            .side__icon--line
+            .side__icon--line
+            .side__icon--line
+    .outer-wrapper
+        h1.home-text__title.home-text__title--left EVENTOS
+        table.event-table
+            thead
+                tr
+                    th DESCRIPCIÓN
+                    th FECHA
+                    th EXPOSITOR
+            tbody
+                tr(class='event-table__clickable' data-href='/eventos/elecciones-2021-mexico')
+                    td
+                        h3 ELECCIONES 2021 MEXICO
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                    td 22/12/2020
+                    td LORENZO CORDOVA
+                tr(class='event-table__clickable' data-href='')
+                    td 
+                        h3 SOMETHING NEW
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                    td 08/05/2021
+                    td JOHN DOE
+                tr(class='event-table__clickable' data-href='')
+                    td 
+                        h3 THINGS COMING AROUND
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                    td 08/05/2021
+                    td JOHN DOE
+                tr(class='event-table__clickable' data-href='')
+                    td 
+                        h3 FINALLY! WE ARE HERE
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                    td 08/05/2021
+                    td JOHN DOE
+                tr(class='event-table__clickable' data-href='')
+                    td 
+                        h3 WEEKLY ROUNDUP
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                    td 08/05/2021
+                    td JOHN DOE
+                tr(class='event-table__clickable' data-href='')
+                    td 
+                        h3 SOMETHING NEW
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                    td 08/05/2021
+                    td JOHN DOE
+                tr(class='event-table__clickable' data-href='')
+                    td 
+                        h3 THINGS COMING AROUND
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                    td 08/05/2021
+                    td JOHN DOE
+                tr(class='event-table__clickable' data-href='')
+                    td 
+                        h3 FINALLY! WE ARE HERE
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                    td 08/05/2021
+                    td JOHN DOE
+        .margin--3
+        .button--aligncenter
+            a.button(href='/inicio') REGRESAR
+    
+    script.
+        document.addEventListener('DOMContentLoaded', () => {
+            const events = document.querySelectorAll('.event-table__clickable');
+            events.forEach(event => {
+                event.addEventListener('click', () => {
+                    const href = event.dataset.href;
+                    if (href) {
+                        window.location.assign(href);
+                    }
+                });
+            });
+        });

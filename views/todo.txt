@@ -1,0 +1,32 @@
+* Usuarios - register to comment, etc.
+* Listas de correo masivo
+* User heirarchy
+    - User
+        - Comentar en articulos
+        - Ver los eventos
+        - Ver replays de eventos pasados
+    - Miembro
+        - Asistir a los eventos (entrevistas, etc)
+    - Lideres
+        - Crear articulos
+        - Crear eventos/entrevistas
+    - Admin
+        - Mandar correos masivos
+        - Borrar articulos/eventos/entrevistas
+        - Ver informacion de Usuarios
+        - Cambiar nivel de Usuarios
+* Log in 
+* register
+* Inscripcion a eventos
+* Crear eventos
+* crear comentarios
+* ver eventos pasados
+* donar
+* ver clases (propuesta angeles) (donacion)
+* Crear articulos
+* Cambiar las fotos de cualquier parte de la pagina
+* Ver y editar informacion de cada miembro del equipo
+
+* Comprar dominio
+* Correo
+* Setup in server

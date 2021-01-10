@@ -11,7 +11,7 @@ body {
 
 a {
   text-decoration: none;
-  color: #000;
+  color: #333333;
 }
 
 /* Express Styling */
@@ -23,6 +23,55 @@ a {
 a {
   color: #00B7FF;
 } */
+
+/********************************/
+/************ Layout ************/
+/********************************/
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 12em;
+}
+
+footer {
+  height: 12em;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-header {
+  background-color: #c00933;
+  height: 3em;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+  grid-gap: 1em;
+  justify-items: center;
+
+  margin: 3em 0;
+
+  color: #76767b;
+}
+
+.icons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+  grid-gap: 1em;
+  justify-items: center;
+  align-items: center;
+}
+
+.icons-grid svg {
+  fill: #333333;
+  width: 2em;
+  height: 2em;
+}
 
 /********************************/
 /********* Opening Page *********/
@@ -72,7 +121,7 @@ a {
 .divider--first {
   display: block;
   padding-top: 5%;
-  height: 60%;
+  height: 56vh;
   position: relative;
 }
 
@@ -284,52 +333,100 @@ a {
 }
 
 .home-text__text {
-  font-size: 1.2em;
+  font-size: 1.5em; /* 1.2em */
   text-align: right;
 }
+
+.home-image {
+  height: 450px;
+  max-height: 450px;
+  overflow: hidden;
+  position: relative;
+}
+
+#quehacemos {
+  position: absolute;
+  top: -130%;
+  left: -70%;
+}
+
 /********************************/
-/************ Footer ************/
+/************ Events ************/
 /********************************/
-.footer-header {
-  background-color: #c00933;
-  height: 3em;
+.side {
+  position: fixed;
+  top: 4%;
+  left: 2%;
 }
 
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 33%);
-  grid-gap: 1em;
-  justify-items: center;
-
-  margin: 3em 0;
-
-  color: #76767b;
+.side__logo {
+  width: 50%;
 }
 
-.icons-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 33%);
-  grid-gap: 1em;
-  justify-items: center;
-  align-items: center;
+.side__icon {
+  position: absolute;
+  margin-top: 0.5em;
+  left: 17%;
 }
 
-.icons-grid svg {
-  fill: #333333;
+.side__icon--line {
   width: 2em;
-  height: 2em;
+  height: 2px;
+  background-color: #333333;
+  margin: 6px 0;
 }
+
+.outer-wrapper {
+  margin: 10% 10%;
+  margin-bottom: 2%;
+  width: 80%;
+}
+
+/********************************/
+/************ Event *************/
+/********************************/
+.event-title {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.event-author {
+  font-size: 1.5em;
+  font-weight: 100;
+  margin: 0.2em 0;
+}
+
+.event-date {
+  margin: 0;
+  font-weight: 100;
+}
+
+.event-text {
+  font-size: 1.2em;
+  color: #888888;
+}
+
+.event-media {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 5%;
+  height: 35em;
+}
+
+.event-media__video {
+  width: 56.7%;
+  height: 100%;
+}
+
+  /* font-size: 1.5em; */
 
 /********************************/
 /******** Global Classes ********/
 /********************************/
-.outer-wrapper {
-  margin: 0 10%;
-  width: 80%;
-}
-
 .button {
-  border: 2px solid #000;
+  border: 2px solid #333333;
   padding: 1em;
   cursor: pointer;
 }
@@ -367,6 +464,10 @@ a {
 
 .margin--3 {
   margin: 3em 0;
+}
+
+.margin--5p {
+  margin: 5% 0;
 }
 
 .grid--2 {
