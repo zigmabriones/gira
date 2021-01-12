@@ -2,7 +2,11 @@ extends layout
 
 block content
     .divider.divider--first.divider--white
-        img(src='/images/logos/preferential-name.png' alt='Gira Logo')
+        .divider--first__layout
+            img(src='/images/logos/preferential-name.png' alt='Gira Logo')
+            .divider--first__userbuttons
+                a.button.button--wide(href='') LOG IN
+                a.button.button--wide(href='') ÚNETE
         .pyramid-grid
             a(href='#call-to-action').pyramid-grid__square
                 .pyramid-grid__content
@@ -174,7 +178,7 @@ block content
                         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
                     td 22/12/2020
                     td LORENZO CORDOVA
-                tr(class='event-table__clickable' data-href='')
+                tr(class='event-table__clickable' data-href='/eventos/something-new')
                     td 
                         h3 SOMETHING NEW
                         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
@@ -197,9 +201,24 @@ block content
             a.button(href='/eventos') VER MÁS
 
     .divider.divider--white#galeria
+        .carousel
+            .carousel__medium
+                .carousel__media.carousel__media--first
+                    img(src="/images/placeholders/peoplewalking.jpg" alt="Placeholder Image")
+                .carousel__media
+                    img(src="/images/placeholders/crowd.jpg" alt="Placeholder Image")
+                .carousel__media
+                    img(src="/images/home/quehacemos.jpeg" alt="Placeholder Image")
+                .carousel__media
+                    img(src="/images/home/quienessomos.jpeg" alt="Placeholder Image")
+            
+            .carousel__navigation
+                - for(let i = 0; i < 4; i++)
+                    label(for=`radio${i}` class='carousel__navigation-button')
 
     script.
         document.addEventListener('DOMContentLoaded', () => {
+            // Make Events tr's Clickable
             const events = document.querySelectorAll('.event-table__clickable');
             events.forEach(event => {
                 event.addEventListener('click', () => {
@@ -207,6 +226,23 @@ block content
                     if (href) {
                         window.location.assign(href);
                     }
+                });
+            });
+
+            // Carousel Buttons Functionality
+            const radioBtns = document.querySelectorAll('.carousel__navigation-button');
+            const firstPage = document.querySelector('.carousel__media--first');
+            radioBtns.forEach(button => {
+                button.addEventListener('click', () => {
+                    const clickedBtnNumber = button.htmlFor.substring(5);
+                    const moveLeftBy = clickedBtnNumber * -20;
+                    firstPage.style.cssText = `margin-left: ${moveLeftBy}%;`;
+                    
+                    // Show selected button
+                    radioBtns.forEach(radioBtn => {
+                        radioBtn.style.backgroundColor = '#888888';
+                    });
+                    button.style.backgroundColor = '#000';
                 });
             });
         });

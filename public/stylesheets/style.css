@@ -143,6 +143,19 @@ footer {
   display: block;
 }
 
+/* First Divider Layout */
+.divider--first__layout {
+  display: flex;
+}
+
+.divider--first__userbuttons {
+  margin-left: auto;
+}
+
+.divider--first__userbuttons .button:first-child {
+  margin-right: 2em;
+}
+
 /* Pyramid */
 .pyramid-grid {
   display: grid;
@@ -350,6 +363,85 @@ footer {
   left: -70%;
 }
 
+#galeria {
+  display: flex;
+  justify-content: center;
+  padding: 10% 10%;
+}
+
+/********************************/
+/*********** Carousel ***********/
+/********************************/
+.carousel {
+  width: 800px;
+  height: 500px;
+  overflow: hidden;
+}
+
+.carousel--event {
+  width: 56.7%;
+  height: 100%;
+}
+
+.carousel--event .event-media__video {
+  width: 100%;
+}
+
+.carousel__medium {
+  width: 500%;
+  height: 500px;
+  display: flex;
+}
+
+.carousel--event .carousel__medium {
+  height: 100%; 
+}
+
+.carousel__media {
+  width: 20%;
+  transition: 2s;
+}
+
+.carousel__media img {
+  width: 100%;
+  /* width: 800px; */
+  /* height: 500px; */
+}
+
+.carousel__navigation {
+  position: absolute;
+  width: 800px;
+  margin-top: 2.5em;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel--event .carousel__navigation {
+  width: 45%;
+}
+
+.carousel__navigation-button {
+  /* border: 2px solid #c00933; */
+  background-color: #888888;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.carousel__navigation-button[for=radio0] {
+  background-color: #000;
+}
+
+.carousel__navigation-button:not(:last-child) {
+  margin-right: 40px;
+}
+
+.carousel__navigation-button:hover {
+  background-color: #545454;
+}
+
+
 /********************************/
 /************ Events ************/
 /********************************/
@@ -429,6 +521,10 @@ footer {
   border: 2px solid #333333;
   padding: 1em;
   cursor: pointer;
+}
+
+.button--wide {
+  padding: 1em 2.2em;
 }
 
 .button--white {

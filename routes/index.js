@@ -18,4 +18,8 @@ router.get('/eventos/elecciones-2021-mexico', function(req, res, next) {
   res.render('event', { title: 'Gira: Elecciones 2021 México' });
 });
 
+router.get('/eventos/something-new', function(req, res, next) {
+  res.render('eventcarousel', { title: 'Gira: Something New' });
+});
+
 module.exports = router;
