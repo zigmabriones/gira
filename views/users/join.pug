@@ -2,8 +2,7 @@ extends ../layout
 
 block content
     .side
-        a(href='/inicio')
-            img.side__logo(src='/images/logos/preferential-name.png' alt='Gira Logo')
+        img.side__logo(src='/images/logos/preferential-name.png' alt='Gira Logo' data-href='/inicio')
         .side__icon
             .side__icon--line
             .side__icon--line
@@ -29,3 +28,15 @@ block content
             .margin--2
             .button--alignleft
                 button.button(type='submit') Registrate
+    
+    script.
+        document.addEventListener('DOMContentLoaded', () => {
+            // Make side logo Clickable
+            const sideLogo = document.querySelector('.side__logo');
+            sideLogo.addEventListener('click', () => {
+                const href = sideLogo.dataset.href;
+                if (href) {
+                    window.location.assign(href);
+                }
+            });
+        });

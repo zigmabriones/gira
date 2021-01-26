@@ -457,6 +457,7 @@ footer {
 
 .side__logo {
   width: 50%;
+  cursor: pointer;
 }
 
 .side__icon {
@@ -538,6 +539,7 @@ footer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
+  margin-bottom: 4em;
 }
 
 .login {
@@ -849,6 +851,41 @@ button.button {
     width: 100%;
     height: 65%;
   }
+
+  /********************************/
+  /************ Login *************/
+  /********************************/
+  .user-buttons {
+    justify-content: center;
+  }
+
+  .user-buttons > .button:last-child {
+    margin-right: 0;
+  }
+
+  .login-grid {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 4em;
+  }
+
+  .login {
+    width: 100%;
+  }
+
+  .login-join {
+    width: 100%;
+  }
+
+  .login-join__text {
+    text-align: center;
+  }
+  /********************************/
+  /************* Join *************/
+  /********************************/
+  .join-form {
+    width: 100%;
+    margin-bottom: 4em;
+  }
 }
 
 @media (min-width: 700px) {
@@ -923,6 +960,13 @@ button.button {
 
   .carousel--event .carousel__navigation {
     margin-top: 1%;
+  }
+
+  /********************************/
+  /************ Events ************/
+  /********************************/
+  .side__logo {
+    width: 10%;
   }
 }
 
@@ -1013,6 +1057,22 @@ button.button {
   .event-media__video {
     width: 80%;
   }
+
+  /********************************/
+  /************ Login *************/
+  /********************************/
+  .login-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0;
+  }
+
+  .login {
+    width: 80%;
+  }
+
+  .login-join {
+    width: 80%;
+  }
 }
 
 @media (min-width: 1000px) {
@@ -1053,6 +1113,14 @@ button.button {
   /********************************/
   .event-media__video {
     width: 80%;
+  }
+
+  /********************************/
+  /************* Join *************/
+  /********************************/
+  .join-form {
+    width: 80%;
+    margin: 0 10% 4em 10%;
   }
 }
 
@@ -1125,7 +1193,7 @@ button.button {
   /************ Events ************/
   /********************************/
   .side__logo {
-    width: 15%;
+    width: 10%;
   }
 
   /********************************/
@@ -1134,6 +1202,29 @@ button.button {
   .event-media__video /* R */ {
     width: 56.7%;
     height: 100%;
+  }
+
+  /********************************/
+  /************ Login *************/
+  /********************************/
+  .login {
+    width: 50%;
+  }
+
+  .login-join {
+    width: 50%;
+  }
+
+  .login-join__text {
+    text-align: left;
+  }
+
+  /********************************/
+  /************* Join *************/
+  /********************************/
+  .join-form {
+    width: 50%;
+    margin: 0;
   }
 }
 
@@ -1219,6 +1310,17 @@ button.button {
   .event-media__video /* R */ {
     width: 56.7%;
     height: 100%;
+  }
+
+  /********************************/
+  /************ Login *************/
+  /********************************/
+  .user-buttons {
+    justify-content: flex-end;
+  }
+
+  .user-buttons > .button:last-child {
+    margin-right: 5%;
   }
 }
 
