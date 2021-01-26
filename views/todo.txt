@@ -1,5 +1,3 @@
-* Usuarios - register to comment, etc.
-* Listas de correo masivo
 * User heirarchy
     - User
         - Comentar en articulos
@@ -15,18 +13,38 @@
         - Borrar articulos/eventos/entrevistas
         - Ver informacion de Usuarios
         - Cambiar nivel de Usuarios
+    - Dev
+        - All permissions
 * Log in 
 * register
-* Inscripcion a eventos
+
+* Listas de correo masivo
 * Crear eventos
-* crear comentarios
-* ver eventos pasados
-* donar
-* ver clases (propuesta angeles) (donacion)
 * Crear articulos
 * Cambiar las fotos de cualquier parte de la pagina
 * Ver y editar informacion de cada miembro del equipo
 
-* Comprar dominio
-* Correo
-* Setup in server
+* Inscripcion a eventos
+* crear comentarios
+* ver eventos pasados
+
+* donar
+* ver clases (propuesta angeles) (donacion)
+
+1. Create user model with heirarchy in mind
+2. Add user and user login functionality for all Gira members (Admins)
+3. Add create account functionality
+4. Add admin pannel
+    a. View mailing list and send email
+    b. CURD events
+    c. CURD articles
+    d. CURD homepage info*
+    e. User management
+5. Add user pannel
+    a. Subscribe to events
+    b. Comment on events and articles
+    c. View their events
+6. Class creation
+    a. Accept donations
+    b. CURD classes
+    c. Preview/view classes
