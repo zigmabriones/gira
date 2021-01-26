@@ -3,10 +3,10 @@ extends layout
 block content
     .divider.divider--first.divider--white
         .divider--first__layout
-            img(src='/images/logos/preferential-name.png' alt='Gira Logo')
+            img.divider--first__logo(src='/images/logos/preferential-name.png' alt='Gira Logo')
             .divider--first__userbuttons
-                a.button.button--wide(href='') LOG IN
-                a.button.button--wide(href='') ÚNETE
+                a.button.button--wide(href='/login') LOG IN
+                a.button.button--wide(href='/unete') ÚNETE
         .pyramid-grid
             a(href='#call-to-action').pyramid-grid__square
                 .pyramid-grid__content
@@ -165,7 +165,7 @@ block content
 
     .divider.divider--gray.divider--block#eventos
         h1.home-text__title.home-text__title--left EVENTOS
-        table.event-table
+        table.event-table.event-table--desktop
             thead
                 tr
                     th DESCRIPCIÓN
@@ -196,6 +196,32 @@ block content
                         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
                     td 08/05/2021
                     td JOHN DOE
+        table.event-table.event-table--mobile
+            tbody
+                tr(class='event-table__clickable' data-href='/eventos/elecciones-2021-mexico')
+                    td
+                        h3 ELECCIONES 2021 MEXICO
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                        p 22/12/2020
+                        p LORENZO CORDOVA
+                tr(class='event-table__clickable' data-href='/eventos/something-new')
+                    td 
+                        h3 SOMETHING NEW
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                        p 08/05/2021
+                        p JOHN DOE
+                tr(class='event-table__clickable' data-href='')
+                    td 
+                        h3 THINGS COMING AROUND
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                        p 08/05/2021
+                        p JOHN DOE
+                tr(class='event-table__clickable' data-href='')
+                    td 
+                        h3 FINALLY! WE ARE HERE
+                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
+                        p 08/05/2021
+                        p JOHN DOE
         .margin--3
         .button--aligncenter
             a.button(href='/eventos') VER MÁS

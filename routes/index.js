@@ -22,4 +22,12 @@ router.get('/eventos/something-new', function(req, res, next) {
   res.render('eventcarousel', { title: 'Gira: Something New' });
 });
 
+router.get('/login', function(req, res, next) {
+  res.render('users/login', { title: 'Gira: Log In' });
+});
+
+router.get('/unete', function(req, res, nex) {
+  res.render('users/join', { title: 'Gira: Registro' });
+});
+
 module.exports = router;

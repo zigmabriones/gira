@@ -290,6 +290,10 @@ footer {
   width: 100%;
 }
 
+.event-table--mobile {
+  display: none;
+}
+
 .event-table th {
   padding: 1rem;
   text-align: left;
@@ -512,7 +516,115 @@ footer {
   height: 100%;
 }
 
-  /* font-size: 1.5em; */
+/********************************/
+/************ Login *************/
+/********************************/
+.user-buttons {
+  display: flex;
+  margin-top: 2.7em;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.user-buttons > .button {
+  margin-right: 2em;
+}
+
+.user-buttons > .button:last-child {
+  margin-right: 5%;
+}
+
+.login-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
+.login {
+  width: 50%;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3.5em;
+}
+
+.login-form__input {
+  border: none;
+  border-bottom: 1px solid #888888;
+  margin-bottom: 2em;
+  height: 2em;
+  font-size: 1.2em;
+}
+
+.login-form__input::placeholder {
+  color: #888888;
+}
+
+.login-form__input:focus {
+  outline: none;
+}
+
+.login-form__forgot {
+  margin-bottom: 4em;
+  text-decoration: underline;
+}
+
+.button--login {
+  width: 10em;
+  align-self: center;
+}
+
+.login-join {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.login-join__text {
+  color: #888888;
+  margin-bottom: 4em;
+  font-size: 1.2em;
+}
+
+.button--join {
+  width: 5.7em;
+  align-self: center;
+}
+
+/********************************/
+/************* Join *************/
+/********************************/
+.join-form {
+  width: 50%;
+}
+
+.join-form__input {
+  display: block;
+
+  width: 100%;
+  height: 2em;
+  padding: 1em;
+  margin-bottom: 1em;
+
+  border: none;
+  background-color: #e6e6e6;
+}
+
+.join-form__input:focus {
+  outline: none;
+}
+
+.join-form__select {
+  width: 107%;
+  height: 4em;
+  margin-bottom: 1em;
+
+  border: none;
+  color: #757575;
+  background-color: #e6e6e6;
+}
 
 /********************************/
 /******** Global Classes ********/
@@ -521,6 +633,10 @@ footer {
   border: 2px solid #333333;
   padding: 1em;
   cursor: pointer;
+}
+
+button.button {
+  background-color: #fff;
 }
 
 .button--wide {
@@ -570,4 +686,558 @@ footer {
   display: grid;
   grid-template-columns: repeat(2, 45%);
   grid-gap: 10%;
+}
+
+/********************************/
+/******** Media Queries *********/
+/********************************/
+@media (min-width: 0px) {
+  /********************************/
+  /************ Layout ************/
+  /********************************/
+  .footer-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-grid p:last-child {
+    margin-bottom: 2em;
+  }
+
+  /********************************/
+  /********* Opening Page *********/
+  /********************************/
+  #opening-background {
+    background-position: 1200px;
+  }
+
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+
+  /* Dividers */
+  .divider {
+    display: block;
+    padding: 20% 10%;
+  }
+
+  .divider--first {
+    height: 60vh;
+  }
+
+  /* First Divider Layout */
+  .divider--first__layout {
+    flex-direction: column;
+  }
+
+  .divider--first__logo {
+    width: 30%;
+    order: 1;
+  }
+
+  .divider--first__userbuttons {
+    order: 0;
+    margin-top: -1em;
+    margin-bottom: 4em;
+    margin-left: 0;
+    align-self: center;
+  }
+  
+  /* Pyramid */
+ .pyramid-grid {
+    position: relative;
+    top: 400px;
+    left: 75px;
+    grid-template-columns: repeat(3, 7.5em);
+    grid-template-rows: repeat(3, 7.5em);
+  }
+
+  /* Team Grid */
+  .team-grid {
+    grid-template-columns: repeat(5, 5em);
+    grid-template-rows: repeat(3, 5em);
+  }
+
+  .team-grid__square img {
+    width: 105px;
+  }
+
+  .team-grid__square:hover .team-grid__info {
+    display: none;
+  }
+
+  /* Normal Dividers */
+  .home-text__title {
+    text-align: center;
+  }
+
+  .home-text__text {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 2em;
+  }
+
+  /* Event Table */
+  .event-table--desktop {
+    display: none;
+  }
+
+  .event-table--mobile {
+    display: table;
+  }
+
+  .event-table--mobile tbody > tr:hover {
+    background-image: none;
+    color: inherit;
+  }
+
+  .event-table--mobile tbody > tr:hover .event-table__description {
+    color: #999999;
+  }
+
+  /********************************/
+  /*********** Carousel ***********/
+  /********************************/
+  .carousel {
+    height: 350px;
+  }
+
+  .carousel--event {
+    width: 100%;
+    height: 65%;
+  }
+
+  .carousel__navigation {
+    width: 400px;
+    margin-top: -25%;
+  }
+
+  .carousel--event .carousel__navigation {
+    margin-top: 5%;
+    width: 77%;
+  }
+
+  /********************************/
+  /************ Events ************/
+  /********************************/
+  .side {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2em;
+  }
+
+  .side__logo {
+    width: 25%;
+  }
+
+  .side__icon {
+    position: static;
+    margin-top: 1em;
+  }
+
+  /********************************/
+  /************ Event *************/
+  /********************************/
+  .event-media {
+    align-items: center;
+  }
+
+  .event-media__video {
+    width: 100%;
+    height: 65%;
+  }
+}
+
+@media (min-width: 700px) {
+  /********************************/
+  /************ Layout ************/
+  /********************************/
+  .footer-grid /* R */ {
+    display: grid;
+    align-items: stretch;
+  }
+
+  .footer-grid p:last-child /* R */ {
+    margin-bottom: 0;
+  }
+
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+
+  /* Dividers */
+  .divider {
+    padding: 16% 10%; /* R */
+  }
+
+  /* First Divider Layout */
+  .divider--first__userbuttons {
+    margin-top: -2em;
+  }
+  
+  /* Pyramid */
+ .pyramid-grid {
+    top: 400px;
+    left: 150px;
+    grid-template-columns: repeat(3, 9em);
+    grid-template-rows: repeat(3, 9em);
+  }
+
+  /* Team Grid */
+  .team-grid {
+    grid-template-columns: repeat(5, 7em);
+    grid-template-rows: repeat(3, 7em);
+  }
+
+  .team-grid__square img {
+    width: 147px;
+  }
+
+  .team-grid__info {
+    width: 9.58em;
+    height: 9.58em;
+  }
+
+  .team-grid__info p, .team-grid__info strong {
+    font-size: 0.7em;
+  }
+
+  .team-grid__square:hover .team-grid__info /* R */ {
+    display: block;
+  }
+
+  /********************************/
+  /*********** Carousel ***********/
+  /********************************/
+  .carousel /* R */ {
+    height: 500px;
+  }
+
+  .carousel__navigation {
+    width: 590px;
+    margin-top: 5%;
+  }
+
+  .carousel--event .carousel__navigation {
+    margin-top: 1%;
+  }
+}
+
+@media (min-width: 900px) {
+  /********************************/
+  /********* Opening Page *********/
+  /********************************/
+  #opening-background {
+    background-position: 1500px;
+  }
+
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+
+  /* First Divider Layout */
+  .divider--first__layout /* R */ {
+    flex-direction: row;
+  }
+
+  .divider--first__logo /* R */ {
+    width: auto;
+    order: 0;
+  }
+
+  .divider--first__userbuttons /* R */ {
+    order: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    align-self: stretch;
+  }
+  
+  /* Pyramid */
+ .pyramid-grid {
+    position: static; /* R */
+    grid-template-columns: repeat(3, 12em);
+    grid-template-rows: repeat(3, 12em);
+  }
+
+  /* Team Grid */
+  .team-grid /* R */ {
+    grid-template-columns: repeat(5, 9.5em);
+    grid-template-rows: repeat(3, 9.5em);
+  }
+
+  .team-grid__square img /* R */ {
+    width: 200px;
+  }
+
+  .team-grid__info /* R */ {
+    width: 13em;
+    height: 13em;
+  }
+
+  .team-grid__info p, .team-grid__info strong /* R */ {
+    font-size: 1em;
+  }
+
+  /* Event Table */
+  .event-table--desktop /* R */ {
+    display: table;
+  }
+
+  .event-table--mobile /* R */ {
+    display: none;
+  }
+
+  /********************************/
+  /*********** Carousel ***********/
+  /********************************/
+  .carousel__navigation {
+    width: 750px;
+    margin-top: 2.5em; /* R */
+  }
+
+  .carousel--event {
+    width: 80%;
+  }
+
+  .carousel--event .carousel__navigation {
+    width: 65%;
+  }
+
+  /********************************/
+  /************ Event *************/
+  /********************************/
+  .event-media__video {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1000px) {
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+
+  /* Dividers */
+  .divider--first /* R */ {
+    height: 56vh;
+  }
+  
+  /* Pyramid */
+ .pyramid-grid /* R */ {
+    grid-template-columns: repeat(3, 13em);
+    grid-template-rows: repeat(3, 13em);
+  }
+
+  /********************************/
+  /*********** Carousel ***********/
+  /********************************/
+  .carousel--event /* R */ {
+    width: 56.7%;
+    height: 100%;
+  }
+
+  .carousel__navigation /* R */ {
+    width: 800px;
+  }
+
+  .carousel--event .carousel__navigation {
+    width: 45%;  /* R */
+    margin-top: 0;
+  }
+
+  /********************************/
+  /************ Event *************/
+  /********************************/
+  .event-media__video {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1200px) {
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+  
+  /* Dividers */
+  .divider /* R */ {
+    display: grid;
+  }
+
+  .divider--first /* R */ {
+    display: block;
+  }
+
+  .divider--block /* R */ {
+    display: block;
+  }
+
+  /* Pyramid */
+ .pyramid-grid {
+    left: auto;
+  }
+
+  /* Team Grid */
+  .team-grid {
+    grid-template-columns: repeat(5, 7em);
+    grid-template-rows: repeat(3, 7em);
+  }
+
+  .team-grid__square img {
+    width: 147px;
+  }
+
+  .team-grid__info {
+    width: 9.58em;
+    height: 9.58em;
+  }
+
+  .team-grid__info p, .team-grid__info strong {
+    font-size: 0.7em;
+  }
+
+  /* Normal Dividers */
+  .home-text__title /* R */ {
+    text-align: right;
+  }
+
+  .home-text__title--left /* R */ {
+    text-align: left;
+  }
+
+  .home-text__text {
+    text-align: right; /* R */
+    font-size: 1.2em;
+    margin-bottom: 0; /* R */
+  }
+
+  /********************************/
+  /*********** Carousel ***********/
+  /********************************/
+
+  .carousel--event .carousel__navigation {
+    margin-top: 1.5em;
+  }
+
+  /********************************/
+  /************ Events ************/
+  /********************************/
+  .side__logo {
+    width: 15%;
+  }
+
+  /********************************/
+  /************ Event *************/
+  /********************************/
+  .event-media__video /* R */ {
+    width: 56.7%;
+    height: 100%;
+  }
+}
+
+@media (min-width: 1400px) {
+  /********************************/
+  /********* Opening Page *********/
+  /********************************/
+  #opening-background /* R */ {
+    background-position: 0px;
+  }
+
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+
+  /* Dividers */
+  .divider--first /* R */ {
+    padding-top: 5%;
+  }
+
+  /* Pyramid */
+ .pyramid-grid /* R */ {
+    top: auto;
+  }
+
+  /* Team Grid */
+  .team-grid {
+    grid-template-columns: repeat(5, 9em);
+    grid-template-rows: repeat(3, 9em);
+  }
+
+  .team-grid__square img /* R */ {
+    width: 200px;
+  }
+
+  .team-grid__info {
+    width: 12.3em;
+    height: 12.3em;
+  }
+
+  .team-grid__info p, .team-grid__info strong {
+    font-size: 0.9em;
+  }
+
+  /* Normal Dividers */
+  .home-text__text /* R */ {
+    font-size: 1.5em;
+  }
+
+  /********************************/
+  /*********** Carousel ***********/
+  /********************************/
+
+  .carousel--event .carousel__navigation /* R */ {
+    margin-top: 2.5em;
+  }
+
+  /********************************/
+  /************ Events ************/
+  /********************************/
+  .side /* R */ {
+    position: fixed;
+    display: block;
+    margin-top: 0;
+  }
+
+  .side__logo /* R */ {
+    width: 50%;
+  }
+
+  .side__icon /* R */ {
+    position: absolute;
+    margin-top: 0.5em;
+  }
+
+  /********************************/
+  /************ Event *************/
+  /********************************/
+  .event-media /* R */ {
+    align-items: stretch;
+  }
+
+  .event-media__video /* R */ {
+    width: 56.7%;
+    height: 100%;
+  }
+}
+
+@media (min-width: 1600px) {
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+  /* Team Grid */
+  .team-grid /* R */ {
+    grid-template-columns: repeat(5, 9.5em);
+    grid-template-rows: repeat(3, 9.5em);
+  }
+
+  .team-grid__info /* R */ {
+    width: 13em;
+    height: 13em;
+  }
+
+  .team-grid__info p, .team-grid__info strong /* R */ {
+    font-size: 1em;
+  }
 }

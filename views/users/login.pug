@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+    .side
+        a(href='/inicio')
+            img.side__logo(src='/images/logos/preferential-name.png' alt='Gira Logo')
+        .side__icon
+            .side__icon--line
+            .side__icon--line
+            .side__icon--line
+    .user-buttons
+        a.button.button--wide(href='/login') LOG IN
+        a.button.button--wide(href='/unete') ÚNETE
+    .outer-wrapper
+        .login-grid
+            .login
+                h1.home-text__title.home-text__title--left LOG IN
+                form.login-form(action='' method='post')
+                    input.login-form__input(type='text' name='email' placeholder='EMAIL' required)
+                    input.login-form__input(type='password' name='password' placeholder='CONTRASEÑA' required)
+                    a.login-form__forgot(href='') ¿HAS OLVIDADO TU CONTRASEÑA?
+                    button.button.button--login(type='submit') INGRESAR
+
+            .login-join
+                h1.home-text__title.home-text__title--left ÚNETE
+                p.login-join__text
+                    | SI AÚN NO TIENES CUENTA, <br>
+                    | UTILIZA ESTE BOTÓN PARA <br>
+                    | REGISTRARTE EN NUESTRA PÁGINA.
+                a.button.button--join(href='/unete') REGISTRATE
