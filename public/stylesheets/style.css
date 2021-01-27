@@ -474,9 +474,9 @@ footer {
 }
 
 .outer-wrapper {
-  margin: 10% 10%;
+  margin: 11% 11%;
   margin-bottom: 2%;
-  width: 80%;
+  width: 78%;
 }
 
 /********************************/
@@ -598,11 +598,11 @@ footer {
 /********************************/
 /************* Join *************/
 /********************************/
-.join-form {
+.register-form {
   width: 50%;
 }
 
-.join-form__input {
+.register-form__input {
   display: block;
 
   width: 100%;
@@ -614,11 +614,11 @@ footer {
   background-color: #e6e6e6;
 }
 
-.join-form__input:focus {
+.register-form__input:focus {
   outline: none;
 }
 
-.join-form__select {
+.register-form__select {
   width: 107%;
   height: 4em;
   margin-bottom: 1em;
@@ -626,6 +626,22 @@ footer {
   border: none;
   color: #757575;
   background-color: #e6e6e6;
+}
+
+/********************************/
+/****** Validation Errors *******/
+/********************************/
+.validation-errors {
+  background-color: rgba(255, 0, 0, 0.2);
+  border: 2px solid rgba(150, 15, 15, 0.5);
+  border-radius: 10px;
+  padding: 1em;
+  padding-top: 2em;
+  margin-bottom: 2em;
+}
+
+.validation--register {
+  width: 50%;
 }
 
 /********************************/
@@ -882,9 +898,16 @@ button.button {
   /********************************/
   /************* Join *************/
   /********************************/
-  .join-form {
+  .register-form {
     width: 100%;
     margin-bottom: 4em;
+  }
+
+  /********************************/
+  /****** Validation Errors *******/
+  /********************************/
+  .validation--register {
+    width: 100%;
   }
 }
 
@@ -1118,9 +1141,18 @@ button.button {
   /********************************/
   /************* Join *************/
   /********************************/
-  .join-form {
+  .register-form {
     width: 80%;
     margin: 0 10% 4em 10%;
+  }
+
+  /********************************/
+  /****** Validation Errors *******/
+  /********************************/
+  .validation--register {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
   }
 }
 
@@ -1222,9 +1254,18 @@ button.button {
   /********************************/
   /************* Join *************/
   /********************************/
-  .join-form {
+  .register-form {
     width: 50%;
     margin: 0;
+  }
+
+  /********************************/
+  /****** Validation Errors *******/
+  /********************************/
+  .validation--register {
+    width: 50%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -1324,6 +1365,8 @@ button.button {
   }
 }
 
+
+
 @media (min-width: 1600px) {
   /********************************/
   /********** Home Page ***********/
@@ -1341,5 +1384,25 @@ button.button {
 
   .team-grid__info p, .team-grid__info strong /* R */ {
     font-size: 1em;
+  }
+}
+
+@media (min-height: 700px) {
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+  /* Dividers */
+  .divider--first .pyramid-grid {
+    bottom: -15%;
+  }
+}
+
+@media (min-height: 800px) {
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+  /* Dividers */
+  .divider--first .pyramid-grid {
+    bottom: 5%;
   }
 }
