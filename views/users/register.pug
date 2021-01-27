@@ -1,0 +1,50 @@
+extends ../layout
+
+block content
+    .side
+        img.side__logo(src='/images/logos/preferential-name.png' alt='Gira Logo' data-href='/inicio')
+        .side__icon
+            .side__icon--line
+            .side__icon--line
+            .side__icon--line
+    .user-buttons
+        a.button.button--wide(href='/login') LOG IN
+        a.button.button--wide(href='/unete') ÚNETE
+    .outer-wrapper
+        h1.home-text__title.home-text__title--left ÚNETE
+        if errors
+            .validation-errors.validation--register
+                strong Por favor corrija los siguientes errores:
+                ul
+                    each error in errors
+                        li= error.msg
+        form.register-form(action='' method='post')
+            .grid--2
+                input.register-form__input(type='text' name='first_name' placeholder='Nombre' required)
+                input.register-form__input(type='text' name='last_name' placeholder='Apellido' required)
+            input.register-form__input(type='email' name='email' placeholder='Correo' required)
+            input.register-form__input(type='text' name='phone_number' placeholder='Teléfono (sin espacios)')
+            .grid--2
+                input.register-form__input(type='number' name='age' min='0' max='150' placeholder='Edad')
+                select.register-form__select(name='gender')
+                    option(value='-1' selected) Sexo
+                    option(value='Hombre') Hombre
+                    option(value='Mujer') Mujer
+            input.register-form__input(type='text' name='institution' placeholder='Universidad, Trabajo o Institución')
+            input.register-form__input(type='password' name='password' placeholder='Contraseña' required)
+            input.register-form__input(type='password' name='confirm_password' placeholder='Confirmar Contraseña' required)
+            .margin--2
+            .button--alignleft
+                button.button(type='submit') Registrate
+    
+    script.
+        document.addEventListener('DOMContentLoaded', () => {
+            // Make side logo Clickable
+            const sideLogo = document.querySelector('.side__logo');
+            sideLogo.addEventListener('click', () => {
+                const href = sideLogo.dataset.href;
+                if (href) {
+                    window.location.assign(href);
+                }
+            });
+        });

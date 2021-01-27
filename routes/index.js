@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+// Require controller modules
+const userController = require('../controllers/userController');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('opening', { title: 'Gira' });
@@ -22,12 +25,18 @@ router.get('/eventos/something-new', function(req, res, next) {
   res.render('eventcarousel', { title: 'Gira: Something New' });
 });
 
-router.get('/login', function(req, res, next) {
-  res.render('users/login', { title: 'Gira: Log In' });
-});
+// Login
+router.get('/login', userController.loginGet);
+router.post('/login', userController.loginPost);
 
-router.get('/unete', function(req, res, nex) {
-  res.render('users/join', { title: 'Gira: Registro' });
-});
+// Sign Up
+router.get('/unete', userController.signUpGet);
+router.post('/unete',
+  userController.signUpPost,
+  userController.loginPost
+);
+
+// Logout
+router.get('/logout', userController.logout);
 
 module.exports = router;

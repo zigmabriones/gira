@@ -31,9 +31,9 @@
 * donar
 * ver clases (propuesta angeles) (donacion)
 
-1. Create user model with heirarchy in mind
-2. Add user and user login functionality for all Gira members (Admins)
-3. Add create account functionality
+X   1. Create user model with heirarchy in mind
+X   2. Add user and user login functionality for all Gira members (Admins)
+X   3. Add create account functionality
 4. Add admin pannel
     a. View mailing list and send email
     b. CURD events
@@ -48,3 +48,8 @@
     a. Accept donations
     b. CURD classes
     c. Preview/view classes
+
+*** SECURITY ***
+1. Prevent <select> elements from sending unexpected information (validate information, maybe '.equals()')
+2. Validate number fields as numbers (.isNumeric())
+3. Prevent <select disabled> from modifying db info

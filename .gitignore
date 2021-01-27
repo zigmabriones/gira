@@ -4,3 +4,5 @@ public/images/.DS_Store
 public/images/team/.DS_Store
 
 /node_modules
+
+.env
