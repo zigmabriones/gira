@@ -49,7 +49,58 @@ X   3. Add create account functionality
     b. CURD classes
     c. Preview/view classes
 
+*** STYLES ***
+1. Add mobile navbar
+
 *** SECURITY ***
 1. Prevent <select> elements from sending unexpected information (validate information, maybe '.equals()')
 2. Validate number fields as numbers (.isNumeric())
 3. Prevent <select disabled> from modifying db info
+
+
+*** MISSING STYLES ***
+@media (min-height: 500px) and (min-width: 0px) {
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+  /* Dividers */
+  .divider--first .pyramid-grid {
+    bottom: 20%;
+    right: 70%;
+  }
+}
+
+@media (min-height: 600px) and (min-width: 0px) {
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+  /* Dividers */
+  .divider--first .pyramid-grid {
+    bottom: -5%;
+    right: 50%;
+  }
+}
+
+@media (min-height: 700px) and (min-width: 0px) {
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+  /* Dividers */
+  .divider--first .pyramid-grid {
+    bottom: 15%;
+    right: 60%;
+  }
+}
+
+@media (min-height: 850px) and (min-width: 0px) {
+  /********************************/
+  /********** Home Page ***********/
+  /********************************/
+  /* Dividers */
+  .divider--first .pyramid-grid {
+    bottom: 5%;
+    right: 15%;
+    top: 400px;
+    left: 75px;
+  }
+}

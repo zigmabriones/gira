@@ -1,9 +1,61 @@
 extends layout
 
 block content
+    //- .hidden-header
+        a.logo(href='#') Logo
+        ul
+            li
+                a(href='#') Home
+            li
+                a(href='#') About
+            li
+                a(href='#') Services
+            li
+                a(href='#') Portfolio
+            li
+                a(href='#') Team
+            li
+                a(href='#') Contact
+    
+    script.
+        function openSlideMenu() {
+            const menu = document.getElementById('menu');
+            menu.childNodes.forEach(child => child.style.display = 'block');
+            menu.style.width = '350px';
+            menu.style.boxShadow = '10px 0 50px 10px rgba(0, 0, 0, 0.4)';
+        }
+        
+        function closeSlideMenu() {
+            const menu = document.getElementById('menu');
+            menu.childNodes.forEach(child => child.style.display = 'none');
+            menu.style.width = '0px';
+            menu.style.boxShadow = 'none';
+        }
+
+    .side.side--hidden.side--home(onclick='openSlideMenu()')
+        img.side__logo(src='/images/logos/preferential-name.png' alt='Gira Logo')
+        .side__icon
+            .side__icon--line
+            .side__icon--line
+            .side__icon--line
+    
+    #menu.nav.side--home
+        p.close(onclick='closeSlideMenu()') X
+        a.menu__item(href='/inicio') INICIO
+        a.menu__item(href='/inicio#quienes-somos') ¿QUIÉNES SOMOS?
+        a.menu__item(href='/inicio#que-hacemos') ¿QUÉ HACEMOS?
+        a.menu__item(href='/inicio#equipo') EL EQUIPO
+        a.menu__item(href='/inicio#call-to-action') CALL TO ACTION
+        a.menu__item(href='/inicio#eventos') EVENTOS
+        a.menu__item(href='/inicio#galeria') GALERÍA
+        //- a.menu__item(href='#') CONTACTANOS
+        a.menu__item(href='/unete') ÚNETE
+        a.menu__item(href='/login') LOG IN
+
+
     .divider.divider--first.divider--white
         .divider--first__layout
-            img.divider--first__logo(src='/images/logos/preferential-name.png' alt='Gira Logo')
+            img.divider--first__logo(src='/images/logos/preferential-name.png' alt='Gira Logo' onclick='openSlideMenu()')
             .divider--first__userbuttons
                 a.button.button--wide(href='/login') LOG IN
                 a.button.button--wide(href='/unete') ÚNETE
@@ -271,4 +323,24 @@ block content
                     button.style.backgroundColor = '#000';
                 });
             });
+        });
+
+        const startFade = 380;
+        const checkpoint = 700;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const side = document.querySelector('.side--hidden');
+            
+            if(currentScroll < startFade) {
+                side.style.opacity = 0;
+                side.style.display = 'none';
+                return;
+            }
+            side.style.display = 'block';
+            if (currentScroll <= checkpoint) {
+                var opacity = 0 + (currentScroll-startFade) / checkpoint;
+            } else {
+                var opacity = 1;
+            }
+            document.querySelector('.side--hidden').style.opacity = opacity;
         });
