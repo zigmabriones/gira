@@ -6,3 +6,5 @@ public/images/team/.DS_Store
 /node_modules
 
 .env
+
+public/images/wireframe
