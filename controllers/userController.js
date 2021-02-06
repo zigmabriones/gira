@@ -58,4 +58,20 @@ exports.loginPost = Passport.authenticate('local', {
 exports.logout = (req, res) => {
     req.logout();
     res.redirect('/inicio');
-}
+};
+
+exports.isAuth = (req, res, next) => {
+    req.isAuthenticated()
+        ? next()
+        : res.redirect('/login');
+};
+
+/******************************************/
+/************* Account View ***************/
+/******************************************/
+
+exports.accountView = (req, res, next) => {
+    req.user.permissions == 'dev' || req.user.permissions == 'admin'
+        ? res.redirect('/admin')
+        : res.render('users/dashboard', { title: 'Gira: Cuenta' });
+};

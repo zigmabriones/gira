@@ -1,15 +1,9 @@
 extends ../layout
+include ../mixins/_nav
 
 block content
-    .side
-        img.side__logo(src='/images/logos/preferential-name.png' alt='Gira Logo' data-href='/inicio')
-        .side__icon
-            .side__icon--line
-            .side__icon--line
-            .side__icon--line
-    .user-buttons
-        a.button.button--wide(href='/login') LOG IN
-        a.button.button--wide(href='/unete') ÚNETE
+    +nav()
+
     .outer-wrapper
         h1.home-text__title.home-text__title--left ÚNETE
         if errors

@@ -1,0 +1,21 @@
+extends ../layout
+
+block content 
+    if url.endsWith('/new')
+        h1 Crear Evento
+        form(action='' method='post' style='display: flex; flex-direction: column;')
+            input(type='text' name='name' placeholder='Nombre del evento' required)
+            input(type='date' name='date')
+            input(type='text' name='exhibitor' placeholder='Nombre del expositor' required)
+            textarea(name='description' placeholder='Descripción o resumen del evento')
+            label(for='videos[]' style='margin: 1em 0;') Videos 
+            input(type='text' name='videos[]' placeholder='URL del video')
+            input(type='text' name='videos[]' placeholder='URL del video')
+            input(type='text' name='videos[]' placeholder='URL del video')
+            label(for='images[]' style='margin: 1em 0;') Imágenes 
+            input(type='file' name='image0')
+            input(type='file' name='image1')
+            input(type='file' name='image2')
+            input(type='file' name='image3')
+            input(type='file' name='image4')
+            button(type='submit' style='margin: 1em 0;') Crear Evento

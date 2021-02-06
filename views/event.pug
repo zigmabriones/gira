@@ -1,39 +1,8 @@
 extends layout
+include mixins/_nav
 
 block content
-    script.
-        function openSlideMenu() {
-            const menu = document.getElementById('menu');
-            menu.childNodes.forEach(child => child.style.display = 'block');
-            menu.style.width = '350px';
-            menu.style.boxShadow = '10px 0 50px 10px rgba(0, 0, 0, 0.4)';
-        }
-        
-        function closeSlideMenu() {
-            const menu = document.getElementById('menu');
-            menu.childNodes.forEach(child => child.style.display = 'none');
-            menu.style.width = '0px';
-            menu.style.boxShadow = 'none';
-        }
-
-    .side(onclick='openSlideMenu()')
-        img.side__logo(src='/images/logos/preferential-name.png' alt='Gira Logo')
-        .side__icon
-            .side__icon--line
-            .side__icon--line
-            .side__icon--line
-
-    #menu.nav.side--home
-        p.close(onclick='closeSlideMenu()') X
-        a.menu__item(href='/inicio#quienes-somos') ¿QUIÉNES SOMOS?
-        a.menu__item(href='/inicio#que-hacemos') ¿QUÉ HACEMOS?
-        a.menu__item(href='/inicio#equipo') EL EQUIPO
-        a.menu__item(href='/inicio#call-to-action') CALL TO ACTION
-        a.menu__item(href='/inicio#eventos') EVENTOS
-        a.menu__item(href='/inicio#galeria') GALERÍA
-        //- a.menu__item(href='#') CONTACTANOS
-        a.menu__item(href='/unete') ÚNETE
-        a.menu__item(href='/login') LOG IN
+    +nav()
 
     .outer-wrapper
         a(href='/eventos')

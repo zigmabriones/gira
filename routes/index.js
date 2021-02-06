@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // Require controller modules
+const indexController = require('../controllers/indexController');
 const userController = require('../controllers/userController');
 
 /* GET home page. */
@@ -12,6 +13,7 @@ router.get('/', function(req, res, next) {
 router.get('/inicio', function(req, res, next) {
   res.render('index', { title: 'Gira' });
 });
+router.post('/inicio', indexController.ctaPost);
 
 router.get('/eventos', function(req, res, next) {
   res.render('events', { title: 'Gira: Eventos' });

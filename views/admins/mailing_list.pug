@@ -1,0 +1,27 @@
+extends ../layout
+include ../mixins/_nav
+
+block content 
+    table(style='text-align: center;') 
+        thead 
+            td 
+                strong Nombre
+            td 
+                strong Correo 
+            td 
+                strong Teléfono 
+            td 
+                strong Edad 
+            td 
+                strong Sexo 
+            td 
+                strong Institución 
+        tbody 
+            each person in mailingList
+                tr 
+                    td #{person.first_name} #{person.last_name}
+                    td #{person.email}
+                    td= person.phone_number || ''
+                    td= person.age || ''
+                    td #{person.gender}
+                    td #{person.institution}

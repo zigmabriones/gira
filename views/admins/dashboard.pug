@@ -1,3 +1,13 @@
 extends ../layout
 
 block content
+    
+    h1 Bienvenido #{user.first_name} #{user.last_name}!
+    //- h1 Bienvenido Emilio Popovits!
+    hr
+
+    a(href='/admin/mailing-list') Mailing List
+    br
+    a(href='/admin/event/new') Crear Evento
+    br
+    a(href='/logout') Cerrar sesión
