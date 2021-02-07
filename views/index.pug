@@ -58,7 +58,10 @@ block content
             h1.home-text__title ¿QUÉ HACEMOS?
             p.home-text__text 
                 | Nuestros esfuerzos se concentran en la difusión de ideas sobre la individualidad y su relevancia para una
-                | sociedad estable, la acción humanitaria, y el centro de mejoramiento humano. 
+                | sociedad estable, la acción humanitaria, y el centro de mejoramiento humano. También nuestras actividades 
+                | principales se enfocan en el desarrollo y en el activismo para la creación de política local. A su vez, 
+                | buscamos educar y generar líderes en toda la república con uso de las entrevistas y oportunidades mediáticas 
+                | con expertos y profesores con el uso de cursos de capacitacion de diversos temas.
         //- img(src='/images/placeholders/crowd.jpg' alt='Placeholder image')
         .home-image
             img#quehacemos(src='/images/home/quehacemos.jpeg' alt='Placeholder image')
@@ -77,8 +80,8 @@ block content
                 | sido desprestigiados y acusados de poseer un carácter supersticioso y por lo tanto inválido en cualquier 
                 | discusión argumentativa.
                 | <br><br>
-                | De los que observan como perniciosa la idea de igualdad absoluta y de los que niegan la condición cultural 
-                | como determinantemente tiránica.
+                | De los que observan como perjudicial y peligrosa las ideas de igualdad absoluta, la cultura de la cancelación, 
+                | y los extremismos ideológicos.
         .team-grid
             div
             .team-grid__square.m-cursor--default
@@ -172,8 +175,9 @@ block content
                 button.button(type='submit') Registrate
 
     .divider.divider--gray.divider--block#eventos
-        h1.home-text__title.home-text__title--left EVENTOS
-        table.event-table.event-table--desktop
+        h1.home-text__title.home-text__title--left EVENTOS (PRÓXIMAMENTE)
+        p.home-text__text(style='text-align: left;') Mantente enterado aquí de nuestros futuros eventos.
+        //- table.event-table.event-table--desktop
             thead
                 tr
                     th DESCRIPCIÓN
@@ -204,7 +208,7 @@ block content
                         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
                     td 08/05/2021
                     td JOHN DOE
-        table.event-table.event-table--mobile
+        //- table.event-table.event-table--mobile
             tbody
                 tr(class='event-table__clickable' data-href='/eventos/elecciones-2021-mexico')
                     td
@@ -231,7 +235,7 @@ block content
                         p 08/05/2021
                         p JOHN DOE
         .margin--3
-        .button--aligncenter
+        //- .button--aligncenter
             a.button(href='/eventos') VER MÁS
 
     .divider.divider--white#galeria
@@ -253,15 +257,15 @@ block content
     script.
         document.addEventListener('DOMContentLoaded', () => {
             // Make Events tr's Clickable
-            const events = document.querySelectorAll('.event-table__clickable');
-            events.forEach(event => {
-                event.addEventListener('click', () => {
-                    const href = event.dataset.href;
-                    if (href) {
-                        window.location.assign(href);
-                    }
-                });
-            });
+            //- const events = document.querySelectorAll('.event-table__clickable');
+            //- events.forEach(event => {
+            //-     event.addEventListener('click', () => {
+            //-         const href = event.dataset.href;
+            //-         if (href) {
+            //-             window.location.assign(href);
+            //-         }
+            //-     });
+            //- });
 
             // Carousel Buttons Functionality
             const radioBtns = document.querySelectorAll('.carousel__navigation-button');

@@ -18,5 +18,10 @@ router.get('/account', adminController.account);
 router.get('/mailing-list', adminController.mailingListGet);
 
 router.get('/event/new', adminController.newEventGet);
+router.post('/event/new', 
+  adminController.upload,
+  adminController.pushToS3,
+  adminController.newEventPost
+)
 
 module.exports = router;
