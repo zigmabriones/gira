@@ -9,20 +9,78 @@ block content
             h1.home-text__title.home-text__title--left EVENTOS
         hr
         
-        h2.event-title ELECCIONES 2021 MEXICO
-        h3.event-author LORENZO CORDOVA
-        h4.event-date 22/12/2020
-        p.event-text
-            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore error qui modi eos quasi voluptatibus neque voluptates facilis! Doloremque animi odit aperiam illo, velit fugit. Est tempora voluptates quia alias?
-            | Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam voluptatibus voluptates quidem architecto atque at molestiae, eos vel officiis laborum explicabo error velit perferendis repellat fugiat alias harum ullam quam.
-            | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia architecto nihil minus at quasi quia cupiditate alias et, ipsum consequuntur, atque assumenda labore iure quidem rerum quas sunt quam sapiente.
-            | Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse facilis, vel nam accusamus, consequuntur nihil commodi vitae dolor perferendis corporis blanditiis at eum similique quasi dolore voluptas. Explicabo, praesentium quae.
-            | Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti mollitia hic dolor sapiente, saepe magni quas! Vitae adipisci suscipit ut animi fugiat quaerat impedit, ipsa sit modi provident harum sapiente.
+        - const eventDate = new Date(event.date);
+        - const dateString = `${String(eventDate.getDate()).padStart(2, '0')}/${String(eventDate.getMonth() + 1).padStart(2, '0')}/${eventDate.getFullYear()}`;
+
+        h2.event-title= event.name.toUpperCase()
+        h3.event-author= event.exhibitor.toUpperCase()
+        h4.event-date= dateString
+        p.event-text= event.description
+
         //- <iframe width="560" height="315"
-        .event-media
-            iframe.event-media__video(src="https://www.youtube.com/embed/kKwfv-2eEpc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
-        
+        //- - const media = [...event.videos, '_', ...event.images];
+        if event.videos.length > 0 || event.images.length > 0
+            .event-media 
+                if event.videos.length + event.images.length == 1
+                    if event.videos.length == 1
+                        iframe.event-media__video(src=event.videos[0] frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+                    else
+                        img.event-media__image(src=event.images[0])
+                else
+                    .carousel.carousel--event
+                        .carousel__medium
+                            if event.videos.length > 0
+                                each video, index in event.videos 
+                                    - const mediaClass = index == 0 ? 'carousel__media carousel__media--first' : 'carousel__media';
+                                    div(class=mediaClass)
+                                        iframe.event-media__video(src=video frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+                                each image in event.images 
+                                    .carousel__media 
+                                        img(src=image)
+                            else 
+                                each image, index in event.images 
+                                    - const mediaClass = index == 0 ? 'carousel__media carousel__media--first' : 'carousel__media';
+                                    div(class=mediaClass)
+                                        img(src=image)
+                        
+                        .carousel__navigation
+                            - for(let i = 0; i < event.videos.length + event.images.length; i++)
+                                label(for=`radio${i}` class='carousel__navigation-button')
+                                
+
+
+            //- .event-media
+                iframe.event-media__video(src="https://www.youtube.com/embed/kKwfv-2eEpc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+            
+            //- Tomorrow: Test for:
+                1 video 0 image
+                0 video 1 image
+                1 video 1 image
+                2 video 0 image
+                0 video 2 image
+                2 video 2 image
+
         .margin--5p
         .button--aligncenter
             a.button(href='/eventos') REGRESAR
         .margin--5p
+
+    script.
+        document.addEventListener('DOMContentLoaded', () => {
+            // Carousel Buttons Functionality
+            const radioBtns = document.querySelectorAll('.carousel__navigation-button');
+            const firstPage = document.querySelector('.carousel__media--first');
+            radioBtns.forEach(button => {
+                button.addEventListener('click', () => {
+                    const clickedBtnNumber = button.htmlFor.substring(5);
+                    const moveLeftBy = clickedBtnNumber * -20;
+                    firstPage.style.cssText = `margin-left: ${moveLeftBy}%;`;
+                    
+                    // Show selected button
+                    radioBtns.forEach(radioBtn => {
+                        radioBtn.style.backgroundColor = '#888888';
+                    });
+                    button.style.backgroundColor = '#000';
+                });
+            });
+        });

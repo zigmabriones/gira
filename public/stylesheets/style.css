@@ -459,6 +459,11 @@ footer {
   width: 100%;
 }
 
+.carousel--event .event-media__image {
+  width: 100;
+  max-height: 500px;
+}
+
 .carousel__medium {
   width: 500%;
   height: 500px;

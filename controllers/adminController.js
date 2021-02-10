@@ -12,10 +12,10 @@ const s3 = new AWS.S3({
     secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET
 });
 
-s3.createBucket({ Bucket: process.env.AWS_S3_BUCKET_NAME }, (err, data) => {
-    if (err) console.log(err, err.stack);
-    // else console.log('Bucket Created Successfully:', data.Location);
-});
+// s3.createBucket({ Bucket: process.env.AWS_S3_BUCKET_NAME }, (err, data) => {
+//     if (err) console.log(err, err.stack);
+//     else console.log('Bucket Created Successfully:', data.Location);
+// });
 
 /************************/
 /**** Image Handling ****/
@@ -40,7 +40,8 @@ exports.pushToS3 = async (req, res, next) => {
             const uploadParams = {
                 Bucket: process.env.AWS_S3_BUCKET_NAME,
                 Key: `${folder}/${req.body._id}/${imgname}`,
-                Body: fileContent
+                Body: fileContent,
+                ACL: 'public-read'
             };
 
             s3.upload(uploadParams, (err, data) => {
@@ -99,6 +100,8 @@ exports.newEventGet = (req, res, next) => {
 
 exports.newEventPost = async (req, res, next) => {
     try {
+        req.body.images = req.body.images.filter(image => image != '');
+        req.body.videos = req.body.videos.filter(video => video != '');
         const event = new Event(req.body);
         await event.save();
         res.redirect('/admin/account');
