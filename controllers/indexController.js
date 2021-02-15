@@ -4,7 +4,7 @@ const Event = require('../models/event');
 
 exports.index = async (req, res, next) => {
     try {
-        const events = await Event.aggregate([ { $sort: { date: 1 } } ]);
+        const events = await Event.aggregate([ { $sort: { date: -1 } } ]);
         res.render('index', { title: 'Gira', events });
     } catch(error) {
         next(error);
@@ -16,6 +16,15 @@ exports.ctaPost = async (req, res, next) => {
         const registrant = new MailingList(req.body);
         await registrant.save();
         res.redirect('/inicio');
+    } catch(error) {
+        next(error);
+    }
+};
+
+exports.events = async (req, res, next) => {
+    try {
+        const events = await Event.aggregate([ { $sort: { date: -1 } } ]);
+        res.render('events', { title: 'Gira: Eventos', events });
     } catch(error) {
         next(error);
     }

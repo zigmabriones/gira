@@ -1,12 +1,12 @@
 extends ../layout
 
 block content 
-    if url.endsWith('/new')
+    if url.endsWith('/nuevo')
         h1 Crear Evento
-        form(action='' method='post' enctype='multipart/form-data' style='display: flex; flex-direction: column;')
+        form(action='' method='post' enctype='multipart/form-data' style='display: flex; flex-direction: column;' autocomplete='off')
             input(type='hidden' name='_id' value=eventId)
             input(type='text' name='name' placeholder='Nombre del evento' required)
-            input(type='date' name='date')
+            input(type='date' name='date' required)
             input(type='text' name='exhibitor' placeholder='Nombre del expositor' required)
             textarea(name='description' placeholder='Descripción o resumen del evento')
             label(for='videos[]' style='margin: 1em 0;') Videos 
@@ -21,3 +21,43 @@ block content
             input(type='file' name='image3')
             input(type='file' name='image4')
             button(type='submit' style='margin: 1em 0;') Crear Evento
+    else if url.includes('/editar')
+        h1 Editar Evento: #{event.name}
+        form(action='' method='post' enctype='multipart/form-data' style='display: flex; flex-direction: column;' autocomplete='off')
+            input(type='text' name='name' placeholder='Nombre del evento' value=event.name required)
+            - const dateString = `${event.date.getFullYear()}-${String(event.date.getMonth() + 1).padStart(2, '0')}-${String(event.date.getDate()).padStart(2, '0')}`;
+            input(type='date' name='date' value=dateString)
+            input(type='text' name='exhibitor' placeholder='Nombre del expositor' value=event.exhibitor required)
+            textarea(name='description' placeholder='Descripción o resumen del evento')= event.description || null
+            label(for='videos[]' style='margin: 1em 0;') Videos 
+            input(type='text' name='videos[]' placeholder='URL del video' value=event.videos[0] || null)
+            input(type='text' name='videos[]' placeholder='URL del video' value=event.videos[1] || null)
+            input(type='text' name='videos[]' placeholder='URL del video' value=event.videos[2] || null)
+            label(for='images[]' style='margin: 1em 0;') Imágenes 
+            if event.images && event.images.length 
+                each image, index in event.images
+                    input(type='hidden' name=`images[]` value=image)
+                
+                .tmp-edit-images
+                    - for (let i = 0; i < 5; i++)
+                        .tmp-edit-images__edit-image
+                            .tmp-edit-images__image
+                                if event.images[i]
+                                    p.tmp-edit-images__image-delete(data-key=event.images[i] data-id=event._id) X
+                                img(src=`${event.images[i] ? `https://gira-mediadb.s3.amazonaws.com/${event.images[i]}` : ''}`)
+                            input(type='file' name=`image${i}`)
+            else
+                input(type='hidden' name='images[]' value='')
+                input(type='file' name='image0')
+                input(type='file' name='image1')
+                input(type='file' name='image2')
+                input(type='file' name='image3')
+                input(type='file' name='image4')
+            button(type='submit' style='margin: 1em 0;') Guardar Cambios
+        
+        form(action='/admin/eventos/borrar' method='post' style='display: flex; flex-direction: column;')
+            button(type='submit' name='deleteId' value=event._id) Borrar Evento
+    
+    script(src='/javascripts/ajax/event.js')
+    script.
+        document.addEventListener('DOMContentLoaded', _ => setupDeleteListeners())

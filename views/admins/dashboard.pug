@@ -3,11 +3,16 @@ extends ../layout
 block content
     
     h1 Bienvenido #{user.first_name} #{user.last_name}!
-    //- h1 Bienvenido Emilio Popovits!
     hr
 
     a(href='/admin/mailing-list') Mailing List
     br
-    a(href='/admin/event/new') Crear Evento
+    a(href='/admin/eventos/nuevo') Crear Evento
+    if events && events.length 
+        p Editar Evento
+        ul 
+            each event in events 
+                li 
+                    a(href=`/admin/eventos/editar/${event._id}`)= event.name
     br
     a(href='/logout') Cerrar sesión

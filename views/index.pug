@@ -176,7 +176,7 @@ block content
 
     .divider.divider--gray.divider--block#eventos
         h1.home-text__title.home-text__title--left EVENTOS
-        if events
+        if events && events.length
             table.event-table.event-table--desktop
                 thead
                     tr
@@ -184,73 +184,55 @@ block content
                         th FECHA
                         th EXPOSITOR
                 tbody
-                    each event in events
-                        - const eventUri = encodeURI(event.name.toLowerCase());
-                        - const eventDesc = event.description.length > 254 ? event.description.substring(0, 253).trim() + '...' : event.description;
-                        - const eventDate = new Date(event.date);
-                        - const dateString = `${String(eventDate.getDate()).padStart(2, '0')}/${String(eventDate.getMonth() + 1).padStart(2, '0')}/${eventDate.getFullYear()}`;
+                    each event, count in events
+                        if count < 4
+                            - const eventUri = encodeURI(event.name.toLowerCase());
+                            - const eventDesc = event.description.length > 254 ? event.description.substring(0, 253).trim() + '...' : event.description;
+                            - const eventDate = new Date(event.date);
+                            - const dateString = `${String(eventDate.getDate()).padStart(2, '0')}/${String(eventDate.getMonth() + 1).padStart(2, '0')}/${eventDate.getFullYear()}`;
 
-                        tr(class='event-table__clickable' data-href=`/eventos/${eventUri}`)
-                            td
-                                h3= event.name.toUpperCase()
-                                p.event-table__description= eventDesc
-                            td= dateString
-                            td= event.exhibitor.toUpperCase()
+                            tr(class='event-table__clickable' data-href=`/eventos/${eventUri}`)
+                                td
+                                    h3= event.name.toUpperCase()
+                                    p.event-table__description= eventDesc
+                                td= dateString
+                                td= event.exhibitor.toUpperCase()
+                    
                     //- tr(class='event-table__clickable' data-href='/eventos/elecciones-2021-mexico')
                     //-     td
                     //-         h3 ELECCIONES 2021 MEXICO
                     //-         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
                     //-     td 22/12/2020
                     //-     td LORENZO CORDOVA
-                    //- tr(class='event-table__clickable' data-href='/eventos/something-new')
-                    //-     td 
-                    //-         h3 SOMETHING NEW
+
+            table.event-table.event-table--mobile
+                tbody
+                    each event, count in events
+                        if count < 4
+                            - const eventUri = encodeURI(event.name.toLowerCase());
+                            - const eventDesc = event.description.length > 254 ? event.description.substring(0, 253).trim() + '...' : event.description;
+                            - const eventDate = new Date(event.date);
+                            - const dateString = `${String(eventDate.getDate()).padStart(2, '0')}/${String(eventDate.getMonth() + 1).padStart(2, '0')}/${eventDate.getFullYear()}`;
+
+                            tr(class='event-table__clickable' data-href=`/eventos/${eventUri}`)
+                                td
+                                    h3= event.name.toUpperCase()
+                                    p.event-table__description= eventDesc
+                                    p= dateString
+                                    p= event.exhibitor.toUpperCase()
+
+                    //- tr(class='event-table__clickable' data-href='/eventos/elecciones-2021-mexico')
+                    //-     td
+                    //-         h3 ELECCIONES 2021 MEXICO
                     //-         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
-                    //-     td 08/05/2021
-                    //-     td JOHN DOE
-                    //- tr(class='event-table__clickable' data-href='')
-                    //-     td 
-                    //-         h3 THINGS COMING AROUND
-                    //-         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
-                    //-     td 08/05/2021
-                    //-     td JOHN DOE
-                    //- tr(class='event-table__clickable' data-href='')
-                    //-     td 
-                    //-         h3 FINALLY! WE ARE HERE
-                    //-         p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
-                    //-     td 08/05/2021
-                    //-     td JOHN DOE
+                    //-         p 22/12/2020
+                    //-         p LORENZO CORDOVA
+                    
+            .margin--3
+            .button--aligncenter
+                a.button(href='/eventos') VER MÁS
         else 
             p.home-text__text(style='text-align: left;') Mantente enterado aquí de nuestros futuros eventos.
-        //- table.event-table.event-table--mobile
-            tbody
-                tr(class='event-table__clickable' data-href='/eventos/elecciones-2021-mexico')
-                    td
-                        h3 ELECCIONES 2021 MEXICO
-                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
-                        p 22/12/2020
-                        p LORENZO CORDOVA
-                tr(class='event-table__clickable' data-href='/eventos/something-new')
-                    td 
-                        h3 SOMETHING NEW
-                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
-                        p 08/05/2021
-                        p JOHN DOE
-                tr(class='event-table__clickable' data-href='')
-                    td 
-                        h3 THINGS COMING AROUND
-                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
-                        p 08/05/2021
-                        p JOHN DOE
-                tr(class='event-table__clickable' data-href='')
-                    td 
-                        h3 FINALLY! WE ARE HERE
-                        p.event-table__description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, cumque accusantium earum nihil autem quibusdam perspiciatis quae, porro ex aliquam accusamus dolorum labore itaque incidunt totam, possimus quod? Minus, iste.
-                        p 08/05/2021
-                        p JOHN DOE
-        .margin--3
-        //- .button--aligncenter
-            a.button(href='/eventos') VER MÁS
 
     .divider.divider--white#galeria
         .carousel

@@ -17,11 +17,19 @@ router.get('/account', adminController.account);
 
 router.get('/mailing-list', adminController.mailingListGet);
 
-router.get('/event/new', adminController.newEventGet);
-router.post('/event/new', 
+router.get('/eventos/nuevo', adminController.eventCURDGet);
+router.post('/eventos/nuevo', 
   adminController.upload,
   adminController.pushToS3,
   adminController.newEventPost
-)
+);
+
+router.get('/eventos/editar/:eventId', adminController.eventCURDGet);
+router.post('/eventos/editar/:eventId', 
+  adminController.upload,
+  adminController.pushToS3,
+  adminController.editEventPost
+);
+router.post('/eventos/borrar', adminController.deleteEventPost);
 
 module.exports = router;

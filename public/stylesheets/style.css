@@ -795,6 +795,52 @@ footer {
 }
 
 /********************************/
+/************* Admin ************/
+/********************************/
+.tmp-edit-images {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+.tmp-edit-images__edit-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tmp-edit-images__image {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.tmp-edit-images__image-delete {
+  position: absolute;
+  background-color: #000;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  margin: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.tmp-edit-images__image:hover .tmp-edit-images__image-delete {
+  display: block;
+}
+
+.tmp-edit-images__image img {
+  max-height: 100px;
+}
+
+/********************************/
 /****** Validation Errors *******/
 /********************************/
 .validation-errors {

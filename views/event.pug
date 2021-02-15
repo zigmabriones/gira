@@ -17,15 +17,13 @@ block content
         h4.event-date= dateString
         p.event-text= event.description
 
-        //- <iframe width="560" height="315"
-        //- - const media = [...event.videos, '_', ...event.images];
         if event.videos.length > 0 || event.images.length > 0
             .event-media 
                 if event.videos.length + event.images.length == 1
                     if event.videos.length == 1
                         iframe.event-media__video(src=event.videos[0] frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
                     else
-                        img.event-media__image(src=event.images[0])
+                        img.event-media__image(src=`https://gira-mediadb.s3.amazonaws.com/${event.images[0]}`)
                 else
                     .carousel.carousel--event
                         .carousel__medium
@@ -36,12 +34,12 @@ block content
                                         iframe.event-media__video(src=video frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
                                 each image in event.images 
                                     .carousel__media 
-                                        img(src=image)
+                                        img(src=`https://gira-mediadb.s3.amazonaws.com/${image}`)
                             else 
                                 each image, index in event.images 
                                     - const mediaClass = index == 0 ? 'carousel__media carousel__media--first' : 'carousel__media';
                                     div(class=mediaClass)
-                                        img(src=image)
+                                        img(src=`https://gira-mediadb.s3.amazonaws.com/${image}`)
                         
                         .carousel__navigation
                             - for(let i = 0; i < event.videos.length + event.images.length; i++)
@@ -51,14 +49,7 @@ block content
 
             //- .event-media
                 iframe.event-media__video(src="https://www.youtube.com/embed/kKwfv-2eEpc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
-            
-            //- Tomorrow: Test for:
-                1 video 0 image
-                0 video 1 image
-                1 video 1 image
-                2 video 0 image
-                0 video 2 image
-                2 video 2 image
+            //- <iframe width="560" height="315"
 
         .margin--5p
         .button--aligncenter

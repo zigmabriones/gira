@@ -13,15 +13,12 @@ router.get('/', function(req, res, next) {
 router.get('/inicio', indexController.index);
 router.post('/inicio', indexController.ctaPost);
 
-router.get('/eventos', function(req, res, next) {
-  res.render('events', { title: 'Gira: Eventos' });
-});
-
+router.get('/eventos', indexController.events);
 router.get('/eventos/:eventUri', indexController.event);
 
-router.get('/eventos/elecciones-2021-mexico', function(req, res, next) {
-  res.render('event', { title: 'Gira: Elecciones 2021 México' });
-});
+// router.get('/eventos/elecciones-2021-mexico', function(req, res, next) {
+//   res.render('event', { title: 'Gira: Elecciones 2021 México' });
+// });
 
 // router.get('/eventos/something-new', function(req, res, next) {
 //   res.render('eventcarousel', { title: 'Gira: Something New' });
