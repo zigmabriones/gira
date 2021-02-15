@@ -1,19 +1,12 @@
 # Web Development - Gira
-This repository is for development of Gira student association website.
+Gira is a fullstack website created for a multi-university college club where users can publish articles and events with images and videos, send massive emails to mailing lists, and accept donations.
 
-## What I Learned
+## Abilities Mastered
 ---
 - Re-creation of an Adobe Photoshop and Adobe Illustrator design for this website with CSS (front-end)
 - Usage of .svg files with CSS to dynamically change their color on events
-
-## Initial Setup
----
-```sh
-express . --view=pug
-npm install
-
-npm run
-```
-
-## Dependencies
-- ExpressJs
+- AWS
+- Email Domains
+- CSS Animations
+- Mailing Lists
+- PayPal API
