@@ -144,12 +144,20 @@ block content
         .home-text
             h1.home-text__title ÚNETE AL MOVIMIENTO
             p.home-text__text Si quieres mantenerte enterado y formar parte de este cambio, registrate con nosotros para poder contactarte y saber como puedes colaborar con nosotros.
+
+            //- if errors
+            .validation-errors.validation--register.validation--cta
+                strong Por favor corrija los siguientes errores:
+                ul
+                    li asdf
+                    li bsdf
+                    li csdf 
         
 
         //- .home-text 
         //-     p.home-text__text Te puedes registrar contactandonos en nuestra cuenta de instagram (@giramexico) o por correo (mexico.gira@gmail.com)
         
-        form.cta-form(action='' method='post')
+        form.cta-form#js-cta-form
             .grid--2
                 input.cta-form__input(type='text' name='first_name' placeholder='Nombre' required)
                 input.cta-form__input(type='text' name='last_name' placeholder='Apellido' required)
@@ -162,11 +170,9 @@ block content
                     option(value='male') Hombre
                     option(value='female') Mujer
             input.cta-form__input(type='text' name='institution' placeholder='Universidad, Trabajo o Institución')
-            //- input.cta-form__input(type='password' name='password' placeholder='Contraseña' required)
-            //- input.cta-form__input(type='password' name='confirm_password' placeholder='Confirmar Contraseña' required)
             .margin--2
             .button--alignleft
-                button.button(type='submit') Registrate
+                button.button#js-cta-form-button(type='button') Registrate
 
     .divider.divider--gray.divider--block#eventos
         h1.home-text__title.home-text__title--left EVENTOS
@@ -244,33 +250,11 @@ block content
                 - for(let i = 0; i < 4; i++)
                     label(for=`radio${i}` class='carousel__navigation-button')
 
+    script(src='/javascripts/common.js')
+    script(src='/javascripts/ajax/index.js')
     script.
         document.addEventListener('DOMContentLoaded', () => {
-            // Make Events tr's Clickable
-            const events = document.querySelectorAll('.event-table__clickable');
-            events.forEach(event => {
-                event.addEventListener('click', () => {
-                    const href = event.dataset.href;
-                    if (href) {
-                        window.location.assign(href);
-                    }
-                });
-            });
-
-            // Carousel Buttons Functionality
-            const radioBtns = document.querySelectorAll('.carousel__navigation-button');
-            const firstPage = document.querySelector('.carousel__media--first');
-            radioBtns.forEach(button => {
-                button.addEventListener('click', () => {
-                    const clickedBtnNumber = button.htmlFor.substring(5);
-                    const moveLeftBy = clickedBtnNumber * -20;
-                    firstPage.style.cssText = `margin-left: ${moveLeftBy}%;`;
-                    
-                    // Show selected button
-                    radioBtns.forEach(radioBtn => {
-                        radioBtn.style.backgroundColor = '#888888';
-                    });
-                    button.style.backgroundColor = '#000';
-                });
-            });
+            setupEventTable();
+            setupCarousel();
+            setupCTA();
         });

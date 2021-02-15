@@ -62,15 +62,6 @@ block content
         else
             p.home-text__text(style='text-align: left;') Mantente enterado aquí de nuestros futuros eventos.
 
+    script(src='/javascripts/common.js')
     script.
-        document.addEventListener('DOMContentLoaded', () => {
-            const events = document.querySelectorAll('.event-table__clickable');
-            events.forEach(event => {
-                event.addEventListener('click', () => {
-                    const href = event.dataset.href;
-                    if (href) {
-                        window.location.assign(href);
-                    }
-                });
-            });
-        });
+        document.addEventListener('DOMContentLoaded', _ => setupEventTable());

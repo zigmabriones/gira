@@ -4,25 +4,19 @@ var router = express.Router();
 // Require controller modules
 const indexController = require('../controllers/indexController');
 const userController = require('../controllers/userController');
+const validationController = require('../controllers/validationController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('opening', { title: 'Gira' });
 });
 
+// Index
 router.get('/inicio', indexController.index);
-router.post('/inicio', indexController.ctaPost);
 
+// Events
 router.get('/eventos', indexController.events);
 router.get('/eventos/:eventUri', indexController.event);
-
-// router.get('/eventos/elecciones-2021-mexico', function(req, res, next) {
-//   res.render('event', { title: 'Gira: Elecciones 2021 México' });
-// });
-
-// router.get('/eventos/something-new', function(req, res, next) {
-//   res.render('eventcarousel', { title: 'Gira: Something New' });
-// });
 
 // Login
 router.get('/login', userController.loginGet);
@@ -31,6 +25,7 @@ router.post('/login', userController.loginPost);
 // Sign Up
 router.get('/unete', userController.signUpGet);
 router.post('/unete',
+  validationController.signupVS,
   userController.signUpPost,
   userController.loginPost
 );

@@ -2,11 +2,12 @@
 const MailingList = require('../models/mailinglist');
 const Event = require('../models/event');
 
+// Index
 exports.index = async (req, res, next) => {
     try {
-        const events = await Event.aggregate([ { $sort: { date: -1 } } ]);
+        const events = await Event.aggregate([{ $sort: { date: -1 } }]);
         res.render('index', { title: 'Gira', events });
-    } catch(error) {
+    } catch (error) {
         next(error);
     }
 };
@@ -16,16 +17,17 @@ exports.ctaPost = async (req, res, next) => {
         const registrant = new MailingList(req.body);
         await registrant.save();
         res.redirect('/inicio');
-    } catch(error) {
+    } catch (error) {
         next(error);
     }
 };
 
+// Events
 exports.events = async (req, res, next) => {
     try {
-        const events = await Event.aggregate([ { $sort: { date: -1 } } ]);
+        const events = await Event.aggregate([{ $sort: { date: -1 } }]);
         res.render('events', { title: 'Gira: Eventos', events });
-    } catch(error) {
+    } catch (error) {
         next(error);
     }
 };
@@ -35,7 +37,7 @@ exports.event = async (req, res, next) => {
         const eventName = decodeURI(req.params.eventUri);
         const event = await Event.findOne({ name: { $regex: new RegExp(eventName, 'i') } });
         res.render('event', { title: `Gira: ${event.name}`, event });
-    } catch(error) {
+    } catch (error) {
         next(error);
     }
 };

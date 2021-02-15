@@ -10,6 +10,17 @@ const s3 = new AWS.S3({
     secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET
 });
 
+exports.ctaRegister = async (validationErrors, req, res, next) => {
+    try {
+        if (validationErrors.length) {
+            res.status(409).send(validationErrors);
+            return;
+        }
+    } catch (error) {
+        next(error);
+    }
+};
+
 exports.deleteEventImage = async (req, res, next) => {
     try {
         const id = req.body.id;
@@ -30,7 +41,7 @@ exports.deleteEventImage = async (req, res, next) => {
             }
         });
 
-    } catch(error) {
+    } catch (error) {
         console.log(error)
         next(error);
     }
