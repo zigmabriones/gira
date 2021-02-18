@@ -14,8 +14,6 @@ function ctaAjax() {
         institution: form.institution.value
     };
 
-    console.log(data);
-
     const url = '/ajax/cta-register';
 
     const xhr = new XMLHttpRequest();
@@ -23,7 +21,6 @@ function ctaAjax() {
     xhr.open('POST', url, true);
 
     xhr.onload = () => {
-        console.log(xhr.responseText)
         const res = JSON.parse(xhr.responseText);
         if (xhr.status === 409) {
             // Validation Errors
@@ -35,7 +32,16 @@ function ctaAjax() {
     };
 
     xhr.onerror = () => {
+        console.log('Error del Servidor!');
+        const homeTextElement = document.getElementById('call-to-action').querySelector('.home-text');
 
+        const errorContainer = document.createElement('div');
+        errorContainer.classList.add('validation-errors', 'validation--register', 'validation--cta');
+
+        const strongElement = document.createElement('strong');
+        strongElement.innerHTML = 'Estamos experimentando problemas con tu registro, por favor intenta más tarde o mándanos un correo.';
+        errorContainer.appendChild(strongElement);
+        homeTextElement.appendChild(errorContainer);
     };
 
     xhr.setRequestHeader('Content-Type', 'application/json');
