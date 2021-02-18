@@ -33,3 +33,9 @@ exports.signupVS = [
         next(errors.array());
     }
 ];
+
+exports.loginVS = [
+    body('email').trim().blacklist('<|>|\'|"|\/'),
+    body('password').trim().escape(),
+    (req, res, next) => next()
+];

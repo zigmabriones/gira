@@ -23,12 +23,14 @@ function ctaAjax() {
     xhr.open('POST', url, true);
 
     xhr.onload = () => {
+        console.log(xhr.responseText)
         const res = JSON.parse(xhr.responseText);
         if (xhr.status === 409) {
             // Validation Errors
             validationErrorMessage(res);
         } else if (xhr.status === 201) {
             // No validation errors
+            validationSuccessMessage(res.first_name, res.email)
         }
     };
 
@@ -48,10 +50,33 @@ function validationErrorMessage(errors) {
     errorContainer.classList.add('validation-errors', 'validation--register', 'validation--cta');
 
     const strongElement = document.createElement('strong');
-    strongElement.innerHTML = 'Por favor corrija los siguientes errores:'
+    strongElement.innerHTML = 'Por favor corrija los siguientes errores:';
+    errorContainer.appendChild(strongElement);
 
     const ulElement = document.createElement('ul');
+    for (const error of errors) {
+        const liElement = document.createElement('li');
+        liElement.innerHTML = error.msg;
+        ulElement.appendChild(liElement);
+    }
+    errorContainer.appendChild(ulElement);
 
-    console.log(errors);
+    homeTextElement.appendChild(errorContainer);
+};
 
+function validationSuccessMessage(name, email) {
+    const ctaElement = document.getElementById('call-to-action');
+    const formElement = document.getElementById('js-cta-form');
+
+    const successContainer = document.createElement('div');
+    successContainer.classList.add('validation-errors', 'validation--register', 'validation--cta');
+    successContainer.style.backgroundColor = 'rgba(0, 255, 0, 0.2)';
+    successContainer.style.borderColor = 'rgba(15, 150, 15, 0.5)';
+
+    const strongElement = document.createElement('strong');
+    strongElement.innerHTML = `Gracias por registrarte, ${name}! Te mantendremos informado de Gira a través de tu correo, ${email}`;
+    successContainer.appendChild(strongElement);
+
+    ctaElement.removeChild(formElement);
+    ctaElement.appendChild(successContainer);
 };

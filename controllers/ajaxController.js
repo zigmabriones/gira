@@ -1,5 +1,6 @@
 // Require Models
 const Event = require('../models/event');
+const MailingList = require('../models/mailinglist');
 
 // Require Middleware
 const AWS = require('aws-sdk');
@@ -16,6 +17,9 @@ exports.ctaRegister = async (validationErrors, req, res, next) => {
             res.status(409).send(validationErrors);
             return;
         }
+        const registrant = new MailingList(req.body);
+        await registrant.save()
+        res.status(201).send(registrant);
     } catch (error) {
         next(error);
     }

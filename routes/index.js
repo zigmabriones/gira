@@ -20,7 +20,7 @@ router.get('/eventos/:eventUri', indexController.event);
 
 // Login
 router.get('/login', userController.loginGet);
-router.post('/login', userController.loginPost);
+router.post('/login', validationController.loginVS, userController.loginPost);
 
 // Sign Up
 router.get('/unete', userController.signUpGet);
