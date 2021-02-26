@@ -7,7 +7,7 @@ block content
 
     .divider.divider--first.divider--white
         .divider--first__layout
-            img.divider--first__logo(src='/images/logos/preferential-name.png' alt='Gira Logo' onclick='openSlideMenu()')
+            img.divider--first__logo(src='/images/logos/preferential-name.png' alt='Gira Logo' onclick='openSlideMenu(); openMobileSlideMenu()')
             .divider--first__userbuttons
                 a.button.button--wide(href='/login') LOG IN
                 a.button.button--wide(href='/unete') ÚNETE
@@ -50,8 +50,8 @@ block content
                 | mejora constante de la condición individual. Creemos que el individuo es el núcleo de la sociedad y la 
                 | integridad del individuo es el principal pilar de la integridad social.
         //- img(src='/images/placeholders/peoplewalking.jpg' alt='Placeholder image')
-        .home-image
-            img(src='/images/home/quienessomos.jpeg' alt='Placeholder image')
+        .home-image#quienessomos
+            //- img(src='/images/home/quienessomos.jpeg' alt='Placeholder image')
 
     .divider.divider--white#que-hacemos
         .home-text
@@ -63,8 +63,8 @@ block content
                 | buscamos educar y generar líderes en toda la república con uso de las entrevistas y oportunidades mediáticas 
                 | con expertos y profesores con el uso de cursos de capacitacion de diversos temas.
         //- img(src='/images/placeholders/crowd.jpg' alt='Placeholder image')
-        .home-image
-            img#quehacemos(src='/images/home/quehacemos.jpeg' alt='Placeholder image')
+        .home-image#quehacemos
+            //- img#quehacemos(src='/images/home/quehacemos.jpeg' alt='Placeholder image')
 
     .divider.divider--gray#equipo
         .home-text
@@ -83,7 +83,7 @@ block content
                 | De los que observan como perjudicial y peligrosa las ideas de igualdad absoluta, la cultura de la cancelación, 
                 | y los extremismos ideológicos.
         .team-grid
-            div
+            //- div
             .team-grid__square.m-cursor--default
                 .team-grid__info
                     .margin--05
@@ -101,7 +101,7 @@ block content
             div
             div
             div
-            div
+            //- div
             .team-grid__square.m-cursor--default
                 .team-grid__info
                     .margin--05
@@ -119,7 +119,7 @@ block content
             div
             div
             div
-            div
+            //- div
             .team-grid__square.m-cursor--default
                 .team-grid__info
                     .margin--05

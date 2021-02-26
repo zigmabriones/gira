@@ -25,7 +25,7 @@ function openMobileSlideMenu() {
     document.body.style.overflow = 'hidden';
     const menu = document.getElementById('menu--mobile');
     menu.childNodes.forEach(child => child.style.display = 'block');
-    menu.style.height = '100vh';
+    menu.style.height = '101vh';
 };
 
 /**
@@ -53,6 +53,7 @@ function navFade() {
             side.style.opacity = 0;
             side.style.display = 'none';
             mobileNav.style.opacity = 0;
+            mobileNav.style.height = 0;
             mobileNav.style.display = 'none';
             return;
         }
@@ -64,6 +65,7 @@ function navFade() {
             var opacity = 1;
         }
         side.style.opacity = opacity;
+        mobileNav.style.height = '4em';
         mobileNav.style.opacity = opacity;
     });
 };

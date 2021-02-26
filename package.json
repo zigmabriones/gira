@@ -33,6 +33,7 @@
     "pug": "^3.0.0"
   },
   "devDependencies": {
+    "localtunnel": "^2.0.1",
     "nodemon": "^2.0.4"
   },
   "engines": {

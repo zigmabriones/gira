@@ -1,0 +1,1496 @@
+/************************************************************/
+/*********************** Portrait ***************************/
+/************************************************************/
+/* iPhone 5/SE */
+@media (min-width: 0px) and (orientation: portrait) {
+    /********************************/
+    /************ Layout ************/
+    /********************************/
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /********************************/
+    /********* Opening Page *********/
+    /********************************/
+    #opening-wrapper {
+        margin-top: 17%;
+        margin-left: 10%;
+    }
+
+    #opening-logo {
+        height: 150px;
+        margin-bottom: 1em;
+    }
+
+    #opening-wrapper p {
+        font-size: 2em;
+    }
+
+    #opening-wrapper .button {
+        font-size: 1em;
+    }
+
+    /********************************/
+    /****** Home Page Dividers ******/
+    /********************************/
+    /* Dividers */
+    .divider {
+        display: block;
+    }
+
+    .divider--first .pyramid-grid {
+        right: 20%;
+        bottom: 5%;
+    }
+
+    .divider--first__logo {
+        width: 100px;
+    }
+
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 4em);
+        grid-template-rows: repeat(3, 4em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 0.6rem;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 4em);
+        grid-template-rows: repeat(3, 4em);
+        margin-left: 1em;
+    }
+
+    .team-grid__square img {
+        width: 84px;
+    }
+
+    /********************************/
+    /******** Home Page CTA *********/
+    /********************************/
+    .cta-form__input {
+        font-size: 0.7rem;
+    }
+
+    .cta-form__select {
+        font-size: 0.7rem;
+    }
+
+    /********************************/
+    /******* Home Page Events *******/
+    /********************************/
+    .event-table--desktop {
+        display: none;
+    }
+
+    .event-table--mobile {
+        display: table;
+    }
+
+    /********************************/
+    /*** Home Page Normal Dividers **/
+    /********************************/
+    .home-text__title {
+        text-align: center;
+    }
+
+    .home-text__text {
+        text-align: center;
+    }
+
+    #title-register {
+        font-size: 3rem;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__navigation {
+        width: 80%;
+        margin-top: 10%;
+    }
+
+    .carousel__medium {
+        max-height: 169px;
+        overflow-y: hidden;
+    }
+
+    .carousel--event {
+        width: 100%;
+    }
+
+    .carousel--event .carousel__navigation {
+        width: 80%;
+    }
+
+    /********************************/
+    /********** Sidebar/Nav *********/
+    /********************************/
+    .side--home {
+        display: none !important;
+    }
+
+    .side--mobile--home {
+        display: flex !important;
+    }
+
+    .menu__item--mobile {
+        font-size: 1em;
+    }
+
+    /********************************/
+    /************ Events ************/
+    /********************************/
+    .outer-wrapper {
+        margin-top: 40%;
+    }
+
+    /********************************/
+    /************ Login *************/
+    /********************************/
+    .login-grid {
+        grid-template-columns: 100%;
+        grid-row-gap: 5em;
+    }
+
+    .login {
+        width: 100%;
+    }
+
+    /********************************/
+    /************* Join *************/
+    /********************************/
+    .register-form {
+        width: 95%;
+    }
+
+    .register-form__input {
+        font-size: 0.7em;
+    }
+
+    .register-form__select {
+        font-size: 0.7em;
+    }
+
+    /********************************/
+    /********** Error Page **********/
+    /********************************/
+    .errorpage-wrapper img {
+        height: 150px;
+    }
+
+    /********************************/
+    /****** Validation Errors *******/
+    /********************************/
+    .validation-errors {
+        width: 100%;
+    }
+
+    .validation--register {
+        width: 90%;
+    }
+
+    /********************************/
+    /******** Global Classes ********/
+    /********************************/
+    .button {
+        font-size: 0.4rem;
+    }
+}
+
+/* Moto G4 */
+@media (min-width: 360px) and (orientation: portrait) {
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 5em);
+        grid-template-rows: repeat(3, 5em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 0.7rem;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 4.5em);
+        grid-template-rows: repeat(3, 4.5em);
+    }
+
+    .team-grid__square img {
+        width: 95px;
+    }
+
+    /********************************/
+    /********** Sidebar/Nav *********/
+    /********************************/
+    .menu__item--mobile {
+        font-size: 1.5em;
+    }
+
+    /********************************/
+    /******** Global Classes ********/
+    /********************************/
+    .button {
+        font-size: 0.6rem;
+    }
+}
+
+/* Surface Duo */
+@media (min-width: 540px) and (orientation: portrait) {
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 7em);
+        grid-template-rows: repeat(3, 7em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 0.8rem;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 6.5em);
+        grid-template-rows: repeat(3, 6.5em);
+    }
+
+    .team-grid__square img {
+        width: 137px;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__navigation {
+        width: 80%;
+        margin-top: 2.5em;
+    }
+
+    .carousel__medium {
+        max-height: 300px;
+        overflow-y: hidden;
+    }
+
+    /********************************/
+    /************ Events ************/
+    /********************************/
+    .outer-wrapper {
+        margin-top: 30%;
+    }
+}
+
+/* iPad */
+@media (min-width: 768px) and (orientation: portrait) {
+    /********************************/
+    /************ Layout ************/
+    /********************************/
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        font-size: 1.5em;
+    }
+
+    /********************************/
+    /********* Opening Page *********/
+    /********************************/
+    #opening-wrapper {
+        margin-top: 17%;
+        margin-left: 10%;
+    }
+
+    #opening-logo {
+        height: 300px;
+        margin-bottom: 1em;
+    }
+
+    #opening-wrapper p {
+        font-size: 3em;
+    }
+
+    #opening-wrapper .button {
+        font-size: 1.5em;
+    }
+
+    /********************************/
+    /****** Home Page Dividers ******/
+    /********************************/
+    /* Dividers */
+    .divider--first .pyramid-grid {
+        right: 15%;
+        bottom: 5%;
+    }
+
+    .divider--first__logo {
+        width: 150px;
+    }
+
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 10em);
+        grid-template-rows: repeat(3, 10em);
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 9.5em);
+        grid-template-rows: repeat(3, 9.5em);
+    }
+
+    .team-grid__square img {
+        width: 200px;
+    }
+
+    /********************************/
+    /******** Home Page CTA *********/
+    /********************************/
+    .cta-form__input {
+        font-size: 1.5em;
+    }
+
+    .cta-form__select {
+        font-size: 1.5em;
+    }
+
+    /********************************/
+    /******* Home Page Events *******/
+    /********************************/
+    .event-table--mobile {
+        font-size: 1.5em;
+    }
+
+    /********************************/
+    /*** Home Page Normal Dividers **/
+    /********************************/
+    .home-text__text {
+        font-size: 2em;
+    }
+
+    .home-image {
+        height: 450px;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__navigation {
+        width: 80%;
+        margin-top: 2.5em;
+    }
+
+    .carousel__medium {
+        max-height: 400px;
+        overflow-y: hidden;
+    }
+
+    /********************************/
+    /********** Sidebar/Nav *********/
+    /********************************/
+    .side--mobile {
+        height: 7em;
+    }
+
+    .menu__item--mobile {
+        font-size: 2em;
+    }
+
+    .close--mobile {
+        font-size: 1.5em
+    }
+
+    /********************************/
+    /************ Login *************/
+    /********************************/
+    .login {
+        font-size: 2em;
+    }
+
+    .button--login {
+        font-size: 2rem !important;
+    }
+
+    .login-join {
+        font-size: 2em;
+    }
+
+    .button--join {
+        font-size: 2rem !important;
+    }
+
+    /********************************/
+    /************* Join *************/
+    /********************************/
+
+    .register-form__input {
+        font-size: 1.2rem;
+    }
+    
+    .register-form__select {
+        font-size: 1.2rem;
+    }
+
+    /********************************/
+    /********** Error Page **********/
+    /********************************/
+    .errorpage-wrapper img {
+        height: auto;
+    }
+
+    /********************************/
+    /****** Validation Errors *******/
+    /********************************/
+    .validation-errors {
+        font-size: 1.5em;
+    }
+
+    /********************************/
+    /******** Global Classes ********/
+    /********************************/
+    .button {
+        font-size: 1.2rem;
+    }
+}
+
+/* iPad Pro */
+@media (min-width: 1024px) and (orientation: portrait) {
+    /********************************/
+    /****** Home Page Dividers ******/
+    /********************************/
+    /* Dividers */
+    .divider--first__logo {
+        width: auto;
+    }
+
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 13em);
+        grid-template-rows: repeat(3, 13em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 1rem;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        margin-left: 9em;
+    }
+}
+
+/************************************************************/
+/*********************** Landscape **************************/
+/************************************************************/
+/* iPhone 5/SE */
+@media (min-width: 0px) and (orientation: landscape) {
+    /********************************/
+    /************ Layout ************/
+    /********************************/
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /********************************/
+    /********* Opening Page *********/
+    /********************************/
+    #opening-wrapper {
+        margin-top: 3%;
+        margin-left: 10%;
+    }
+
+    #opening-logo {
+        height: 120px;
+        margin-bottom: 0;
+    }
+
+    #opening-wrapper p {
+        font-size: 2em;
+        margin-bottom: 1em;
+    }
+
+    #opening-wrapper .button {
+        font-size: 1em;
+    }
+
+    /********************************/
+    /****** Home Page Dividers ******/
+    /********************************/
+    /* Dividers */
+    .divider {
+        display: block;
+    }
+
+    .divider--first .pyramid-grid {
+        right: 15%;
+        bottom: 0%;
+    }
+
+    .divider--first__logo {
+        width: 100px;
+    }
+
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 4em);
+        grid-template-rows: repeat(3, 4em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 0.6rem;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 7.5em);
+        grid-template-rows: repeat(3, 7.5em);
+        margin-left: 1em;
+    }
+
+    .team-grid__square img {
+        width: 158px;
+    }
+
+    /********************************/
+    /******** Home Page CTA *********/
+    /********************************/
+    .cta-form__input {
+        font-size: 0.7rem;
+    }
+
+    .cta-form__select {
+        font-size: 0.7rem;
+    }
+
+    /********************************/
+    /******* Home Page Events *******/
+    /********************************/
+    .event-table--desktop {
+        display: none;
+    }
+
+    .event-table--mobile {
+        display: table;
+    }
+
+    /********************************/
+    /*** Home Page Normal Dividers **/
+    /********************************/
+    .home-text__title {
+        text-align: center;
+    }
+
+    .home-text__text {
+        text-align: center;
+    }
+
+    #title-register {
+        font-size: 3rem;
+    }
+
+    .home-image {
+        height: 250px;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__navigation {
+        width: 80%;
+        margin-top: 10%;
+    }
+
+    .carousel__medium {
+        max-height: 200px;
+        overflow-y: hidden;
+    }
+
+    .carousel--event {
+        width: 100%;
+    }
+
+    .carousel--event .carousel__navigation {
+        width: 80%;
+    }
+
+    /********************************/
+    /********** Sidebar/Nav *********/
+    /********************************/
+    .side--home {
+        display: none !important;
+    }
+
+    .side--mobile--home {
+        display: flex !important;
+    }
+
+    .menu__item--mobile {
+        font-size: 0.6em;
+    }
+    
+    .close--mobile {
+        font-size: 0.6em;
+    }
+
+    /********************************/
+    /************ Events ************/
+    /********************************/
+    .outer-wrapper {
+        margin-top: 25%;
+    }
+
+    /********************************/
+    /************ Login *************/
+    /********************************/
+    .login-grid {
+        grid-template-columns: 100%;
+        grid-row-gap: 5em;
+    }
+
+    .login {
+        width: 100%;
+    }
+
+    /********************************/
+    /************* Join *************/
+    /********************************/
+    .register-form {
+        width: 95%;
+    }
+
+    .register-form__input {
+        font-size: 0.7em;
+    }
+
+    .register-form__select {
+        font-size: 0.7em;
+    }
+
+    /********************************/
+    /********** Error Page **********/
+    /********************************/
+    .errorpage-wrapper img {
+        height: 100px;
+    }
+
+    /********************************/
+    /****** Validation Errors *******/
+    /********************************/
+    .validation-errors {
+        width: 100%;
+    }
+
+    .validation--register {
+        width: 90%;
+    }
+
+    /********************************/
+    /******** Global Classes ********/
+    /********************************/
+    .button {
+        font-size: 0.8rem;
+    }
+}
+
+/* Moto G4 */
+@media (min-width: 640px) and (orientation: landscape) {
+    /********************************/
+    /********* Opening Page *********/
+    /********************************/
+    #opening-logo {
+        height: 150px;
+    }
+    
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 4.5em);
+        grid-template-rows: repeat(3, 4.5em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 0.6rem;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 8.5em);
+        grid-template-rows: repeat(3, 8.5em);
+        margin-left: none;
+    }
+
+    .team-grid__square img {
+        width: 179px;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__medium {
+        max-height: 250px;
+        overflow-y: hidden;
+    }
+
+    /********************************/
+    /********** Sidebar/Nav *********/
+    /********************************/
+    .menu__item--mobile {
+        font-size: 0.7em;
+    }
+    
+    .close--mobile {
+        font-size: 0.6em;
+    }
+}
+
+/* Galaxy Fold */
+@media (min-width: 653px) and (max-height: 280px) and (orientation: landscape) {
+    /********************************/
+    /********* Opening Page *********/
+    /********************************/
+    #opening-logo {
+        height: 100px;
+    }
+}
+
+/* Surface Duo */
+@media (min-width: 720px) and (orientation: landscape) {
+    /********************************/
+    /****** Home Page Dividers ******/
+    /********************************/
+    .divider--first__logo {
+        width: 150px;
+    }
+
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 5em);
+        grid-template-rows: repeat(3, 5em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 0.6rem;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 9em);
+        grid-template-rows: repeat(3, 9em);
+        margin-left: 2em;
+    }
+
+    .team-grid__square img {
+        width: 189px;
+    }
+
+    /********************************/
+    /*** Home Page Normal Dividers **/
+    /********************************/
+    .home-image {
+        height: 300px;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__medium {
+        max-height: 350px;
+        overflow-y: hidden;
+    }
+
+    /********************************/
+    /********** Sidebar/Nav *********/
+    /********************************/
+    .menu__item--mobile {
+        font-size: 0.9em;
+    }
+    
+    .close--mobile {
+        font-size: 0.9em;
+    }
+
+    /********************************/
+    /************ Events ************/
+    /********************************/
+    .outer-wrapper {
+        margin-top: 20%;
+    }
+}
+
+/* iPhone X */
+@media (min-width: 812px) and (orientation: landscape) {
+    /********************************/
+    /********* Opening Page *********/
+    /********************************/
+    #opening-wrapper {
+        margin-top: 3%;
+    }
+
+    #opening-wrapper p {
+        font-size: 2.5em;
+        margin-bottom: 1.2em;
+    }
+}
+
+/* iPad */
+@media (min-width: 1024px) and (orientation: landscape) {
+    /********************************/
+    /********* Opening Page *********/
+    /********************************/
+    #opening-wrapper {
+        margin-top: 7%;
+        margin-left: 10%;
+    }
+
+    #opening-logo {
+        height: 291.5px;
+        margin-bottom: 5em;
+    }
+
+    #opening-wrapper p {
+        font-size: 3em;
+    }
+
+    #opening-wrapper .button {
+        font-size: 1.5em;
+    }
+
+    /********************************/
+    /****** Home Page Dividers ******/
+    /********************************/
+    /* Dividers */
+    .divider {
+        display: grid;
+    }
+
+    .divider--first {
+        display: block;
+    }
+
+    .divider--block {
+        display: block;
+    }
+
+    .divider--first .pyramid-grid {
+        right: 15%;
+        bottom: 5%;
+    }
+
+    .divider--first__logo {
+        width: auto;
+    }
+
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 10em);
+        grid-template-rows: repeat(3, 10em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 0.8rem;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    #equipo {
+        display: block;
+    }
+
+    #equipo h1, #equipo p {
+        text-align: center;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(4, 9.5em);
+        grid-template-rows: repeat(3, 9.5em);
+        margin-left: 7em;
+    }
+
+    .team-grid__square img {
+        width: 200px;
+    }
+
+    /********************************/
+    /******* Home Page Events *******/
+    /********************************/
+    .event-table--desktop {
+        display: table;
+    }
+
+    .event-table--mobile {
+        display: none;
+    }
+
+    /********************************/
+    /*** Home Page Normal Dividers **/
+    /********************************/
+    .home-text__title {
+        text-align: right;
+    }
+
+    .home-text__title--left {
+        text-align: left;
+    }
+
+    .home-text__text {
+        text-align: right;
+    }
+
+    #title-register {
+        font-size: 3em;
+    }
+
+    .home-image {
+        height: 100%;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__navigation {
+        width: 80%;
+        margin-top: 2.5em;
+    }
+
+    .carousel__medium {
+        max-height: 500px;
+        overflow-y: hidden;
+    }
+
+    .carousel--event {
+        width: 56.7%;
+        height: 90%;
+    }
+
+    .carousel--event .carousel__navigation {
+        width: 45%;
+    }
+
+    /********************************/
+    /********** Sidebar/Nav *********/
+    /********************************/
+    .side--home {
+        display: block !important;
+    }
+
+    .side--mobile--home {
+        display: none !important;
+    }
+
+    .side__logo {
+        width: 35%;
+    }
+
+    .side__icon {
+        left: 11%;
+    }
+
+    /********************************/
+    /************ Events ************/
+    /********************************/
+    .outer-wrapper {
+        margin-top: 11%;
+    }
+
+    /********************************/
+    /************ Login *************/
+    /********************************/
+    .login-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-row-gap: none;
+    }
+
+    .login {
+        width: 50%;
+    }
+
+    /********************************/
+    /************* Join *************/
+    /********************************/
+    .register-form__input {
+        font-size: 1rem;
+    }
+
+    .register-form__select {
+        font-size: 1rem;
+    }
+
+    /********************************/
+    /********** Error Page **********/
+    /********************************/
+    .errorpage-wrapper img {
+        height: auto;
+    }
+
+    /********************************/
+    /****** Validation Errors *******/
+    /********************************/
+    .validation-errors {
+        width: auto;
+    }
+
+    .validation--register {
+        width: 50%;
+    }
+}
+
+/* iPad Pro */
+@media (min-width: 1366px) and (orientation: landscape) {
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 13em);
+        grid-template-rows: repeat(3, 13em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 1rem;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    #equipo {
+        display: grid;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(4, 9em);
+        grid-template-rows: repeat(3, 9em);
+        margin-left: 7em;
+    }
+
+    /********************************/
+    /******** Home Page CTA *********/
+    /********************************/
+    .cta-form__input {
+        font-size: 1rem;
+    }
+
+    .cta-form__select {
+        font-size: 1rem;
+    }
+
+    /********************************/
+    /******* Home Page Events *******/
+    /********************************/
+    .event-table--desktop {
+        font-size: 1.5em;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__navigation {
+        width: 800px;
+        margin-top: 2.5em;
+    }
+
+    .carousel__medium {
+        max-height: 500px;
+        overflow-y: hidden;
+    }
+    
+    .carousel--event {
+        height: 95%;
+    }
+
+    /********************************/
+    /********** Sidebar/Nav *********/
+    /********************************/
+    .side__logo {
+        width: 50%;
+    }
+
+    .side__icon {
+        left: 17%;
+    }
+
+    /********************************/
+    /************* Join *************/
+    /********************************/
+    .register-form {
+        width: 50%;
+    }
+
+    /********************************/
+    /******** Global Classes ********/
+    /********************************/
+    .button {
+        font-size: 1rem;
+    }
+}
+
+/************************************************************/
+/************************* Laptop ***************************/
+/************************************************************/
+@media (min-width: 0px) and (min-height: 600px) and (hover) {
+    /********************************/
+    /********* Opening Page *********/
+    /********************************/
+    #opening-wrapper {
+        margin-top: 7%;
+        margin-left: 10%;
+    }
+
+    #opening-logo {
+        height: 250px;
+        margin-bottom: 3em;
+    }
+
+    #opening-wrapper p {
+        font-size: 2.5em;
+    }
+
+    #opening-wrapper .button {
+        font-size: 1em;
+    }
+
+    /********************************/
+    /****** Home Page Dividers ******/
+    /********************************/
+    /* Dividers */
+    .divider--first .pyramid-grid {
+        right: 15%;
+        bottom: 5%;
+    }
+
+    .divider--first__logo {
+        width: 100px;
+    }
+
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 7em);
+        grid-template-rows: repeat(3, 7em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 0.6rem;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 6em);
+        grid-template-rows: repeat(3, 6em);
+        margin-left: 1em;
+    }
+
+    .team-grid__square img {
+        width: 126px;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__navigation {
+        width: 80%;
+        margin-top: 10%;
+    }
+
+    .carousel__medium {
+        max-height: 250px;
+        overflow-y: hidden;
+    }
+
+    .carousel--event {
+        width: 100%;
+    }
+
+    .carousel--event .carousel__navigation {
+        width: 80%;
+    }
+
+    /********************************/
+    /******** Global Classes ********/
+    /********************************/
+    .button {
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 800px) and (min-height: 600px) and (hover) {
+    /********************************/
+    /****** Home Page Dividers ******/
+    /********************************/
+    /* Dividers */
+    .divider--first .pyramid-grid {
+        right: 15%;
+        bottom: 0%;
+    }
+
+    .divider--first__logo {
+        width: 150px;
+    }
+
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 9em);
+        grid-template-rows: repeat(3, 9em);
+    }
+
+    .pyramid-grid__square {
+        font-size: 0.8em;
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 9.5em);
+        grid-template-rows: repeat(3, 9.5em);
+        margin-left: 1em;
+    }
+
+    .team-grid__square img {
+        width: 200px;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__medium {
+        max-height: 400px;
+    }
+
+    /********************************/
+    /********** Sidebar/Nav *********/
+    /********************************/
+    .menu__item--mobile {
+        font-size: 1.5em;
+    }
+
+    /********************************/
+    /************* Join *************/
+    /********************************/
+    .register-form__input {
+        font-size: 1em;
+    }
+
+    .register-form__select {
+        font-size: 1em;
+    }
+
+    /********************************/
+    /******** Global Classes ********/
+    /********************************/
+    .button {
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 1200px) and (min-height: 600px) and (hover) {
+    /********************************/
+    /********* Opening Page *********/
+    /********************************/
+    #opening-wrapper {
+        margin-top: 3%;
+        margin-left: 19%;
+    }
+
+    #opening-logo {
+        height: 291.5px;
+        margin-bottom: 2em;
+    }
+
+    #opening-wrapper p {
+        font-size: 3em;
+        margin-bottom: 2em;
+    }
+
+    #opening-wrapper .button {
+        font-size: 1em;
+    }
+
+    /********************************/
+    /****** Home Page Dividers ******/
+    /********************************/
+    /* Dividers */
+    .divider--first__logo {
+        width: auto;
+    }
+
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 10em);
+        grid-template-rows: repeat(3, 10em);
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        margin-left: 14em; 
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel__navigation {
+        width: 800px;
+        margin-top: 2.5rem;
+    }
+
+    .carousel__medium {
+        max-height: 500px;
+    }
+}
+
+@media (min-width: 1366px) and (min-height: 600px) and (hover) {
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 12em);
+        grid-template-rows: repeat(3, 12em);
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 7.5em);
+        grid-template-rows: repeat(3, 7.5em);
+        margin-left: none;
+    }
+
+    .team-grid__square img {
+        width: 158px;
+    }
+
+    .team-grid__info {
+        font-size: 0.79em;
+    }
+
+    /********************************/
+    /******* Home Page Events *******/
+    /********************************/
+    .event-table--desktop {
+        font-size: 1em;
+    }
+
+    /********************************/
+    /*********** Carousel ***********/
+    /********************************/
+    .carousel--event {
+        width: 56.7%;
+    }
+
+    .carousel--event .carousel__navigation {
+        width: 45%;
+    }
+
+    /********************************/
+    /******** Global Classes ********/
+    /********************************/
+    .button {
+        font-size: 1em;
+    }
+}
+
+@media (min-width: 1600px) and (min-height: 900px) and (hover) {
+    /********************************/
+    /********* Opening Page *********/
+    /********************************/
+    #opening-wrapper {
+        margin-top: 7%;
+        margin-left: 19%;
+    }
+
+    #opening-logo {
+        height: 291.5px;
+        margin-bottom: 5em;
+    }
+
+    #opening-wrapper p {
+        font-size: 3em;
+        margin-bottom: 2em;
+    }
+
+    #opening-wrapper .button {
+        font-size: 1em;
+    }
+
+    /********************************/
+    /****** Home Page Dividers ******/
+    /********************************/
+    /* Dividers */
+    .divider--first .pyramid-grid {
+        right: 15%;
+        bottom: 5%;
+    }
+
+    /********************************/
+    /****** Home Page Pyramid *******/
+    /********************************/
+    .pyramid-grid {
+        grid-template-columns: repeat(3, 13em);
+        grid-template-rows: repeat(3, 13em);
+    }
+
+    /********************************/
+    /****** Home Page Team Grid *****/
+    /********************************/
+    .team-grid {
+        grid-template-columns: repeat(4, 9.5em);
+        grid-template-rows: repeat(3, 9.5em);
+        margin-left: none;
+    }
+
+    .team-grid__square img {
+        width: 200px;
+    }
+
+    .team-grid__info {
+        font-size: 1em;
+    }
+
+    /********************************/
+    /*** Home Page Normal Dividers **/
+    /********************************/
+    .home-image {
+        height: 450px;
+    }
+}
