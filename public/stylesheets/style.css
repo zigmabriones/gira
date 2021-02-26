@@ -153,8 +153,12 @@ footer {
 
 .divider--first__logo {
   cursor: pointer;
-  width: auto;
-  height: auto;
+  width: 213px;
+  height: 281px;
+  background-image: url('/images/logos/preferential-name.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .divider--first__userbuttons {
