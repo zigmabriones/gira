@@ -25,64 +25,6 @@ a {
 } */
 
 /********************************/
-/*********** Test Nav ***********/
-/********************************/
-.hidden-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: 0.6s;
-  padding: 40px 100px;
-  z-index: 100000;
-}
-
-.hidden-header.sticky {
-  padding: 5px 100px;
-  background: blue;
-}
-
-.hidden-header.sticky ul li a {
-  color: red;
-}
-
-.hidden-header .logo {
-  position: relative;
-  font-weight: 700;
-  color: #000;
-  text-decoration: none;
-  font-size: 2em;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  transition: 0.6s;
-}
-
-.hidden-header ul {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hidden-header ul li {
-  position: relative;
-  list-style: none;
-}
-
-.hidden-header ul li a {
-  position: relative;
-  margin: 0 15px;
-  text-decoration: none;
-  color: #000;
-  letter-spacing: 2px;
-  font-weight: 500px;
-  transition: 0.6s;
-}
-
-/********************************/
 /************ Layout ************/
 /********************************/
 #page-container {
@@ -211,6 +153,8 @@ footer {
 
 .divider--first__logo {
   cursor: pointer;
+  width: auto;
+  height: auto;
 }
 
 .divider--first__userbuttons {
