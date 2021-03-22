@@ -1,0 +1,48 @@
+extends ../layout
+include ../mixins/_nav
+include ../mixins/_dashboard-header
+
+block content
+    +nav()
+
+    .outer-wrapper.outer-wrapper--dashboard
+        +dashboardHeader({ selected: 3 })
+
+        .dashboard-content
+            h1.user-header MI CUENTA
+
+            if errors
+                .validation-errors.validation--register
+                    strong Por favor corrija los siguientes errores: 
+                    ul 
+                        each error in errors 
+                            li= error.msg
+
+            form.admin-form(action='' method='post' autocomplete='off')
+                label.admin-form__label(for='first_name') NOMBRE
+                input.admin-form__input(type='text' name='first_name' value=user.first_name required)
+
+                label.admin-form__label(for='last_name') APELLIDO
+                input.admin-form__input(type='text' name='last_name' value=user.last_name required)
+                
+                label.admin-form__label(for='email') CORREO
+                input.admin-form__input(type='email' name='email' value=user.email required)
+                
+                label.admin-form__label(for='phone_number') TELÉFONO
+                input.admin-form__input(type='text' name='phone_number' value=`${user.phone_number || ''}`)
+                
+                label.admin-form__label(for='age') EDAD
+                input.admin-form__input(type='number' min='0' max='150' name='age' value=`${user.age || ''}`)
+                
+                label.admin-form__label(for='institution') UNIVERSIDAD, TRABAJO O INSTITUCIÓN
+                input.admin-form__input(type='text' name='institution' value=`${user.institution || ''}`)
+                
+                label.admin-form__label(for='password') CAMBIAR CONTRASEÑA
+                input.admin-form__input(type='password' name='password')
+                
+                label.admin-form__label(for='confirm_password') CONFIRMAR CAMBIO DE CONTRASEÑA
+                input.admin-form__input(type='password' name='confirm_password')
+
+                .admin-form__buttons
+                    button.button(type='submit') GUARDAR CAMBIOS
+                    

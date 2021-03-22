@@ -80,3 +80,24 @@ Laptop:
   1200px - 600px
   1366px - 600px
   1600px - 900px
+
+
+========================================
+3. Noticias y articulos
+    - Media upload
+2. Download mailing list
+1. Registro a eventos
+    - Mandar correo un dia antes a los registrados con link
+    - Solo usuarios se pueden registrar
+2. Mailing list
+    - Send mass emails
+1. homepage 
+    - Change text for mailing list
+2. Mails:
+    - contacto@mexicogira.com
+    - eventos@mexicogira.com
+    - *@mexicogira.com (for team members)
+    - no-reply@mexicogira.com
+3. SEO
+    - Google ads, etc.
+    - Google analytics

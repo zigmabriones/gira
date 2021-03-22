@@ -15,7 +15,8 @@ block content
         h2.event-title= event.name.toUpperCase()
         h3.event-author= event.exhibitor.toUpperCase()
         h4.event-date= dateString
-        p.event-text= event.description
+        - const description = `<p>${event.description.replace(/(\r\n|\r|\n)/g,'<br>')}</p>`
+        .event-text !{description}
 
         if event.videos.length > 0 || event.images.length > 0
             .event-media 

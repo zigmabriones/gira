@@ -1,0 +1,26 @@
+extends ../layout
+include ../mixins/_nav
+include ../mixins/_dashboard-header
+
+block content
+    +nav()
+
+    .outer-wrapper.outer-wrapper--dashboard
+        +dashboardHeader({ selected: 0 })
+
+        .dashboard-content
+            .dashboard-content__message
+                p.dashboard-content__message-header ¡Aún no te has registrado a eventos!
+                p.dashboard-content__message-text Vuelve a revisar esta página cuando te registres a uno.
+
+        //- a(href='/admin/mailing-list') Mailing List
+        //- br
+        //- a(href='/admin/eventos/nuevo') Crear Evento
+        //- if events && events.length 
+        //-     p Editar Evento
+        //-     ul 
+        //-         each event in events 
+        //-             li 
+        //-                 a(href=`/admin/eventos/editar/${event._id}`)= event.name
+        //- br
+        //- a(href='/logout') Cerrar sesión

@@ -1,63 +1,138 @@
 extends ../layout
+include ../mixins/_nav
+include ../mixins/_dashboard-header
 
 block content 
-    if url.endsWith('/nuevo')
-        h1 Crear Evento
-        form(action='' method='post' enctype='multipart/form-data' style='display: flex; flex-direction: column;' autocomplete='off')
-            input(type='hidden' name='_id' value=eventId)
-            input(type='text' name='name' placeholder='Nombre del evento' required)
-            input(type='date' name='date' required)
-            input(type='text' name='exhibitor' placeholder='Nombre del expositor' required)
-            textarea(name='description' placeholder='Descripción o resumen del evento')
-            label(for='videos[]' style='margin: 1em 0;') Videos 
-            input(type='text' name='videos[]' placeholder='URL del video')
-            input(type='text' name='videos[]' placeholder='URL del video')
-            input(type='text' name='videos[]' placeholder='URL del video')
-            label(for='images[]' style='margin: 1em 0;') Imágenes 
-            input(type='hidden' name='images[]' value='')
-            input(type='file' name='image0')
-            input(type='file' name='image1')
-            input(type='file' name='image2')
-            input(type='file' name='image3')
-            input(type='file' name='image4')
-            button(type='submit' style='margin: 1em 0;') Crear Evento
-    else if url.includes('/editar')
-        h1 Editar Evento: #{event.name}
-        form(action='' method='post' enctype='multipart/form-data' style='display: flex; flex-direction: column;' autocomplete='off')
-            input(type='text' name='name' placeholder='Nombre del evento' value=event.name required)
-            - const dateString = `${event.date.getFullYear()}-${String(event.date.getMonth() + 1).padStart(2, '0')}-${String(event.date.getDate()).padStart(2, '0')}`;
-            input(type='date' name='date' value=dateString)
-            input(type='text' name='exhibitor' placeholder='Nombre del expositor' value=event.exhibitor required)
-            textarea(name='description' placeholder='Descripción o resumen del evento')= event.description || null
-            label(for='videos[]' style='margin: 1em 0;') Videos 
-            input(type='text' name='videos[]' placeholder='URL del video' value=event.videos[0] || null)
-            input(type='text' name='videos[]' placeholder='URL del video' value=event.videos[1] || null)
-            input(type='text' name='videos[]' placeholder='URL del video' value=event.videos[2] || null)
-            label(for='images[]' style='margin: 1em 0;') Imágenes 
-            if event.images && event.images.length 
-                each image, index in event.images
-                    input(type='hidden' name=`images[]` value=image)
+    +nav()
+
+    .outer-wrapper.outer-wrapper--dashboard
+        +dashboardHeader({ selected: 2 })
+
+        .dashboard-content
+            if url.endsWith('/nuevo')
+                .event-header
+                    a(href='/admin/eventos')
+                        i.fas.fa-arrow-left.event-header__back
+                    h1.event-header__title CREAR EVENTO
                 
-                .tmp-edit-images
-                    - for (let i = 0; i < 5; i++)
-                        .tmp-edit-images__edit-image
-                            .tmp-edit-images__image
-                                if event.images[i]
-                                    p.tmp-edit-images__image-delete(data-key=event.images[i] data-id=event._id) X
-                                img(src=`${event.images[i] ? `https://gira-mediadb.s3.amazonaws.com/${event.images[i]}` : ''}`)
-                            input(type='file' name=`image${i}`)
-            else
-                input(type='hidden' name='images[]' value='')
-                input(type='file' name='image0')
-                input(type='file' name='image1')
-                input(type='file' name='image2')
-                input(type='file' name='image3')
-                input(type='file' name='image4')
-            button(type='submit' style='margin: 1em 0;') Guardar Cambios
-        
-        form(action='/admin/eventos/borrar' method='post' style='display: flex; flex-direction: column;')
-            button(type='submit' name='deleteId' value=event._id) Borrar Evento
+                if errors 
+                    .validation-errors.validation--register
+                        strong Por favor corrija los siguientes errores:
+                        ul
+                            each error in errors
+                                li= error.msg
+                                
+                form.admin-form(action='' method='post' enctype='multipart/form-data' autocomplete='off')
+                    input(type='hidden' name='_id' value=eventId)
+                    
+                    label.admin-form__label(for='name') NOMBRE DEL EVENTO
+                    input.admin-form__input(type='text' name='name' required)
+
+                    label.admin-form__label(for='date') FECHA DEL EVENTO
+                    input.admin-form__input(type='date' name='date' required)
+
+                    label.admin-form__label(for='exhibitor') EXPOSITOR
+                    input.admin-form__input(type='text' name='exhibitor' required)
+
+                    label.admin-form__label.admin-form__label--textarea(for='description') DESCRIPCIÓN O RESUMEN DEL EVENTO
+                    textarea.admin-form__textarea(name='description')
+                    
+                    label.admin-form__label(for='videos[]') VIDEOS
+                    .admin-form__video
+                        label.admin-form__label.admin-form__label--video(for='video0') 1.
+                        input.admin-form__input.admin-form__input--video(type='text' name='videos[]' id='video0' placeholder='URL del video')
+                    .admin-form__video
+                        label.admin-form__label.admin-form__label--video(for='video1') 2.
+                        input.admin-form__input.admin-form__input--video(type='text' name='videos[]' id='video1' placeholder='URL del video')
+                    .admin-form__video
+                        label.admin-form__label.admin-form__label--video(for='video2') 3.
+                        input.admin-form__input.admin-form__input--video(type='text' name='videos[]' id='video2' placeholder='URL del video')
+                    
+                    label.admin-form__label(for='images[]') IMÁGENES
+                    input(type='hidden' name='images[]' value='') 
+                    .drop-zone-grid
+                        - for (let i = 0; i < 5; i++)
+                            .drop-zone--info
+
+                                //- Image Drop-Zone
+                                .drop-zone
+                                    span.drop-zone__prompt ARRASTRA LA IMÁGEN O HAZ CLICK PARA CARGAR
+                                    //- .drop-zone__thumb(data-label='myfile.txt')
+                                    input.drop-zone__input(type='file' name=`image${i}`)
+                    
+                    
+                    .admin-form__buttons
+                        a.button(href='/admin/eventos') CANCELAR
+                        button.button(type='submit') PUBLICAR EVENTO
+            
+            else if url.includes('/editar')
+                .event-header
+                    a(href='/admin/eventos')
+                        i.fas.fa-arrow-left.event-header__back
+                    h1.event-header__title EDITAR EVENTO: #{event.name}
+
+                if errors 
+                    .validation-errors.validation--register
+                        strong Por favor corrija los siguientes errores:
+                        ul
+                            each error in errors
+                                li= error.msg
+
+                form.admin-form(action='' method='post' enctype='multipart/form-data' autocomplete='off')
+                    label.admin-form__label(for='name') NOMBRE DEL EVENTO
+                    input.admin-form__input(type='text' name='name' value=event.name required)
+
+                    - const dateString = `${event.date.getFullYear()}-${String(event.date.getMonth() + 1).padStart(2, '0')}-${String(event.date.getDate()).padStart(2, '0')}`;
+                    label.admin-form__label(for='date') FECHA DEL EVENTO
+                    input.admin-form__input(type='date' name='date' value=dateString required)
+
+                    label.admin-form__label(for='exhibitor') EXPOSITOR
+                    input.admin-form__input(type='text' name='exhibitor' value=event.exhibitor required)
+
+                    label.admin-form__label.admin-form__label--textarea(for='description') DESCRIPCIÓN O RESUMEN DEL EVENTO
+                    textarea.admin-form__textarea(name='description')= event.description || null
+
+                    label.admin-form__label(for='videos[]') VIDEOS
+                    .admin-form__video
+                        label.admin-form__label.admin-form__label--video(for='video0') 1.
+                        input.admin-form__input.admin-form__input--video(type='text' name='videos[]' id='video0' placeholder='URL del video' value=event.videos[0] || null)
+                    .admin-form__video
+                        label.admin-form__label.admin-form__label--video(for='video0') 2.
+                        input.admin-form__input.admin-form__input--video(type='text' name='videos[]' id='video1' placeholder='URL del video' value=event.videos[1] || null)
+                    .admin-form__video
+                        label.admin-form__label.admin-form__label--video(for='video0') 3.
+                        input.admin-form__input.admin-form__input--video(type='text' name='videos[]' id='video2' placeholder='URL del video' value=event.videos[2] || null)
+                    
+                    label.admin-form__label(for='images[]') IMÁGENES
+                    input(type='hidden' name='images[]' value='') 
+                    .drop-zone-grid
+                        - for (let i = 0; i < 5; i++)
+                            .drop-zone--info
+
+                                //- Image Drop-Zone
+                                .drop-zone
+                                    if event && event.images[i]
+                                        .drop-zone__thumb(data-label=`${event.images[i].split('-')[1]}` style=`background-image: url(https://gira-mediadb.s3.amazonaws.com/${event.images[i]})`)
+                                        input.drop-zone__input(type='file' name=`image${i}`)
+                                    else
+                                        span.drop-zone__prompt ARRASTRA LA IMÁGEN O HAZ CLICK PARA CARGAR
+                                        //- .drop-zone__thumb(data-label='myfile.txt')
+                                        input.drop-zone__input(type='file' name=`image${i}`)
+
+                                if event && event.images[i]
+                                    button.button.drop-zone--info__delete(type='button' data-key=event.images[i] data-id=event._id) BORRAR
+                    
+                    .admin-form__buttons
+                        button.button(type='submit') GUARDAR CAMBIOS
+                
+                form(action='/admin/eventos/borrar' method='post' style='display: flex; flex-direction: column;')
+                    .admin-form-delete 
+                        button.button(type='submit' name='deleteId' value=event._id) BORRAR EVENTO
     
     script(src='/javascripts/ajax/event.js')
+    script(src='/javascripts/common.js')
     script.
-        document.addEventListener('DOMContentLoaded', _ => setupDeleteListeners())
+        document.addEventListener('DOMContentLoaded', _ => {
+            setupDeleteListeners();
+            dropZoneSetup();
+        });

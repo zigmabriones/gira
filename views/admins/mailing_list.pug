@@ -1,27 +1,48 @@
 extends ../layout
 include ../mixins/_nav
+include ../mixins/_dashboard-header
 
-block content 
-    table(style='text-align: center;') 
-        thead 
-            td 
-                strong Nombre
-            td 
-                strong Correo 
-            td 
-                strong Teléfono 
-            td 
-                strong Edad 
-            td 
-                strong Sexo 
-            td 
-                strong Institución 
-        tbody 
-            each person in mailingList
-                tr 
-                    td #{person.first_name} #{person.last_name}
-                    td #{person.email}
-                    td= person.phone_number || ''
-                    td= person.age || ''
-                    td #{person.gender}
-                    td #{person.institution}
+block content
+    +nav()
+
+    .outer-wrapper.outer-wrapper--dashboard
+        +dashboardHeader({ selected: 1 })
+
+        .dashboard-content
+        
+            #mailing-list--mobile.dashboard-content__message
+                p.dashboard-content__message-text El mailing list no está disponible en móvil.
+            
+            .mailing-list 
+                .mailing-list__toolbar
+                    button.mailing-list__create(type='button') CREAR
+                    .mailing-list__search
+                        i.fas.fa-search
+                        input(type='search' name='search' placeholder='Buscar')
+                    button.mailing-list__ud(type='button') BORRAR
+                    button.mailing-list__ud(type='button') EDITAR 
+                    p.mailing-list__results= `${mailingList.length} RESULTADOS`
+                .mailing-list__header
+                    .mailing-list__row
+                        input.mailing-list__checkbox(type='checkbox')
+                        p.mailing-list__label.mailing-list__name NOMBRE
+                        p.mailing-list__label.mailing-list__email CORREO
+                        p.mailing-list__label.mailing-list__phone TELÉFONO
+                        p.mailing-list__label.mailing-list__age EDAD
+                        p.mailing-list__label.mailing-list__gender SEXO
+                        p.mailing-list__label.mailing-list__institution INSTITUCIÓN
+                .mailing-list__body
+                    each person in mailingList
+                        .mailing-list__row
+                            input.mailing-list__checkbox(type='checkbox')
+                            p.mailing-list__item.mailing-list__name #{person.first_name} #{person.last_name}
+                            p.mailing-list__item.mailing-list__email #{person.email}
+                            p.mailing-list__item.mailing-list__phone= person.phone_number || '--'
+                            p.mailing-list__item.mailing-list__age= person.age || '--'
+                            p.mailing-list__item.mailing-list__gender= `${person.gender == 'male' ? 'M' : 'F'}`
+                            p.mailing-list__item.mailing-list__institution= person.institution || '--'
+                .mailing-list__footer 
+                    .mailing-list__row.mailing-list__buttons 
+                        i.fas.fa-chevron-left.mailing-list__pagebutton
+                        p.mailing-list__pagebutton 1
+                        i.fas.fa-chevron-right.mailing-list__pagebutton

@@ -1,6 +1,7 @@
 // Require Modules
 const MailingList = require('../models/mailinglist');
 const Event = require('../models/event');
+const User = require('../models/user');
 
 // Require middleware
 const Multer = require('multer');
@@ -33,10 +34,9 @@ exports.upload = upload.fields([
 ]);
 
 const fs = require('fs');
-const { callbackify } = require('util');
 exports.pushToS3 = async (req, res, next) => {
     if (req.files) {
-        
+
         // Upload to S3
         async function s3Upload(imgpath, imgname, folder, errorHandle) {
             const fileContent = fs.readFileSync(imgpath);
@@ -128,10 +128,10 @@ exports.pushToS3 = async (req, res, next) => {
     }
 };
 
-exports.account = async (req, res, next) => {
+exports.misEventos = async (req, res, next) => {
     try {
         const events = await Event.aggregate([ { $sort: { date: -1 } } ]);
-        res.render('admins/dashboard', { title: 'Gira: Cuenta', events });
+        res.render('admins/myevents', { title: 'Gira: Cuenta', events });
     } catch(error) {
         next(error);
     }
@@ -141,6 +141,15 @@ exports.mailingListGet = async (req, res, next) => {
     try {
         const mailingList = await MailingList.find();
         res.render('admins/mailing_list', { title: 'Gira: Mailing List', mailingList });
+    } catch(error) {
+        next(error);
+    }
+};
+
+exports.eventsGet = async (req, res, next) => {
+    try {
+        const events = await Event.aggregate([{ $sort: { date: -1 } }]);
+        res.render('admins/event_manage', { title: 'Gira: Eventos', events });
     } catch(error) {
         next(error);
     }
@@ -160,23 +169,48 @@ exports.eventCURDGet = async (req, res, next) => {
     }
 };
 
-exports.newEventPost = async (req, res, next) => {
+exports.newEventPost = async (validationErrors, req, res, next) => {
     try {
+        if (validationErrors.length) {
+            res.render('admins/event_crud', { title: 'Gira: Crear Evento', errors: validationErrors });
+            return;
+        }
+
         req.body.images = req.body.images.filter(image => image != '');
         req.body.videos = req.body.videos.filter(video => video != '');
         const event = new Event(req.body);
         await event.save();
-        res.redirect('/admin/account');
+        res.redirect('/admin/eventos');
     } catch(error) {
         next(error);
     }
 };
 
-exports.editEventPost = async (req, res, next) => {
+// May be inefficient, queries for document, updates document locally, queries document update
+exports.editEventPost = async (validationErrors, req, res, next) => {
     try {
-        req.body.images = req.body.images.filter(image => image != '');
-        req.body.videos = req.body.videos.filter(video => video != '');
-        await Event.findByIdAndUpdate(req.params.eventId, req.body, { new: true });
+        if (validationErrors.length) {
+            const event = await Event.findOne({ _id: req.params.eventId });
+            res.render('admins/event_crud', { title: 'Gira: Editar Evento', event, errors: validationErrors });
+            return;
+        }
+        const event = await Event.findOne({ _id: req.params.eventId });
+
+        if (req.body.images) {
+            req.body.images.forEach((image, idx) => {
+                if (image != undefined) event.images.splice(idx, 0, image);
+            });
+        }
+        
+        event.images = event.images.filter(image => image != '' && image != undefined);
+        event.videos = req.body.videos.filter(video => video != '');
+
+        event.name = req.body.name;
+        event.date = req.body.date;
+        event.exhibitor = req.body.exhibitor;
+        event.description = req.body.description;
+
+        await Event.findByIdAndUpdate(req.params.eventId, event, { new: true });
         res.redirect(res.locals.url);
     } catch(error) {
         next(error);
@@ -208,7 +242,86 @@ exports.deleteEventPost = async (req, res, next) => {
         });
 
         await Event.findByIdAndRemove(req.body.deleteId);
-        res.redirect('/admin/account');
+        res.redirect('/admin/eventos');
+    } catch(error) {
+        next(error);
+    }
+};
+
+exports.accountGet = async (req, res, next) => {
+    try {
+        res.render('admins/account', { title: 'Gira: Mi Cuenta' })
+        // res.json(res.locals.user)
+    } catch(error) {
+        next(error);
+    }
+};
+
+exports.accountPost = async (validationErrors, req, res, next) => {
+    try {
+        if (validationErrors.length) {
+            res.render('admins/account', { title: 'Gira: Mi Cuenta', errors: validationErrors });
+            return;
+        }
+
+        User.findByUsername(res.locals.user.email).then(async user => {
+            if (user.email != req.body.email) user.email = req.body.email;
+            if (req.body.password) await user.setPassword(req.body.password);
+            user.first_name = req.body.first_name;
+            user.last_name = req.body.last_name;
+            user.phone_number = req.body.phone_number;
+            user.age = req.body.age;
+            user.institution = req.body.institution;
+            try {
+                await user.save();
+            } catch (error) {
+                if (error.code === 11000) {
+                    const errorObj = { msg: 'Correo Inválido: El correo ya existe.' };
+                    res.render('admins/account', { title: 'Gira: Mi Cuenta', errors: [errorObj] });
+                    return
+                } else {
+                    next(error);
+                    return;
+                }
+            }
+            res.redirect('/admin/cuenta');
+        });
+    } catch(error) {
+        next(error);
+    }
+};
+
+exports.usersGet = async (req, res, next) => {
+    try {
+        if (res.locals.user.permissions != 'dev') {
+            res.redirect('/admin');
+            return;
+        }
+
+        const users = await User.find();
+        res.render('admins/user_manage', { title: 'Gira: Usuarios', users });
+    } catch(error) {
+        next(error);
+    }
+};
+
+exports.usersPost = async (req, res, next) => {
+    try {
+        if (res.locals.user.permissions != 'dev') {
+            res.redirect('/admin');
+            return;
+        }
+        
+        const promises = [];
+        for(const userId in req.body) {
+            if (req.body[userId] != '' && req.body[userId] != undefined && req.body[userId] != null){
+                const query = User.findByIdAndUpdate(userId, { permissions: req.body[userId] }, { new: true });
+                promises.push(query);
+            }
+        }
+
+        await Promise.all(promises);
+        res.redirect(res.locals.url);
     } catch(error) {
         next(error);
     }

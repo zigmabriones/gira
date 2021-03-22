@@ -143,6 +143,10 @@
         display: flex !important;
     }
 
+    body {
+        overflow-x: hidden;
+    }
+
     .menu__item--mobile {
         font-size: 1em;
     }
@@ -179,6 +183,38 @@
 
     .register-form__select {
         font-size: 0.7em;
+    }
+
+    /********************************/
+    /************* Admin ************/
+    /********************************/
+    .outer-wrapper.outer-wrapper--dashboard {
+        margin-top: 40%;
+    }
+
+    /******** Dashboard Header User ********/
+    .dashboard-user__details {
+        text-align: center;
+    }
+
+    /******** Dashboard Header Nav ********/
+    .dashboard-nav {
+        width: auto;
+        flex-direction: column;
+    }
+
+    /******** Mailing List ********/
+    #mailing-list--mobile {
+        display: block;
+    }
+
+    .mailing-list {
+        display: none;
+    }
+
+    /******** Events Manage ********/
+    .events-header {
+        flex-direction: column;
     }
 
     /********************************/
@@ -248,13 +284,17 @@
     }
 }
 
+/* Galaxy S20+ */
+/* @media (min-width: 360px) and (min-height: 854px) and (orientation: portrait) {
+} */
+
 /* Surface Duo */
 @media (min-width: 540px) and (orientation: portrait) {
     /********************************/
     /****** Home Page Pyramid *******/
     /********************************/
     .pyramid-grid {
-        grid-template-columns: repeat(3, 7em);
+        grid-template-columns: repeat(3, 70em);
         grid-template-rows: repeat(3, 7em);
     }
 
@@ -292,6 +332,28 @@
     /********************************/
     .outer-wrapper {
         margin-top: 30%;
+    }
+
+    /********************************/
+    /************* Admin ************/
+    /********************************/
+    .outer-wrapper.outer-wrapper--dashboard {
+        margin-top: 30%;
+    }
+
+    /******** Dashboard Header User ********/
+    .dashboard-user__details {
+        text-align: initial;
+    }
+
+    /******** Dashboard Header Nav ********/
+    .dashboard-nav {
+        flex-direction: row;
+    }
+
+    /******** Events Manage ********/
+    .events-header {
+        flex-direction: row;
     }
 }
 
@@ -449,6 +511,32 @@
     }
 
     /********************************/
+    /************* Admin ************/
+    /********************************/
+    .outer-wrapper.outer-wrapper--dashboard {
+        margin-top: 20%;
+    }
+
+    /******** Dashboard Header Nav ********/
+    .dashboard-nav {
+        width: 100%;
+    }
+
+    /******** Dashboard Content ********/
+    .dashboard-content {
+        font-size: 1.2em;
+    }
+
+    /******** Admin Form ********/
+    .admin-form {
+        font-size: 1.2em;
+    }
+
+    .admin-form__textarea {
+        font-size: 1em;
+    }
+
+    /********************************/
     /********** Error Page **********/
     /********************************/
     .errorpage-wrapper img {
@@ -498,6 +586,30 @@
     /********************************/
     .team-grid {
         margin-left: 9em;
+    }
+
+    /********************************/
+    /************* Admin ************/
+    /********************************/
+    
+    /******** Dashboard Header User ********/
+    .dashboard-user {
+        font-size: 1.3em;
+    }
+
+    /******** Dashboard Header Nav ********/
+    .dashboard-nav {
+        font-size: 1.1em;
+    }
+
+    /******** Dashboard Content ********/
+    .dashboard-content {
+        font-size: 1.3em;
+    }
+
+    /******** Admin Form ********/
+    .admin-form {
+        font-size: 1.3em;
     }
 }
 
@@ -694,6 +806,27 @@
     }
 
     /********************************/
+    /************* Admin ************/
+    /********************************/
+    .outer-wrapper.outer-wrapper--dashboard {
+        margin-top: 25%;
+    }
+
+    /******** Dashboard Header Nav ********/
+    .dashboard-nav {
+        width: auto;
+    }
+
+    /******** Mailing List ********/
+    #mailing-list--mobile {
+        display: block;
+    }
+
+    .mailing-list {
+        display: none;
+    }
+
+    /********************************/
     /********** Error Page **********/
     /********************************/
     .errorpage-wrapper img {
@@ -849,6 +982,18 @@
     /********************************/
     .outer-wrapper {
         margin-top: 20%;
+    }
+
+    /********************************/
+    /************* Admin ************/
+    /********************************/
+    .outer-wrapper.outer-wrapper--dashboard {
+        margin-top: 15%;
+    }
+
+    /******** Dashboard Header Nav ********/
+    .dashboard-nav {
+        width: 100%;
     }
 }
 
@@ -1016,12 +1161,8 @@
         display: none !important;
     }
 
-    .side__logo {
-        width: 35%;
-    }
-
     .side__icon {
-        left: 11%;
+        left: 29%;
     }
 
     /********************************/
@@ -1052,6 +1193,13 @@
 
     .register-form__select {
         font-size: 1rem;
+    }
+
+    /********************************/
+    /************* Admin ************/
+    /********************************/
+    .outer-wrapper.outer-wrapper--dashboard {
+        margin-top: 5%;
     }
 
     /********************************/
@@ -1138,12 +1286,9 @@
     /********************************/
     /********** Sidebar/Nav *********/
     /********************************/
-    .side__logo {
-        width: 50%;
-    }
 
     .side__icon {
-        left: 17%;
+        left: 34%;
     }
 
     /********************************/
@@ -1151,6 +1296,32 @@
     /********************************/
     .register-form {
         width: 50%;
+    }
+
+    /********************************/
+    /************* Admin ************/
+    /********************************/
+    /******** Dashboard Header User ********/
+    .dashboard-user {
+        font-size: 1.1em;
+    }
+
+    /******** Mailing List ********/
+    #mailing-list--mobile {
+        display: none;
+    }
+
+    .mailing-list {
+        display: block;
+    }
+
+    /******** Admin Form ********/
+    .admin-form {
+        font-size: 1.3em;
+    }
+
+    .admin-form__textarea {
+        font-size: 1.2em;
     }
 
     /********************************/
@@ -1164,7 +1335,7 @@
 /************************************************************/
 /************************* Laptop ***************************/
 /************************************************************/
-@media (min-width: 0px) and (min-height: 600px) and (hover) {
+@media (min-width: 0px) and (min-height: 600px) and (hover) and (pointer: fine) {
     /********************************/
     /********* Opening Page *********/
     /********************************/
@@ -1254,7 +1425,7 @@
     }
 }
 
-@media (min-width: 800px) and (min-height: 600px) and (hover) {
+@media (min-width: 800px) and (min-height: 600px) and (hover) and (pointer: fine) {
     /********************************/
     /****** Home Page Dividers ******/
     /********************************/
@@ -1327,7 +1498,36 @@
     }
 }
 
-@media (min-width: 1200px) and (min-height: 600px) and (hover) {
+@media (min-width: 1024px) and (min-height: 600px) and (hover) and (pointer: fine) {
+    /********************************/
+    /************* Admin ************/
+    /********************************/
+    /******** Dashboard Header User ********/
+    .dashboard-user {
+        font-size: 1em;
+    }
+
+    /******** Mailing List ********/
+    #mailing-list--mobile {
+        display: none;
+    }
+
+    .mailing-list {
+        display: block;
+        font-size: 0.8em;
+    }
+
+    /******** Admin Form ********/
+    .admin-form {
+        font-size: 1em;
+    }
+
+    .admin-form__textarea {
+        font-size: 1em;
+    }
+}
+
+@media (min-width: 1200px) and (min-height: 600px) and (hover) and (pointer: fine) {
     /********************************/
     /********* Opening Page *********/
     /********************************/
@@ -1385,9 +1585,18 @@
     .carousel__medium {
         max-height: 500px;
     }
+
+    /********************************/
+    /************* Admin ************/
+    /********************************/
+
+    /******** Mailing List ********/
+    .mailing-list {
+        font-size: 1em;
+    }
 }
 
-@media (min-width: 1366px) and (min-height: 600px) and (hover) {
+@media (min-width: 1366px) and (min-height: 600px) and (hover) and (pointer: fine) {
     /********************************/
     /****** Home Page Pyramid *******/
     /********************************/
@@ -1439,7 +1648,7 @@
     }
 }
 
-@media (min-width: 1600px) and (min-height: 900px) and (hover) {
+@media (min-width: 1600px) and (min-height: 900px) and (hover) and (pointer: fine) {
     /********************************/
     /********* Opening Page *********/
     /********************************/

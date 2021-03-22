@@ -1,0 +1,27 @@
+extends ../layout
+include ../mixins/_nav
+include ../mixins/_dashboard-header
+
+block content
+    +nav()
+
+    .outer-wrapper.outer-wrapper--dashboard
+        +dashboardHeader({ selected: 4 })
+
+        .dashboard-content
+            h1.user-header USUARIOS (dev, admin, user)
+
+            if errors
+                .validation-errors.validation--register
+                    strong Por favor corrija los siguientes errores: 
+                    ul 
+                        each error in errors 
+                            li= error.msg
+
+            form.admin-form(action='' method='post' autocomplete='off')
+                each user in users
+                    label.admin-form__label(for=user._id)= `${user.first_name} ${user.last_name} - ${user.email}`
+                    input.admin-form__input(type='text' name=user._id placeholder=user.permissions)
+                
+                .admin-form__buttons
+                    button.button(type='submit') GUARDAR CAMBIOS

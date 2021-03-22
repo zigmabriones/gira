@@ -1,5 +1,5 @@
 function setupDeleteListeners() {
-    document.querySelectorAll('.tmp-edit-images__image-delete').forEach(button => {
+    document.querySelectorAll('.drop-zone--info__delete').forEach(button => {
         button.addEventListener('click', deleteEventImage);
     });
 };
@@ -7,7 +7,21 @@ function setupDeleteListeners() {
 function deleteEventImage(e) {
     const button = e.target;
     const buttonParent = button.parentNode;
-    const imageElement = button.parentElement.children[1];
+    const dropZone = button.previousSibling;
+    const thumbElement = dropZone.querySelector('.drop-zone__thumb');
+    const imageElement = dropZone.querySelector('.drop-zone__input');
+
+    const prompt = document.createElement('span');
+    prompt.classList.add('drop-zone__prompt');
+    prompt.innerHTML = 'IMAGEN BORRADA<br><br>ARRASTRA LA IMÁGEN O HAZ CLICK PARA CARGAR';
+
+    if(button.dataset.local == 'true') {
+        buttonParent.removeChild(button);
+        dropZone.removeChild(thumbElement);
+        dropZone.insertBefore(prompt, imageElement);
+        imageElement.value = '';
+        return;
+    }
 
     const data = {
         id: button.dataset.id,
@@ -22,8 +36,9 @@ function deleteEventImage(e) {
 
     xhr.onload = () => {
         buttonParent.removeChild(button);
-        buttonParent.removeChild(imageElement);
-        buttonParent.innerHTML = '<p>Imagen Borrada</p>';
+        dropZone.removeChild(thumbElement);
+        dropZone.insertBefore(prompt, imageElement);
+        imageElement.value = '';
     };
 
     xhr.setRequestHeader('Content-Type', 'application/json');

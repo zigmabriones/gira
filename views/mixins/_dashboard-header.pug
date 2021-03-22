@@ -1,0 +1,22 @@
+mixin dashboardHeader(options)
+    .dashboard-user
+            //- If user image exists, show it
+            //- if true
+                //- .dashboard-user__img
+                //-     //- img(src='/images/team/emiliopopov.jpg' alt=`Foto de perfil de ${user.first_name} ${user.last_name}`)
+            .dashboard-user__details
+                h1.dashboard-user__name= `${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}`
+                - const accPermDict = { 'dev': 'desarrollador', 'admin': 'administrador', 'user': 'usuario' };
+                h2.dashboard-user__perms= `${accPermDict[user.permissions].toUpperCase()}`
+                p.dashboard-user__email= `${user.email.toUpperCase()}`
+        
+    .dashboard-nav
+        a.dashboard-nav__item(id=`${options.selected == 0 ? 'dashboard-nav__item--selected' : ''}` href='/admin/miseventos') Mis Eventos
+        a.dashboard-nav__item(id=`${options.selected == 1 ? 'dashboard-nav__item--selected' : ''}` href='/admin/mailing-list') Mailing List
+        a.dashboard-nav__item(id=`${options.selected == 2 ? 'dashboard-nav__item--selected' : ''}` href='/admin/eventos') Eventos
+        a.dashboard-nav__item(id=`${options.selected == 3 ? 'dashboard-nav__item--selected' : ''}` href='/admin/cuenta') Mi Cuenta
+
+        if user.permissions == 'dev'
+            a.dashboard-nav__item(id=`${options.selected == 4 ? 'dashboard-nav__item--selected' : ''}` href='/admin/usuarios') Usuarios
+
+        a.dashboard-nav__item( href='/logout') Cerrar Sesión
