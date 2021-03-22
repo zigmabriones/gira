@@ -36,7 +36,7 @@ X   2. Add user and user login functionality for all Gira members (Admins)
 X   3. Add create account functionality
 4. Add admin pannel
     a. View mailing list and send email
-    b. CURD events
+X    b. CURD events
     c. CURD articles
     d. CURD homepage info*
     e. User management
@@ -83,21 +83,24 @@ Laptop:
 
 
 ========================================
-3. Noticias y articulos
-    - Media upload
-2. Download mailing list
-1. Registro a eventos
-    - Mandar correo un dia antes a los registrados con link
-    - Solo usuarios se pueden registrar
-2. Mailing list
-    - Send mass emails
 1. homepage 
     - Change text for mailing list
-2. Mails:
+1. Migrate to Atlas
+1. Mails:
     - contacto@mexicogira.com
     - eventos@mexicogira.com
     - *@mexicogira.com (for team members)
     - no-reply@mexicogira.com
+1. Registro a eventos
+    - Mandar correo un dia antes a los registrados con link
+    - Solo usuarios se pueden registrar
+
+2. Download mailing list
+2. Mailing list
+    - Send mass emails
+
+3. Noticias y articulos
+    - Media upload
 3. SEO
     - Google ads, etc.
     - Google analytics

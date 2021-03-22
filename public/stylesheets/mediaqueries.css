@@ -192,11 +192,6 @@
         margin-top: 40%;
     }
 
-    /******** Dashboard Header User ********/
-    .dashboard-user__details {
-        text-align: center;
-    }
-
     /******** Dashboard Header Nav ********/
     .dashboard-nav {
         width: auto;
@@ -339,11 +334,6 @@
     /********************************/
     .outer-wrapper.outer-wrapper--dashboard {
         margin-top: 30%;
-    }
-
-    /******** Dashboard Header User ********/
-    .dashboard-user__details {
-        text-align: initial;
     }
 
     /******** Dashboard Header Nav ********/
