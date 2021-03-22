@@ -41,9 +41,9 @@ exports.loginVS = [
 ];
 
 exports.eventVS = [
-    body('name').isLength({ min:2, max: 30 }).withMessage('El nombre del evento puede ser sólo de 3 a 30 caracteres de largo.').trim().blacklist('<|>|&'),
+    body('name').isLength({ min:2, max: 80 }).withMessage('El nombre del evento puede ser sólo de 3 a 80 caracteres de largo.').trim().blacklist('<|>|&'),
     body('date').isDate().withMessage('La fecha es inválida'),
-    body('exhibitor').isLength({ min:2, max: 20 }).withMessage('El nombre del expositor puede ser sólo de 3 a 20 caracteres de largo').trim().blacklist('<|>|\/'),
+    body('exhibitor').isLength({ min:2, max: 40 }).withMessage('El nombre del expositor puede ser sólo de 3 a 20 caracteres de largo').trim().blacklist('<|>|\/'),
     body('description').trim(),
     body('videos.*').optional({ checkFalsy: true }).isURL().withMessage('URL del video inválido').trim(),
 
