@@ -107,6 +107,8 @@ X    - no-reply@mexicogira.com -> automated mail service, notifications, etc. SE
 3. Documentation
 
 TOMORROW:
+* FIX: User change email (production), does not change email in interface, causes error
+
 #Registro a eventos#
 * Add user array to event schema
 * Add zoom link to event schema
@@ -133,3 +135,4 @@ https://pandeysoni.medium.com/how-can-we-use-amazon-ses-template-to-send-email-i
 https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ses-examples-sending-email.html (AWS SES NodeJS)
 https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-concepts-process.html (SES Email Concepts)
 https://aws.amazon.com/blogs/messaging-and-targeting/introducing-email-templates-and-bulk-sending/ (AWS SES Bulk tutorial)
+https://aritic.com/blog/aritic-mail/best-practices-to-handle-password-reset-emails/ (Password email reset good practices)

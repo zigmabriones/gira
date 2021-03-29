@@ -130,7 +130,7 @@ exports.pushToS3 = async (req, res, next) => {
 };
 
 exports.isAuth = (req, res, next) => {
-    if (!req.user.verified) return res.render('users/verify', { title: 'Gira: Verifica tu Cuenta', verified: req.user.verified });
+    if (req.user && !req.user.verified) return res.render('users/verify', { title: 'Gira: Verifica tu Cuenta', verified: req.user.verified });
     req.isAuthenticated() && (req.user.permissions == 'dev' || req.user.permissions == 'admin')
     ? next()
     : res.redirect('/usuarios');
