@@ -124,6 +124,10 @@ TOMORROW:
 *** Recommend terms and conditions and privacy policy to team
 *** Investigate on delete user after x days if not verified
 
+============================
+        Reference
+============================
+# SES #
 https://beefree.io/editor/?template=empty (Email templater)
 https://pandeysoni.medium.com/how-can-we-use-amazon-ses-template-to-send-email-in-node-js-fb162bd8152e (SES Bulk tutorial)
 https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ses-examples-sending-email.html (AWS SES NodeJS)
