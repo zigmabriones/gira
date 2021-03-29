@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+    .error-page 
+        if !verified
+            if expiredToken 
+                h1 ¡Error!
+                p Tu link de verificación ha expirado.
+            else if tokenError 
+                h1 ¡Error! 
+                p Tu link de verificación es inválido.
+            else
+                h1 Verifica tu Cuenta 
+                p Por favor verifica tu cuenta antes de continuar. Se envió un correo a <strong>#{user.email}</strong> con los pasos para la verificación.
+                p ¿No recibiste el correo? Checa spam en tu correo o envíanos un correo a contacto@mexicogira.com
+                a(href='/logout') Cerrar sesión
+        else
+            h1 ¡Usuario Verificado!
+            p ¡Tu usuario ha sido verificado!
+            a(href='/usuarios') Ir a tu cuenta

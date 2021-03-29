@@ -1,0 +1,25 @@
+extends layout
+include mixins/_nav
+
+block content
+    +nav()
+
+    .error-page
+        if !sent
+            if errors
+                .validation-errors.validation--register
+                    strong Por favor corrija los siguientes errores:
+                    ul
+                        each error in errors
+                            li= error.msg
+
+            h1 Recuperación de Contraseña
+            label(for='email') Ingresa tu correo para enviarte los pasos para recuperar tu contraseña:
+            form.login-form(action='' method='post')
+                input.login-form__input(type='email' name='email' placeholder='EMAIL' required)
+                button.button.button--login(type='submit') ENVIAR
+        
+        else
+            h1 Recuperación de Contraseña
+            p ¡Las instrucciones para recuperar tu contraseña han sido enviadas! 
+            p ¿No recibiste el correo? Checa spam en tu correo o envíanos un correo a contacto@mexicogira.com

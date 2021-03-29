@@ -84,13 +84,13 @@ Laptop:
 
 ========================================
 X. homepage 
-    - Change text for mailing list
+X    - Change text for mailing list
 X. Migrate to Atlas
 1. Mails:
-    - contacto@mexicogira.com -> Contact for questions, etc. WorkMail
+X    - contacto@mexicogira.com -> Contact for questions, etc. WorkMail: q@nVOX9#8M1b
     - eventos@mexicogira.com -> Notification for events, SES
-    - no-reply@mexicogira.com -> automated mail service, notifications, etc. SES
-    - *@mexicogira.com (for team members) -> classic email service, WorkMail (4*7=32) !! NOT INCLUDED
+X    - no-reply@mexicogira.com -> automated mail service, notifications, etc. SES
+!    - *@mexicogira.com (for team members) -> classic email service, WorkMail (4*7=32) !! NOT INCLUDED
 1. Registro a eventos
     - Mandar correo un dia antes a los registrados con link
     - Solo usuarios se pueden registrar
@@ -104,3 +104,28 @@ X. Migrate to Atlas
 3. SEO
     - Google ads, etc.
     - Google analytics
+3. Documentation
+
+TOMORROW:
+#Registro a eventos#
+* Add user array to event schema
+* Add zoom link to event schema
+* Add "occurred" attribute to event schema (or check if event has occurred in backend)
+* Add event array to user schema
+** Ask about zoom link visibility (website & email || only website || only email)
+* Add conditional "Register"/"Attend" button to all events -> Prompt to user login || Register to user events & send email
+* Create event email template (replyto: contacto@mexicogira.com)
+* Function to send email 3 days before event automatically? (probably serverless lambda function or cognito) [can lead to solution for user deletion if not registered]
+
+*** Event name must be unique
+*** Validate user email in login
+*** Send error message if wrong user email or password
+*** User delete account
+*** Recommend terms and conditions and privacy policy to team
+*** Investigate on delete user after x days if not verified
+
+https://beefree.io/editor/?template=empty (Email templater)
+https://pandeysoni.medium.com/how-can-we-use-amazon-ses-template-to-send-email-in-node-js-fb162bd8152e (SES Bulk tutorial)
+https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ses-examples-sending-email.html (AWS SES NodeJS)
+https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-concepts-process.html (SES Email Concepts)
+https://aws.amazon.com/blogs/messaging-and-targeting/introducing-email-templates-and-bulk-sending/ (AWS SES Bulk tutorial)

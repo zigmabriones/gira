@@ -11,12 +11,21 @@ mixin dashboardHeader(options)
                 p.dashboard-user__email= `${user.email.toUpperCase()}`
         
     .dashboard-nav
-        a.dashboard-nav__item(id=`${options.selected == 0 ? 'dashboard-nav__item--selected' : ''}` href='/admin/miseventos') Mis Eventos
-        a.dashboard-nav__item(id=`${options.selected == 1 ? 'dashboard-nav__item--selected' : ''}` href='/admin/mailing-list') Mailing List
-        a.dashboard-nav__item(id=`${options.selected == 2 ? 'dashboard-nav__item--selected' : ''}` href='/admin/eventos') Eventos
-        a.dashboard-nav__item(id=`${options.selected == 3 ? 'dashboard-nav__item--selected' : ''}` href='/admin/cuenta') Mi Cuenta
+        if user.permissions == 'user'
+            a.dashboard-nav__item(id=`${options.selected == 0 ? 'dashboard-nav__item--selected' : ''}` href='/usuarios/miseventos') Mis Eventos
+            a.dashboard-nav__item(id=`${options.selected == 3 ? 'dashboard-nav__item--selected' : ''}` href='/usuarios/cuenta') Mi Cuenta
+            a.dashboard-nav__item( href='/logout') Cerrar Sesión
+        else
+            a.dashboard-nav__item(id=`${options.selected == 0 ? 'dashboard-nav__item--selected' : ''}` href='/admin/miseventos') Mis Eventos
 
-        if user.permissions == 'dev'
-            a.dashboard-nav__item(id=`${options.selected == 4 ? 'dashboard-nav__item--selected' : ''}` href='/admin/usuarios') Usuarios
+            if user.permissions == 'admin' || user.permissions == 'dev'
+                a.dashboard-nav__item(id=`${options.selected == 1 ? 'dashboard-nav__item--selected' : ''}` href='/admin/mailing-list') Mailing List
+                a.dashboard-nav__item(id=`${options.selected == 2 ? 'dashboard-nav__item--selected' : ''}` href='/admin/eventos') Eventos
+            
+            a.dashboard-nav__item(id=`${options.selected == 3 ? 'dashboard-nav__item--selected' : ''}` href='/admin/cuenta') Mi Cuenta
 
-        a.dashboard-nav__item( href='/logout') Cerrar Sesión
+            if user.permissions == 'dev'
+                a.dashboard-nav__item(id=`${options.selected == 4 ? 'dashboard-nav__item--selected' : ''}` href='/admin/usuarios') Usuarios
+                a.dashboard-nav__item(id=`${options.selected == 5 ? 'dashboard-nav__item--selected' : ''}` href='/admin/mailtest') Mailtest
+
+            a.dashboard-nav__item( href='/logout') Cerrar Sesión

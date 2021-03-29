@@ -10,11 +10,11 @@ const validationController = require('../controllers/validationController');
 router.get('/', function(req, res, next) {
   req.isAuthenticated()
     ? res.redirect('/admin/miseventos')
-    : res.redirect('/login');
+    : res.redirect('/usuarios');
 });
 
-router.get('/*', userController.isAuth);
-router.get('/miseventos', adminController.misEventos);
+router.get('/*', adminController.isAuth);
+router.get('/miseventos', userController.misEventos);
 
 router.get('/mailing-list', adminController.mailingListGet);
 
@@ -38,8 +38,8 @@ router.post('/eventos/editar/:eventId',
 );
 router.post('/eventos/borrar', adminController.deleteEventPost);
 
-router.get('/cuenta', adminController.accountGet);
-router.post('/cuenta', validationController.editAccountVS, adminController.accountPost);
+router.get('/cuenta', userController.accountGet);
+router.post('/cuenta', validationController.editAccountVS, userController.accountPost);
 
 router.get('/usuarios', adminController.usersGet);
 router.post('/usuarios', adminController.usersPost);

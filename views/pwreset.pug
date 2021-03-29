@@ -1,0 +1,30 @@
+extends layout
+include mixins/_nav
+
+block content
+    +nav()
+
+    .error-page
+        if expiredToken 
+            h1 ¡Error!
+            p Tu link de recuperación de contraseña ha expirado.
+        else if tokenError 
+            h1 ¡Error! 
+            p Tu link de recuperación de contraseña es inválido.
+        else if success 
+            h1 Contraseña Recuperada
+            p Tu contraseña ha sido cambiada. Ya puedes volver a ingresar a tu cuenta.
+        else 
+            if errors
+                .validation-errors.validation--register
+                    strong Por favor corrija los siguientes errores:
+                    ul
+                        each error in errors
+                            li= error.msg
+
+            h1 Recuperación de Contraseña
+            label(for='password') Ingresa tu contraseña nueva:
+            form.login-form(action='' method='post')
+                input.login-form__input(type='password' name='password' placeholder='Contraseña' required)
+                input.login-form__input(type='password' name='confirm_password' placeholder='Confirmar Contraseña' required)
+                button.button.button--login(type='submit') CONFIRMAR

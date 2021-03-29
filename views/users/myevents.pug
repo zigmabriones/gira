@@ -1,0 +1,14 @@
+extends ../layout
+include ../mixins/_nav
+include ../mixins/_dashboard-header
+
+block content
+    +nav()
+
+    .outer-wrapper.outer-wrapper--dashboard
+        +dashboardHeader({ selected: 0 })
+
+        .dashboard-content
+            .dashboard-content__message
+                p.dashboard-content__message-header ¡Aún no te has registrado a eventos!
+                p.dashboard-content__message-text Vuelve a revisar esta página cuando te registres a uno.

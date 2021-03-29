@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         default: 'user'
+    },
+    verified: {
+        type: Boolean,
+        default: false
     }
 });
 

@@ -34,6 +34,7 @@ exports.upload = upload.fields([
 ]);
 
 const fs = require('fs');
+const { send } = require('process');
 exports.pushToS3 = async (req, res, next) => {
     if (req.files) {
 
@@ -128,13 +129,11 @@ exports.pushToS3 = async (req, res, next) => {
     }
 };
 
-exports.misEventos = async (req, res, next) => {
-    try {
-        const events = await Event.aggregate([ { $sort: { date: -1 } } ]);
-        res.render('admins/myevents', { title: 'Gira: Cuenta', events });
-    } catch(error) {
-        next(error);
-    }
+exports.isAuth = (req, res, next) => {
+    if (!req.user.verified) return res.render('users/verify', { title: 'Gira: Verifica tu Cuenta', verified: req.user.verified });
+    req.isAuthenticated() && (req.user.permissions == 'dev' || req.user.permissions == 'admin')
+    ? next()
+    : res.redirect('/usuarios');
 };
 
 exports.mailingListGet = async (req, res, next) => {
@@ -243,49 +242,6 @@ exports.deleteEventPost = async (req, res, next) => {
 
         await Event.findByIdAndRemove(req.body.deleteId);
         res.redirect('/admin/eventos');
-    } catch(error) {
-        next(error);
-    }
-};
-
-exports.accountGet = async (req, res, next) => {
-    try {
-        res.render('admins/account', { title: 'Gira: Mi Cuenta' })
-        // res.json(res.locals.user)
-    } catch(error) {
-        next(error);
-    }
-};
-
-exports.accountPost = async (validationErrors, req, res, next) => {
-    try {
-        if (validationErrors.length) {
-            res.render('admins/account', { title: 'Gira: Mi Cuenta', errors: validationErrors });
-            return;
-        }
-
-        User.findByUsername(res.locals.user.email).then(async user => {
-            if (user.email != req.body.email) user.email = req.body.email;
-            if (req.body.password) await user.setPassword(req.body.password);
-            user.first_name = req.body.first_name;
-            user.last_name = req.body.last_name;
-            user.phone_number = req.body.phone_number;
-            user.age = req.body.age;
-            user.institution = req.body.institution;
-            try {
-                await user.save();
-            } catch (error) {
-                if (error.code === 11000) {
-                    const errorObj = { msg: 'Correo Inválido: El correo ya existe.' };
-                    res.render('admins/account', { title: 'Gira: Mi Cuenta', errors: [errorObj] });
-                    return
-                } else {
-                    next(error);
-                    return;
-                }
-            }
-            res.redirect('/admin/cuenta');
-        });
     } catch(error) {
         next(error);
     }

@@ -27,8 +27,19 @@ router.get('/unete', userController.signUpGet);
 router.post('/unete',
   validationController.signupVS,
   userController.signUpPost,
+  userController.sendVerificationEmail,
   userController.loginPost
 );
+
+// Forgot Password
+router.get('/recuperacion', indexController.passwordRequestGet);
+router.post('/recuperacion', validationController.pwrequestVS, indexController.passwordRequestPost);
+
+router.get('/pwr/:token', indexController.passwordResetGet);
+router.post('/pwr/:token', validationController.pwresetVS, indexController.passwordResetPost);
+
+// Verify
+router.get('/v/:token', userController.verify);
 
 // Logout
 router.get('/logout', userController.logout);

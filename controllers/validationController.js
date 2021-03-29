@@ -40,6 +40,24 @@ exports.loginVS = [
     (req, res, next) => next()
 ];
 
+exports.pwrequestVS = [
+    body('email').isEmail({ allow_utf8_local_part: false, ignore_max_length: false, domain_specific_validation: true }).withMessage('Correo inválido').trim().blacklist('<|>|\'|"|\/'),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        next(errors.array());
+    }
+];
+
+exports.pwresetVS = [
+    body('password').isLength({ min: 6 }).withMessage('Contraseña inválida, las contraseñas deben ser por lo menos 6 caracteres de largo').trim().escape(),
+    body('confirm_password')
+        .custom((value, { req }) => value === req.body.password).withMessage('Las contraseñas no coinciden').trim().escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        next(errors.array());
+    }
+];
+
 exports.eventVS = [
     body('name').isLength({ min:2, max: 80 }).withMessage('El nombre del evento puede ser sólo de 3 a 80 caracteres de largo.').trim().blacklist('<|>|&'),
     body('date').isDate().withMessage('La fecha es inválida'),
