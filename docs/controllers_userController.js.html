@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/userController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/userController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * userController.js is the main driver for all the routes within "routes/users.js", prefixed by "/usuarios".
+ * @module userController
+ * @author Emilio Popovits Blake
+ */
+
+// Require models
+const User = require('../models/user');
+const Event = require('../models/event');
+
+// Require middleware
+const Passport = require('passport');
+const AWS = require('aws-sdk');
+const jwt = require('jsonwebtoken');
+
+// Modules for JSDoc
+const e = require('express');
+
+// Setup AWS
+AWS.config.update({ region: 'us-east-1' });
+
+// Setup SES
+const ses = new AWS.SES({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET
+});
+
+/******************************************/
+/************* Login/Signup ***************/
+/******************************************/
+/**
+ * Renders signup page.
+ * 
+ * @param {e.Request} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ */
+exports.signUpGet = (req, res) => {
+    res.render('users/register', { title: 'Gira: Registro' });
+};
+
+/**
+ * Registers user to database through PassportJs, or returns if a validation error happens.
+ * 
+ * @param {Array&lt;object>} validationErrors - Validation errors returned by validation middleware
+ * @param {e.Request&lt;{}, {}, User.User, {}>} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * @param {e.NextFunction} next - Express Next Function
+ */
+exports.signUpPost = (validationErrors, req, res, next) => {
+    // If any validation errors occurred, return with validation errors
+    if (validationErrors.length) return res.render('users/register', { title: 'Gira: Registro', errors: validationErrors });
+
+    // Create a new User object and register it through PassportJs. If error, log it in console and pass it to error handler. Else, proceed to next middleware function.
+    const newUser = new User(req.body);
+    User.register(newUser, req.body.password, function (err) {
+        if (err) {
+            console.log('Error while registering.', err);
+            return next(err);
+        }
+        next();
+    });
+};
+
+/**
+ * Renders login page.
+ * 
+ * @param {e.Request} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ */
+exports.loginGet = (req, res) => {
+    res.render('users/login', { title: 'Gira: Log In' });
+};
+
+/**
+ * Authenticates user through PassportJs local strategy and redirects.
+ */
+exports.loginPost = Passport.authenticate('local', {
+    successRedirect: '/usuarios',
+    failureRedirect: '/login'
+});
+
+/**
+ * Logs user out and redirects to '/inicio'.
+ * 
+ * @param {e.Request} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ */
+exports.logout = (req, res) => {
+    req.logout();
+    res.redirect('/inicio');
+};
+
+/**
+ * Verifies if user is authenticated and redirects to appropriate route. Else, returns to '/login'. If user is not verified, renders verification page.
+ * 
+ * @param {e.Request} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * @param {e.NextFunction} next - Express Next Function
+ */
+exports.isAuth = (req, res, next) => {
+    // If user is not logged in, return to '/login'
+    if(!req.isAuthenticated()) return res.redirect('/login');
+
+    // If user is not verified, render verification page
+    if (!req.user.verified) return res.render('users/verify', { title: 'Gira: Verifica tu Cuenta', verified: req.user.verified });
+
+    // If user is dev or admin, redirect to '/admin'. Else, proceed to next middleware function.s
+    req.user.permissions == 'dev' || req.user.permissions == 'admin'
+        ? res.redirect('/admin')
+        : next();
+};
+
+/******************************************/
+/************* Verification ***************/
+/******************************************/
+/**
+ * Sends verification email to user after signup.
+ * 
+ * @async
+ * @param {e.Request&lt;{}, {}, User.User, {}>} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * @param {e.NextFunction} next - Express Next Function
+ */
+exports.sendVerificationEmail = async (req, res, next) => {
+    try {
+        // Queries database for user through email field, returns email, first_name, and last_name fields
+        const user = await User.findOne({ email: req.body.email }, { email: 1, first_name: 1, last_name: 1 });
+
+        // Sign JWT email token with user id and concatenate it into a URL
+        const emailToken = jwt.sign({ user: user._id }, process.env.EMAIL_SECRET, { expiresIn: '24h' });
+        const url = `https://mexicogira.com/v/${emailToken}`;
+
+        // Create/Update verificationEmail SES email template
+        // const vJSON = require('../emails/verification.json');
+        // // const vTemp = await ses.createTemplate(vJSON).promise();
+        // const vTemp = await ses.updateTemplate(vJSON).promise();
+        // console.log(vTemp)
+
+        // Build SES params object for sending email to the user
+        const params = {
+            Destination: {
+                ToAddresses: [`${user.email}`]
+            },
+            Source: 'Gira Notificaciones &lt;no-reply@mexicogira.com>',
+            Template: 'verificationEmail',
+            TemplateData: `{ \"name\":\"${user.first_name} ${user.last_name}\",\"link\":\"${url}\" }`,
+            ReturnPath: "returned@mexicogira.com"
+        };
+
+        // Send email to user through SES
+        const sendPromise = ses.sendTemplatedEmail(params).promise();
+        await sendPromise;
+
+        // Proceed to next middleware function
+        next();
+    } catch(error) {
+        next(error);
+    }
+};
+
+/**
+ * Verifies user's account and email, or return if JWT is invalid.
+ * 
+ * @async
+ * @param {e.Request&lt;{token: String}, {}, {}, {}>} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * @param {e.NextFunction} next - Express Next Function
+ */
+exports.verify = async (req, res, next) => {
+    try {
+        /**  JWT used for password reset in email @var {String} */
+        const token = req.params.token;
+        
+        // Synchronously verify JWT email token. If invalid, return with error.
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.EMAIL_SECRET);
+        } catch (err) {
+            if (err &amp;&amp; err.name == 'TokenExpiredError') return res.render('users/verify', { title: 'Gira: Verifica tu Cuenta', verified: false, expiredToken: true });
+            if (err &amp;&amp; err.name != 'TokenExpiredError') return res.render('users/verify', { title: 'Gira: Verifica tu Cuenta', ferified: false, tokenError: true });
+        }
+        if (decoded == undefined) return res.render('users/verify', { title: 'Gira: Verifica tu Cuenta', ferified: false, tokenError: true });
+
+        // Find user from JWT in database, return verified field
+        const query = await User.findOne({ _id: decoded.user }, { verified: 1 });
+
+        // If user is verified, return to '/usuarios'.
+        if(query.verified) return res.redirect('/usuarios');
+
+        // Verify the user in the database
+        await User.findByIdAndUpdate(decoded.user, { verified: true }, { new: true });
+        res.render('users/verify', { title: 'Gira: Usuario verificado!', verified: true });
+    } catch(error) {
+        next(error);
+    }
+};
+
+/******************************************/
+/************* User Events ****************/
+/******************************************/
+/**
+ * Render user registered events in myevents view.
+ * 
+ * @param {e.Request} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ *  
+ * @todo Query for user registered events and display them sorted descending by date. Pass events to myevents Pug view
+ * @todo Update myevents Pug view to have registered events functionality
+ */
+exports.misEventos = (req, res) => {
+    // Render 'Site under construction' Page
+    // res.render('users/construction', { title: 'Gira: Cuenta' });
+
+    res.render('users/myevents', { title: 'Gira: Cuenta' });
+};
+
+
+/******************************************/
+/********** User Account Info *************/
+/******************************************/
+/**
+ * Render user edit account info page.
+ * 
+ * @param {e.Request} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * 
+ * @todo Add delete user functionality
+ */
+exports.accountGet = (req, res) => {
+    res.render('users/account', { title: 'Gira: Mi Cuenta' });
+};
+
+/**
+ * Updates user's accont information, or returns if there were validation errors
+ * 
+ * @async
+ * @param {Array&lt;object>} validationErrors - Validation errors returned by validation middleware
+ * @param {e.Request&lt;{}, {}, User.User, {}>} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * @param {e.NextFunction} next - Express Next Function
+ */
+exports.accountPost = async (validationErrors, req, res, next) => {
+    try {
+        // If any validation errors occurred, return with validation errors
+        if (validationErrors.length) return res.render('users/account', { title: 'Gira: Mi Cuenta', errors: validationErrors });
+
+        // Find user and update information through PassportJs
+        User.findByUsername(req.user.email).then(async user => {
+            // If user changed email, set user's verification status to false
+            if (user.email != req.body.email) {
+                user.email = req.body.email;
+                user.verified = false;
+            }
+            if (req.body.password) await user.setPassword(req.body.password);
+            user.first_name = req.body.first_name;
+            user.last_name = req.body.last_name;
+            user.phone_number = req.body.phone_number;
+            user.age = req.body.age;
+            user.institution = req.body.institution;
+
+            // If user is not verified, send a verification email to its new email
+            if(!user.verified) sendVerificationEmail(user._id, user.email, user.first_name, user.last_name);
+
+            // Try to save user. If user email already exists in database, return with error and don't save.
+            try {
+                await user.save();
+            } catch (error) {
+                if (error.code === 11000) {
+                    const errorObj = { msg: 'Correo Inválido: El correo ya existe.' };
+                    res.render('users/account', { title: 'Gira: Mi Cuenta', errors: [errorObj] });
+                    return
+                } else {
+                    next(error);
+                    return;
+                }
+            }
+        });
+
+        /**
+         * Send verification email to user
+         * 
+         * @async
+         * @function
+         * @param {String} id - User id
+         * @param {String} email - User email
+         * @param {String} first_name - User first name
+         * @param {String} last_name - User last name
+         */
+        async function sendVerificationEmail(id, email, first_name, last_name) {
+            // Sign JWT email token with user id and concatenate it into a URL
+            const emailToken = jwt.sign({ user: id }, process.env.EMAIL_SECRET, { expiresIn: '24h' });
+            const url = `https://mexicogira.com/v/${emailToken}`;
+
+            // Build SES params object for sending email to the user
+            const params = {
+                Destination: {
+                    ToAddresses: [`${email}`]
+                },
+                Source: 'Gira Notificaciones &lt;no-reply@mexicogira.com>',
+                Template: 'verificationEmail',
+                TemplateData: `{ \"name\":\"${first_name} ${last_name}\",\"link\":\"${url}\" }`,
+                ReturnPath: "returned@mexicogira.com"
+            };
+
+            // Send email to user through SES
+            const sendPromise = ses.sendTemplatedEmail(params).promise();
+            await sendPromise;
+        };
+
+        // If user is admin or dev, redirect to '/admin/cuenta'. Else, redirect to '/usuarios/cuenta'
+        req.user.permissions == 'admin' || req.user.permissions == 'dev'
+            ? res.redirect('/admin/cuenta')
+            : res.redirect('/usuarios/cuenta');
+    } catch(error) {
+        next(error);
+    }
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-adminController.html">adminController</a></li><li><a href="module-ajaxController.html">ajaxController</a></li><li><a href="module-indexController.html">indexController</a></li><li><a href="module-userController.html">userController</a></li><li><a href="module-validationController.html">validationController</a></li></ul><h3>Classes</h3><ul><li><a href="global.html#Event">Event</a></li><li><a href="global.html#MailingList">MailingList</a></li><li><a href="global.html#User">User</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-Arquitectura a8e2fabd8f864e1f917539a78dbf0a57.html">Arquitectura a8e2fabd8f864e1f917539a78dbf0a57</a></li><li><a href="tutorial-Base de Datos c857a1c79823476bbac08cb8c68135e5.html">Base de Datos c857a1c79823476bbac08cb8c68135e5</a></li><li><a href="tutorial-Campos 0c00b81547d4406c87ee8a490819e1b0.html">Campos 0c00b81547d4406c87ee8a490819e1b0</a></li><li><a href="tutorial-Arquitectura 992a211c38af4c5088ca6c76558139e3.html">Arquitectura 992a211c38af4c5088ca6c76558139e3</a></li><li><a href="tutorial-Base de Datos 2256ecd4ea894bcfbf98442b9976eac6.html">Base de Datos 2256ecd4ea894bcfbf98442b9976eac6</a></li><li><a href="tutorial-Campos 0af284a0c1204904b6a074b76aad3866.html">Campos 0af284a0c1204904b6a074b76aad3866</a></li><li><a href="tutorial-Diagrama de Actividades 7b14769caf5a4dc8b11e548db3dcd037.html">Diagrama de Actividades 7b14769caf5a4dc8b11e548db3dcd037</a></li><li><a href="tutorial-Funcionalidades Futuras 05d53b6d468b42d1a3fc0fa01df9336c.html">Funcionalidades Futuras 05d53b6d468b42d1a3fc0fa01df9336c</a></li><li><a href="tutorial-Funciones b70ab26bd598403b9008db665bc30da4.html">Funciones b70ab26bd598403b9008db665bc30da4</a></li><li><a href="tutorial-Mapa de Navegacion a0a9fafc0e66425497db5b1287a0ebbd.html">Mapa de Navegacion a0a9fafc0e66425497db5b1287a0ebbd</a></li><li><a href="tutorial-Requerimientos 5c118d57d0ab42d4abe4b0ceb9b9a98d.html">Requerimientos 5c118d57d0ab42d4abe4b0ceb9b9a98d</a></li><li><a href="tutorial-Rutas f7afa0634e434caa8b179ffbabad56ee.html">Rutas f7afa0634e434caa8b179ffbabad56ee</a></li><li><a href="tutorial-Seguridad a1e285bb22d642b39abbcc8c3b5b1a72.html">Seguridad a1e285bb22d642b39abbcc8c3b5b1a72</a></li><li><a href="tutorial-Total (a) 823ff2bd023e4e8c850c98b34acc1482.html">Total (a) 823ff2bd023e4e8c850c98b34acc1482</a></li><li><a href="tutorial-Total (b-a) 1d2d1057a1924c0aa2b48d6ab36bea25.html">Total (b-a) 1d2d1057a1924c0aa2b48d6ab36bea25</a></li><li><a href="tutorial-Total (m-a) 7c18f805fb9a47d19d2079888391c00a.html">Total (m-a) 7c18f805fb9a47d19d2079888391c00a</a></li><li><a href="tutorial-Funcionalidad Artículos 32bbb6eb8815498c9105550d67647bce.html">Funcionalidad Artículos 32bbb6eb8815498c9105550d67647bce</a></li><li><a href="tutorial-Funcionalidad Eventos 7d6940b15b5447ca995705d8f2c7d71e.html">Funcionalidad Eventos 7d6940b15b5447ca995705d8f2c7d71e</a></li><li><a href="tutorial-Funcionalidad Mailing List c3354a2336ce4804993a5e1c4a50cafd.html">Funcionalidad Mailing List c3354a2336ce4804993a5e1c4a50cafd</a></li><li><a href="tutorial-Funcionalidad Noticias d37fac1819be45ce9c0a5d561bc11f84.html">Funcionalidad Noticias d37fac1819be45ce9c0a5d561bc11f84</a></li><li><a href="tutorial-Google Ads 8aad645c94fe45778c98fc73d04c39ef.html">Google Ads 8aad645c94fe45778c98fc73d04c39ef</a></li><li><a href="tutorial-SEO f4cb56da305441d3b546ee4c480125a7.html">SEO f4cb56da305441d3b546ee4c480125a7</a></li><li><a href="tutorial-Total 5e45cfd448dd40de87a91281b49d743e.html">Total 5e45cfd448dd40de87a91281b49d743e</a></li><li><a href="tutorial-Diagrama de Actividades 835a1be637ff4cc58a84e28dd9e8d219.html">Diagrama de Actividades 835a1be637ff4cc58a84e28dd9e8d219</a></li><li><a href="tutorial-Funcionalidades Futuras 96e604bce0914ae3924c12827dcab359.html">Funcionalidades Futuras 96e604bce0914ae3924c12827dcab359</a></li><li><a href="tutorial-Funciónes 70fbaf8cac6b47db91c7c3336262c2da.html">Funciónes 70fbaf8cac6b47db91c7c3336262c2da</a></li><li><a href="tutorial-Mapa de Navegación 81b8706c767d4968ac13748845bd8a20.html">Mapa de Navegación 81b8706c767d4968ac13748845bd8a20</a></li><li><a href="tutorial-Requerimientos f2c02cd936cc4d448c4a00c3b9f02d52.html">Requerimientos f2c02cd936cc4d448c4a00c3b9f02d52</a></li><li><a href="tutorial-Rutas dcf1646a492a4696a362a6fb01eddc14.html">Rutas dcf1646a492a4696a362a6fb01eddc14</a></li><li><a href="tutorial-Seguridad 35e1e15b951d4423b88ec8d77f56599e.html">Seguridad 35e1e15b951d4423b88ec8d77f56599e</a></li></ul><h3>Global</h3><ul><li><a href="global.html#closeMobileSlideMenu">closeMobileSlideMenu</a></li><li><a href="global.html#closeSlideMenu">closeSlideMenu</a></li><li><a href="global.html#ctaAjax">ctaAjax</a></li><li><a href="global.html#deleteEventImage">deleteEventImage</a></li><li><a href="global.html#dropZoneSetup">dropZoneSetup</a></li><li><a href="global.html#navFade">navFade</a></li><li><a href="global.html#openMobileSlideMenu">openMobileSlideMenu</a></li><li><a href="global.html#openSlideMenu">openSlideMenu</a></li><li><a href="global.html#setupCarousel">setupCarousel</a></li><li><a href="global.html#setupCTA">setupCTA</a></li><li><a href="global.html#setupDeleteListeners">setupDeleteListeners</a></li><li><a href="global.html#setupEventTable">setupEventTable</a></li><li><a href="global.html#setupMobileNav">setupMobileNav</a></li><li><a href="global.html#updateThumbnail">updateThumbnail</a></li><li><a href="global.html#validationErrorMessage">validationErrorMessage</a></li><li><a href="global.html#validationSuccessMessage">validationSuccessMessage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Apr 02 2021 03:49:45 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,7 +1,13 @@
+/**
+ * Sets up CTA form submit listener on home page.
+ */
 function setupCTA() {
     document.getElementById('js-cta-form-button').addEventListener('click', ctaAjax);
 };
 
+/**
+ * Asynchronously uploads user's information into mailinglist collection
+ */
 function ctaAjax() {
     const form = document.getElementById('js-cta-form');
     const data = {
@@ -49,6 +55,10 @@ function ctaAjax() {
 
 };
 
+/**
+ * Modifies DOM to output CTA form validation error messages.
+ * @param {Object} errors 
+ */
 function validationErrorMessage(errors) {
     const homeTextElement = document.getElementById('call-to-action').querySelector('.home-text');
 
@@ -70,6 +80,11 @@ function validationErrorMessage(errors) {
     homeTextElement.appendChild(errorContainer);
 };
 
+/**
+ * Modifies DOM to show a CTA signup success message.
+ * @param {String} name 
+ * @param {String} email 
+ */
 function validationSuccessMessage(name, email) {
     const ctaElement = document.getElementById('call-to-action');
     const formElement = document.getElementById('js-cta-form');

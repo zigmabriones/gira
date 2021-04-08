@@ -15,8 +15,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/*', userController.isAuth);
+
+// Registered Events
 router.get('/miseventos', userController.misEventos);
 
+// Account Info
 router.get('/cuenta', userController.accountGet);
 router.post('/cuenta', validationController.editAccountVS, userController.accountPost);
 

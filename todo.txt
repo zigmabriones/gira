@@ -110,16 +110,17 @@ TOMORROW:
 * FIX: User change email (production), does not change email in interface, causes error
 
 #Registro a eventos#
-* Add user array to event schema
-* Add zoom link to event schema
+X Add user array to event schema
+X Add zoom link to event schema
 * Add "occurred" attribute to event schema (or check if event has occurred in backend)
-* Add event array to user schema
+X Add event array to user schema
 ** Ask about zoom link visibility (website & email || only website || only email)
 * Add conditional "Register"/"Attend" button to all events -> Prompt to user login || Register to user events & send email
 * Create event email template (replyto: contacto@mexicogira.com)
 * Function to send email 3 days before event automatically? (probably serverless lambda function or cognito) [can lead to solution for user deletion if not registered]
 
-*** Event name must be unique
+X Event name must be unique
+*** Validate event name is unique before creating event
 *** Validate user email in login
 *** Send error message if wrong user email or password
 *** User delete account

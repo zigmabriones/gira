@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/indexController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/indexController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * indexController.js is the main driver for all the routes within "routes/index.js", prefixed by "/".
+ * @module indexController
+ * @author Emilio Popovits Blake
+ */
+
+// Require models
+const Event = require('../models/event');
+const User = require('../models/user');
+
+// Require middleware
+const jwt = require('jsonwebtoken');
+const AWS = require('aws-sdk');
+
+// Modules for JSDoc
+const e = require('express');
+
+// Setup AWS
+AWS.config.update({ region: 'us-east-1' });
+
+// Setup SES
+const ses = new AWS.SES({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET
+});
+
+/******************************************/
+/**************** Index *******************/
+/******************************************/
+/**
+ * Renders homepage with events sorted descending by date.
+ * 
+ * @async
+ * @param {e.Request} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * @param {e.NextFunction} next - Express Next Function
+ */
+exports.index = async (req, res, next) => {
+    try {
+        // Query for all events, and return only name, description, date, and exhibitor fields sorted descending by date
+        const events = await Event.aggregate([
+            { $project: {
+                name: 1,
+                description: 1,
+                date: 1,
+                exhibitor: 1
+            } },
+            { $sort: { date: -1 } }
+        ]);
+        
+        res.render('index', { title: 'Gira', events });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/******************************************/
+/**************** Events ******************/
+/******************************************/
+/**
+ * Renders events page with events sorted descending by date.
+ * 
+ * @async
+ * @param {e.Request} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * @param {e.NextFunction} next - Express Next Function
+ */
+exports.events = async (req, res, next) => {
+    try {
+        // Query for all events, and return only name, description, date, and exhibitor fields sorted descending by date
+        const events = await Event.aggregate([
+            { $project: {
+                name: 1,
+                description: 1,
+                date: 1,
+                exhibitor: 1
+            } },
+            { $sort: { date: -1 } }
+        ]);
+
+        res.render('events', { title: 'Gira: Eventos', events });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * Renders event view page event information.
+ * 
+ * @async
+ * @param {e.Request&lt;{eventUri: String}, {}, {}, {}>} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * @param {e.NextFunction} next - Express Next Function
+ */
+exports.event = async (req, res, next) => {
+    try {
+        // Decode eventUri and query for event in database (case insensitive)
+        const eventName = decodeURI(req.params.eventUri);
+        const event = await Event.findOne({ name: { $regex: new RegExp(eventName, 'i') } });
+
+        res.render('event', { title: `Gira: ${event.name}`, event });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/******************************************/
+/************ Password Reset **************/
+/******************************************/
+/**
+ * Renders password reset request view.
+ * 
+ * @param {e.Request} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ */
+exports.passwordRequestGet = (req, res) => {
+    res.render('pwrequest', { title: 'Gira: Recuperación de Contraseña' });
+};
+
+/**
+ * Sends password reset email to user, or returns if a validation error happens.
+ * 
+ * @async
+ * @param {Array&lt;object>} validationErrors - Validation errors returned by validation middleware
+ * @param {e.Request&lt;{}, {}, {email: string}, {}>} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * @param {e.NextFunction} next - Express Next Function
+ * 
+ */
+exports.passwordRequestPost = async (validationErrors, req, res, next) => {
+    try {
+        // If any validation errors occurred, return with validation errors
+        if (validationErrors.length) return res.render('pwrequest', { title: 'Gira: Recuperación de Contraseña', errors: validationErrors });
+
+        // Query for user in database by email, if not found, return with 'User not found' error message
+        const user = await User.findOne({ email: req.body.email });
+        if(!user) return res.render('pwrequest', { title: 'Gira: Recuperación de Contraseña', errors: [{ msg: 'Usuario no encontrado.' }] });
+
+        // Sign JWT email token with user id and concatenate it into a URL
+        const emailToken = jwt.sign({ user: user._id }, process.env.EMAIL_SECRET, { expiresIn: '3h' });
+        const url = `https://mexicogira.com/pwr/${emailToken}`;
+        
+        // Create/Update passwordReset SES email template
+        // const rJSON = require('../emails/pwReset.json');
+        // const rTemp = await ses.updateTemplate(rJSON).promise();
+        // // const rTemp = await ses.createTemplate(rJSON).promise();
+        // console.log(rTemp);
+
+        // Build SES params object for sending email to the user
+        const params = {
+            Destination: {
+                ToAddresses: [`${user.email}`]
+            },
+            Source: 'Gira Notificaciones &lt;no-reply@mexicogira.com>',
+            Template: 'passwordReset',
+            TemplateData: `{ \"name\":\"${user.first_name} ${user.last_name}\",\"link\":\"${url}\" }`,
+            ReturnPath: "returned@mexicogira.com"
+        };
+
+        // Send email to user through SES
+        const sendPromise = ses.sendTemplatedEmail(params).promise();
+        await sendPromise;
+
+        res.render('pwrequest', { title: 'Gira: Recuperación de Contraseña', sent: true });
+    } catch(error) {
+        next(error);
+    }
+};
+
+/**
+ * Renders password reset view if JWT is valid, else, return with an error.
+ * 
+ * @async
+ * @param {e.Request&lt;{token: String}, {}, {}, {}>} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ * @param {e.NextFunction} next - Express Next Function
+ */
+exports.passwordResetGet = async (req, res, next) => {
+    try {
+        /**  JWT used for password reset in email @var {String} */
+        const token = req.params.token;
+
+        // Asynchronously verify email JWT, if invalid, return with error. Else, return successfully.
+        await jwt.verify(token, process.env.EMAIL_SECRET, err => {
+            if (err &amp;&amp; err.name == 'TokenExpiredError') return res.render('pwreset', { title: 'Gira: Recuperación de Contraseña', expiredToken: true });
+            if (err &amp;&amp; err.name != 'TokenExpiredError') return res.render('pwreset', { title: 'Gira: Recuperación de Contraseña', tokenError: true });
+            if (!err) return res.render('pwreset', { title: 'Gira: Recuperación de Contraseña' });
+        });
+    } catch(error) {
+        next(error);
+    }
+};
+
+/**
+ * Reset user password and send password change notification email, or return if a validation error happens or if JWT is invalid.
+ *
+ * @async
+ * @param {Array&lt;object>} validationErrors - Validation errors returned by validation middleware
+ * @param {e.Request&lt;{token: String}, {}, {password: String}, {}>} req - Express Request Object
+ * @param {e.Response} res - Express Response Object
+ */
+exports.passwordResetPost = async (validationErrors, req, res, next) => {
+    try {
+        // If any validation errors occurred, return with validation errors
+        if (validationErrors.length) return res.render('pwreset', { title: 'Gira: Recuperación de Contraseña', errors: validationErrors });
+
+        /**  JWT used for password reset in email @var {String} */
+        const token = req.params.token;
+
+        // Synchronously verify JWT email token. If invalid, return with error.
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.EMAIL_SECRET);
+        } catch(err) {
+            if (err &amp;&amp; err.name == 'TokenExpiredError') return res.render('pwreset', { title: 'Gira: Recuperación de Contraseña', expiredToken: true });
+            if (err &amp;&amp; err.name != 'TokenExpiredError') return res.render('pwreset', { title: 'Gira: Recuperación de Contraseña', tokenError: true });
+        }
+        if (decoded == undefined) return res.render('pwreset', { title: 'Gira: Recuperación de Contraseña', tokenError: true });
+
+        // Find user from JWT in database, return email, first_name, and last_name fields
+        const user = await User.findOne({ _id: decoded.user }, { email: 1, first_name: 1, last_name: 1 });
+
+        // Update user password in database through PassportJs
+        User.findByUsername(user.email).then(async user => {
+            if (req.body.password) await user.setPassword(req.body.password);
+            user.save();
+        });
+
+        // Create/Update passwordResetConfirmation SES email template
+        // const rJSON = require('../emails/pwResetConfirmation.json');
+        // const rTemp = await ses.updateTemplate(rJSON).promise();
+        // // const rTemp = await ses.createTemplate(rJSON).promise();
+        // console.log(rTemp);
+
+        // Build SES params object for sending email to the user
+        const params = {
+            Destination: {
+                ToAddresses: [`${user.email}`]
+            },
+            Source: 'Gira Notificaciones &lt;no-reply@mexicogira.com>',
+            Template: 'passwordResetConfirmation',
+            TemplateData: `{ \"name\":\"${user.first_name} ${user.last_name}\" }`,
+            ReturnPath: "returned@mexicogira.com"
+        };
+
+        // Send email to user through SES
+        const sendPromise = ses.sendTemplatedEmail(params).promise();
+        await sendPromise;
+
+        res.render('pwreset', { title: 'Gira: Contraseña Recuperada', success: true });
+    } catch(error) {
+        next(error);
+    }
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-adminController.html">adminController</a></li><li><a href="module-ajaxController.html">ajaxController</a></li><li><a href="module-indexController.html">indexController</a></li><li><a href="module-userController.html">userController</a></li><li><a href="module-validationController.html">validationController</a></li></ul><h3>Classes</h3><ul><li><a href="global.html#Event">Event</a></li><li><a href="global.html#MailingList">MailingList</a></li><li><a href="global.html#User">User</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-Arquitectura a8e2fabd8f864e1f917539a78dbf0a57.html">Arquitectura a8e2fabd8f864e1f917539a78dbf0a57</a></li><li><a href="tutorial-Base de Datos c857a1c79823476bbac08cb8c68135e5.html">Base de Datos c857a1c79823476bbac08cb8c68135e5</a></li><li><a href="tutorial-Campos 0c00b81547d4406c87ee8a490819e1b0.html">Campos 0c00b81547d4406c87ee8a490819e1b0</a></li><li><a href="tutorial-Arquitectura 992a211c38af4c5088ca6c76558139e3.html">Arquitectura 992a211c38af4c5088ca6c76558139e3</a></li><li><a href="tutorial-Base de Datos 2256ecd4ea894bcfbf98442b9976eac6.html">Base de Datos 2256ecd4ea894bcfbf98442b9976eac6</a></li><li><a href="tutorial-Campos 0af284a0c1204904b6a074b76aad3866.html">Campos 0af284a0c1204904b6a074b76aad3866</a></li><li><a href="tutorial-Diagrama de Actividades 7b14769caf5a4dc8b11e548db3dcd037.html">Diagrama de Actividades 7b14769caf5a4dc8b11e548db3dcd037</a></li><li><a href="tutorial-Funcionalidades Futuras 05d53b6d468b42d1a3fc0fa01df9336c.html">Funcionalidades Futuras 05d53b6d468b42d1a3fc0fa01df9336c</a></li><li><a href="tutorial-Funciones b70ab26bd598403b9008db665bc30da4.html">Funciones b70ab26bd598403b9008db665bc30da4</a></li><li><a href="tutorial-Mapa de Navegacion a0a9fafc0e66425497db5b1287a0ebbd.html">Mapa de Navegacion a0a9fafc0e66425497db5b1287a0ebbd</a></li><li><a href="tutorial-Requerimientos 5c118d57d0ab42d4abe4b0ceb9b9a98d.html">Requerimientos 5c118d57d0ab42d4abe4b0ceb9b9a98d</a></li><li><a href="tutorial-Rutas f7afa0634e434caa8b179ffbabad56ee.html">Rutas f7afa0634e434caa8b179ffbabad56ee</a></li><li><a href="tutorial-Seguridad a1e285bb22d642b39abbcc8c3b5b1a72.html">Seguridad a1e285bb22d642b39abbcc8c3b5b1a72</a></li><li><a href="tutorial-Total (a) 823ff2bd023e4e8c850c98b34acc1482.html">Total (a) 823ff2bd023e4e8c850c98b34acc1482</a></li><li><a href="tutorial-Total (b-a) 1d2d1057a1924c0aa2b48d6ab36bea25.html">Total (b-a) 1d2d1057a1924c0aa2b48d6ab36bea25</a></li><li><a href="tutorial-Total (m-a) 7c18f805fb9a47d19d2079888391c00a.html">Total (m-a) 7c18f805fb9a47d19d2079888391c00a</a></li><li><a href="tutorial-Funcionalidad Artículos 32bbb6eb8815498c9105550d67647bce.html">Funcionalidad Artículos 32bbb6eb8815498c9105550d67647bce</a></li><li><a href="tutorial-Funcionalidad Eventos 7d6940b15b5447ca995705d8f2c7d71e.html">Funcionalidad Eventos 7d6940b15b5447ca995705d8f2c7d71e</a></li><li><a href="tutorial-Funcionalidad Mailing List c3354a2336ce4804993a5e1c4a50cafd.html">Funcionalidad Mailing List c3354a2336ce4804993a5e1c4a50cafd</a></li><li><a href="tutorial-Funcionalidad Noticias d37fac1819be45ce9c0a5d561bc11f84.html">Funcionalidad Noticias d37fac1819be45ce9c0a5d561bc11f84</a></li><li><a href="tutorial-Google Ads 8aad645c94fe45778c98fc73d04c39ef.html">Google Ads 8aad645c94fe45778c98fc73d04c39ef</a></li><li><a href="tutorial-SEO f4cb56da305441d3b546ee4c480125a7.html">SEO f4cb56da305441d3b546ee4c480125a7</a></li><li><a href="tutorial-Total 5e45cfd448dd40de87a91281b49d743e.html">Total 5e45cfd448dd40de87a91281b49d743e</a></li><li><a href="tutorial-Diagrama de Actividades 835a1be637ff4cc58a84e28dd9e8d219.html">Diagrama de Actividades 835a1be637ff4cc58a84e28dd9e8d219</a></li><li><a href="tutorial-Funcionalidades Futuras 96e604bce0914ae3924c12827dcab359.html">Funcionalidades Futuras 96e604bce0914ae3924c12827dcab359</a></li><li><a href="tutorial-Funciónes 70fbaf8cac6b47db91c7c3336262c2da.html">Funciónes 70fbaf8cac6b47db91c7c3336262c2da</a></li><li><a href="tutorial-Mapa de Navegación 81b8706c767d4968ac13748845bd8a20.html">Mapa de Navegación 81b8706c767d4968ac13748845bd8a20</a></li><li><a href="tutorial-Requerimientos f2c02cd936cc4d448c4a00c3b9f02d52.html">Requerimientos f2c02cd936cc4d448c4a00c3b9f02d52</a></li><li><a href="tutorial-Rutas dcf1646a492a4696a362a6fb01eddc14.html">Rutas dcf1646a492a4696a362a6fb01eddc14</a></li><li><a href="tutorial-Seguridad 35e1e15b951d4423b88ec8d77f56599e.html">Seguridad 35e1e15b951d4423b88ec8d77f56599e</a></li></ul><h3>Global</h3><ul><li><a href="global.html#closeMobileSlideMenu">closeMobileSlideMenu</a></li><li><a href="global.html#closeSlideMenu">closeSlideMenu</a></li><li><a href="global.html#ctaAjax">ctaAjax</a></li><li><a href="global.html#deleteEventImage">deleteEventImage</a></li><li><a href="global.html#dropZoneSetup">dropZoneSetup</a></li><li><a href="global.html#navFade">navFade</a></li><li><a href="global.html#openMobileSlideMenu">openMobileSlideMenu</a></li><li><a href="global.html#openSlideMenu">openSlideMenu</a></li><li><a href="global.html#setupCarousel">setupCarousel</a></li><li><a href="global.html#setupCTA">setupCTA</a></li><li><a href="global.html#setupDeleteListeners">setupDeleteListeners</a></li><li><a href="global.html#setupEventTable">setupEventTable</a></li><li><a href="global.html#setupMobileNav">setupMobileNav</a></li><li><a href="global.html#updateThumbnail">updateThumbnail</a></li><li><a href="global.html#validationErrorMessage">validationErrorMessage</a></li><li><a href="global.html#validationSuccessMessage">validationSuccessMessage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Apr 02 2021 03:49:45 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

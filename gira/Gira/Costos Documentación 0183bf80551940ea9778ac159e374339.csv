@@ -1,0 +1,14 @@
+﻿Prioridad,Name,Horas,Precio
+baja,Requerimientos,1,300
+mediana,Rutas,1.5,450
+alta,Base de Datos,2,600
+alta,Funciones,8,2400
+mediana,Campos,2,600
+alta,Seguridad,2,600
+baja,Diagrama de Actividades,4,1200
+mediana,Mapa de Navegacion,4,1200
+alta,Arquitectura,8,2400
+baja,Funcionalidades Futuras,1,300
+,Total (b-a),33.5,10050
+,Total (m-a),27.5,8250
+,Total (a),20,6000

@@ -26,6 +26,5 @@ mixin dashboardHeader(options)
 
             if user.permissions == 'dev'
                 a.dashboard-nav__item(id=`${options.selected == 4 ? 'dashboard-nav__item--selected' : ''}` href='/admin/usuarios') Usuarios
-                a.dashboard-nav__item(id=`${options.selected == 5 ? 'dashboard-nav__item--selected' : ''}` href='/admin/mailtest') Mailtest
 
             a.dashboard-nav__item( href='/logout') Cerrar Sesión

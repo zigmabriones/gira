@@ -17,9 +17,6 @@ const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 
-// AWS
-
-
 // Sessions
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -108,6 +105,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// Setup Root Routes
 app.use('/', indexRouter);
 app.use('/usuarios', usersRouter);
 app.use('/admin', adminsRouter);

@@ -1,9 +1,16 @@
+/**
+ * Sets up Event image delete listeners to delete image buttons.
+ */
 function setupDeleteListeners() {
     document.querySelectorAll('.drop-zone--info__delete').forEach(button => {
         button.addEventListener('click', deleteEventImage);
     });
 };
 
+/**
+ * Asynchronously deletes event image.
+ * @param {Event} e 
+ */
 function deleteEventImage(e) {
     const button = e.target;
     const buttonParent = button.parentNode;

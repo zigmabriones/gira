@@ -1,0 +1,18 @@
+{
+    "source": {
+        "include": ["public/javascripts", "models", "controllers"],
+        "includePattern": ".js$",
+        "excludePattern": "(node_modules/|docs)"
+    },
+    "plugins": ["plugins/markdown"],
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": true
+    },
+    "opts": {
+        "recurse": true,
+        "destination": "./docs/",
+        "readme": "./gira/Gira.md",
+        "tutorials": "./gira/Gira/"
+    }
+}

@@ -14,14 +14,18 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/*', adminController.isAuth);
+
+// Registered Events
 router.get('/miseventos', userController.misEventos);
 
+// Mailing List
 router.get('/mailing-list', adminController.mailingListGet);
 
+// Event Management
 router.get('/eventos', adminController.eventsGet);
 
+// Create Event
 router.get('/eventos/nuevo', adminController.eventCURDGet);
-// Will create an S3 bucket with images even though there was a validation error
 router.post('/eventos/nuevo', 
   adminController.upload,
   adminController.pushToS3,
@@ -29,6 +33,7 @@ router.post('/eventos/nuevo',
   adminController.newEventPost
 );
 
+// Edit Event
 router.get('/eventos/editar/:eventId', adminController.eventCURDGet);
 router.post('/eventos/editar/:eventId',
   adminController.upload,
@@ -36,11 +41,15 @@ router.post('/eventos/editar/:eventId',
   validationController.eventVS,
   adminController.editEventPost
 );
+
+// Delete Event
 router.post('/eventos/borrar', adminController.deleteEventPost);
 
+// Account Info
 router.get('/cuenta', userController.accountGet);
 router.post('/cuenta', validationController.editAccountVS, userController.accountPost);
 
+// Manage Users (dev)
 router.get('/usuarios', adminController.usersGet);
 router.post('/usuarios', adminController.usersPost);
 
