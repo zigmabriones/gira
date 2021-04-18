@@ -20,3 +20,4 @@ Gira is a fullstack website created for a multi-university college club where us
 - User Password Reset Emails
 - User Transactional Emails
 - JSON Web Tokens
+- JSDoc
