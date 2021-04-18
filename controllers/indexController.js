@@ -39,13 +39,14 @@ exports.index = async (req, res, next) => {
     try {
         // Query for all events, and return only name, description, date, and exhibitor fields sorted descending by date
         const events = await Event.aggregate([
+            { $sort: { date: -1 } },
+            { $limit: 4 },
             { $project: {
                 name: 1,
                 description: 1,
                 date: 1,
                 exhibitor: 1
-            } },
-            { $sort: { date: -1 } }
+            } }
         ]);
         
         res.render('index', { title: 'Gira', events });

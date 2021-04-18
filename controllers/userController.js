@@ -258,12 +258,13 @@ exports.accountPost = async (validationErrors, req, res, next) => {
             user.age = req.body.age;
             user.institution = req.body.institution;
 
-            // If user is not verified, send a verification email to its new email
-            if(!user.verified) sendVerificationEmail(user._id, user.email, user.first_name, user.last_name);
-
-            // Try to save user. If user email already exists in database, return with error and don't save.
+            // Try to save user and then send verification email. If user email already exists in database, return with error and don't save.
             try {
                 await user.save();
+
+                // If user is not verified, send a verification email to its new email
+                if(!user.verified) sendVerificationEmail(user._id, user.email, user.first_name, user.last_name);
+                
             } catch (error) {
                 if (error.code === 11000) {
                     const errorObj = { msg: 'Correo Inválido: El correo ya existe.' };

@@ -1,3 +1,4 @@
+const { Route53Domains } = require('aws-sdk');
 var express = require('express');
 var router = express.Router();
 

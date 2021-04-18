@@ -15,45 +15,11 @@
         - Cambiar nivel de Usuarios
     - Dev
         - All permissions
-* Log in 
-* register
-
-* Listas de correo masivo
-* Crear eventos
-* Crear articulos
-* Cambiar las fotos de cualquier parte de la pagina
-* Ver y editar informacion de cada miembro del equipo
-
-* Inscripcion a eventos
-* crear comentarios
-* ver eventos pasados
-
-* donar
-* ver clases (propuesta angeles) (donacion)
-
-X   1. Create user model with heirarchy in mind
-X   2. Add user and user login functionality for all Gira members (Admins)
-X   3. Add create account functionality
-4. Add admin pannel
-    a. View mailing list and send email
-X    b. CURD events
-    c. CURD articles
-    d. CURD homepage info*
-    e. User management
-5. Add user pannel
-    a. Subscribe to events
-    b. Comment on events and articles
-    c. View their events
-6. Class creation
-    a. Accept donations
-    b. CURD classes
-    c. Preview/view classes
 
 *** SECURITY ***
 1. Prevent <select> elements from sending unexpected information (validate information, maybe '.equals()')
 2. Validate number fields as numbers (.isNumeric())
 3. Prevent <select disabled> from modifying db info
-
 
 ==============================================
                 MEDIA QUERIES
@@ -90,7 +56,6 @@ X. Migrate to Atlas
 X    - contacto@mexicogira.com -> Contact for questions, etc. WorkMail: q@nVOX9#8M1b
     - eventos@mexicogira.com -> Notification for events, SES
 X    - no-reply@mexicogira.com -> automated mail service, notifications, etc. SES
-!    - *@mexicogira.com (for team members) -> classic email service, WorkMail (4*7=32) !! NOT INCLUDED
 1. Registro a eventos
     - Mandar correo un dia antes a los registrados con link
     - Solo usuarios se pueden registrar
@@ -128,7 +93,7 @@ X Event name must be unique
 *** Investigate on delete user after x days if not verified
 
 ============================
-        Reference
+       Reference SES
 ============================
 # SES #
 https://beefree.io/editor/?template=empty (Email templater)
